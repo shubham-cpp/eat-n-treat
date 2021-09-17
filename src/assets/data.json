@@ -1,0 +1,54 @@
+{
+    "restaraunts": [
+        {
+            "restarauntName": "Annapoorna",
+            "location": "Pune",
+            "rating": 3,
+            "cusines": ["bread-butter","Mexiacan tomatoes","italian burger "],
+            "menus": [
+                "https://b.zmtcdn.com/data/dish_images/40aa412263adf79fa5f0e3422b74a61f1613068188.png",
+                "https://b.zmtcdn.com/data/dish_images/40aa412263adf79fa5f0e3422b74a61f1613068188.png",
+                "https://b.zmtcdn.com/data/dish_images/40aa412263adf79fa5f0e3422b74a61f1613068188.png",
+                "https://b.zmtcdn.com/data/dish_images/40aa412263adf79fa5f0e3422b74a61f1613068188.png"
+            ]
+        },
+        {
+            "restarauntName": "Asha",
+            "location": "Pune",
+            "rating": "5",
+            "cusines": ["Ainu","albanian","Argentine","Andhra"],
+            "menus": [
+                "https://b.zmtcdn.com/data/dish_images/40aa412263adf79fa5f0e3422b74a61f1613068188.png",
+                "https://b.zmtcdn.com/data/dish_images/40aa412263adf79fa5f0e3422b74a61f1613068188.png",
+                "https://b.zmtcdn.com/data/dish_images/40aa412263adf79fa5f0e3422b74a61f1613068188.png",
+                "https://b.zmtcdn.com/data/dish_images/40aa412263adf79fa5f0e3422b74a61f1613068188.png"
+            ]
+        },
+        {
+            "restarauntName": "neeraj",
+            "location": "Pune",
+            "rating": 5,
+            "cusines": ["Ainu","italian burger ","Argentine","Andhra"],
+            "menus": [
+                "https://b.zmtcdn.com/data/dish_images/40aa412263adf79fa5f0e3422b74a61f1613068188.png",
+                "https://b.zmtcdn.com/data/dish_images/40aa412263adf79fa5f0e3422b74a61f1613068188.png",
+                "https://b.zmtcdn.com/data/dish_images/40aa412263adf79fa5f0e3422b74a61f1613068188.png",
+                "https://b.zmtcdn.com/data/dish_images/40aa412263adf79fa5f0e3422b74a61f1613068188.png"
+            ]
+        },
+        {
+            "restarauntName": "jw marriot",
+            "location": "mumbai",
+            "rating": 5,
+            "cusines": ["Bengali",
+                "Berber",
+                "Brazilian"],
+            "menus": [
+                "https://b.zmtcdn.com/data/dish_images/40aa412263adf79fa5f0e3422b74a61f1613068188.png",
+                "https://b.zmtcdn.com/data/dish_images/40aa412263adf79fa5f0e3422b74a61f1613068188.png",
+                "https://b.zmtcdn.com/data/dish_images/40aa412263adf79fa5f0e3422b74a61f1613068188.png",
+                "https://b.zmtcdn.com/data/dish_images/40aa412263adf79fa5f0e3422b74a61f1613068188.png"
+            ]
+        }
+    ]
+}
