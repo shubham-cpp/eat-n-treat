@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Switch, Route } from 'react-router-dom';
+import { Link, Switch, Route, useHistory } from 'react-router-dom';
 
 export default function RestaurantCard(props) {
 
@@ -28,11 +28,9 @@ export default function RestaurantCard(props) {
                     Ratings: <br />
                     {props.restaurant.rating}/5
                 </p>
-                <button className="btn btn-primary">VIEW MORE</button>
+                <Link to={`/restaurant/${props.restaurant.restaurantID}`} className="btn btn-primary">VIEW MORE</Link>
             </div>
-            <Switch>
-                <Route path="/restaurant"/>
-            </Switch> 
+             
         </div>
     );
 }
