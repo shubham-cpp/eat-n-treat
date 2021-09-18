@@ -7,17 +7,16 @@ import RestrauntDetails from "./components/RestrauntDetails";
 
 function App() {
   return (
-    // <div id="app">
-    //   <Router>
-    //     <Switch>
-    //         <Route path="/" exact>
-    //           <RestaurantList restaurants={Restaurants}/>
-    //         </Route>
-    //         <Route path="/restaurant/:id" />
-    //     </Switch>
-    //   </Router>
-    // </div>
-    <RestrauntDetails id="1001" />
+    <div id="app">
+      <Router>
+        <Switch>
+            <Route path="/" exact>
+              <RestaurantList restaurants={Restaurants}/>
+            </Route>
+            <Route path="/restaurant/:id" component={RestrauntDetails} />
+        </Switch>
+      </Router>
+    </div>
   );
 }
 
