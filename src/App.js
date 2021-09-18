@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Restaurants from './assets/data.json'
 import RestaurantList from './components/RestaurantsList';
-import RestaurantDetails from './components/RestaurantDetails';
+
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
             <Route path="/" exact>
               <RestaurantList restaurants={Restaurants}/>
             </Route>
-            <Route path="/restaurant/:id" component={RestaurantDetails} />
+            <Route path="/restaurant/:id" />
         </Switch>
       </Router>
     </div>
