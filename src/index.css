@@ -14,9 +14,10 @@ code {
 
 .scrollableDiv::-webkit-scrollbar {
   display: none;
-}
-
+} 
+ 
 .scrollableDiv {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
 }

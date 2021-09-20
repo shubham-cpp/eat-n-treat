@@ -4,8 +4,8 @@ import RestaurantCard from "./RestaurantCard";
 
 export default function RestaurantList(props) {
     return (
-        <div className="container-fluid">
-            <div className="row flex-row p-5">
+        <div className="container">
+            <div className="row flex-row">
                 {
                     props.restaurants.map(restaurant => {
                         return (
