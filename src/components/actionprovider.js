@@ -17,6 +17,11 @@ class ActionProvider {
         this.setChatbotMsg(message2)
     }
 
+    nothingHandler = () =>{
+        const message = this.createChatBotMessage("Sorry i didn't get you could u repeat")
+        this.setChatbotMsg(message)
+    }
+
     setChatbotMsg = (message)=>{
         this.setState(state =>({...state,messages:[...state.messages,message]}))
     }

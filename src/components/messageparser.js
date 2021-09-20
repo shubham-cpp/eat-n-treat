@@ -11,8 +11,11 @@ class MessageParser {
       if (lowercase.includes("hello")){
           this.actionProvider.helloWorldHandler()
       }
-      if (lowercase.includes("delivery issue")){
+      else if (lowercase.includes("delivery issue")){
         this.actionProvider.deliveryHandler()
+    }
+    else{
+      this.actionProvider.nothingHandler()
     }
 
     }

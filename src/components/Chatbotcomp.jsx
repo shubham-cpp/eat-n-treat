@@ -10,7 +10,8 @@ function Chatbotcomp() {
   const [showBot, toggleBot] = useState(false);
 
   return (
-    <div style={{ width: "500px", marginBottom: "100px", marginLeft: "500px",position:"absolute",zIndex:10}}>
+    <div>
+      <div style={{marginLeft:"850px",position:"absolute",zIndex:11}}>
       {showBot && (
         <Chatbot
           config={config}
@@ -18,8 +19,9 @@ function Chatbotcomp() {
           messageParser={MessageParser}
         />
       )}
-      <div class="outer circle" style={{position:"absolute",zIndex:10}}>
-        <button onClick={() => toggleBot((prev) => !prev)}>Bot</button>
+      </div>
+      <div  style={{position:"fixed",zIndex:10,float:"right"}}>
+        <button className="open-button" onClick={() => toggleBot((prev) => !prev)}>Bot</button>
         <span></span>
         <span></span>
       </div>
