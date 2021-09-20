@@ -1,46 +1,46 @@
 [
-  {
-    "restaurantID": 1001,
-    "restaurantName": "Annapoorna",
-    "location": "Pune",
-    "rating": 3,
-    "cuisines": ["bread-butter", "Mexiacan tomatoes", "italian burger "],
-    "dishes": [
-      { "dishID": 1001, "dishName": "Plain Dosa", "price": 60 },
-      { "dishID": 1002, "dishName": "Spl. Dosa", "price": 80 }
-    ]
-  },
-  {
-    "restaurantID": 1002,
-    "restaurantName": "Asha",
-    "location": "Pune",
-    "rating": "5",
-    "cuisines": ["Ainu", "albanian", "Argentine", "Andhra"],
-    "dishes": [
-      { "dishID": 1001, "dishName": "Pav Bhaji", "price": 100 },
-      { "dishID": 1001, "dishName": "Spl. Pav Bhaji", "price": 140 }
-    ]
-  },
-  {
-    "restaurantID": 1003,
-    "restaurantName": "JW Marriot",
-    "location": "Pune",
-    "rating": 5,
-    "cuisines": ["Ainu", "italian burger ", "Argentine", "Andhra"],
-    "dishes": [
-      { "dishID": 1001, "dishName": "Pizza", "price": 150 },
-      { "dishID": 1001, "dishName": "Burger", "price": 100 }
-    ]
-  },
-  {
-    "restaurantID": 1004,
-    "restaurantName": "Neeraj",
-    "location": "Mumbai",
-    "rating": 5,
-    "cuisines": ["Bengali", "Berber", "Brazilian"],
-    "dishes": [
-      { "dishID": 1001, "dishName": "Paratha", "price": 50 },
-      { "dishID": 1001, "dishName": "Cheese Paratha", "price": 75 }
-    ]
-  }
-]
+    {
+      "restaurantID": 1001,
+      "restaurantName": "Annapoorna",
+      "location": "Pune",
+      "rating": 3,
+      "cuisines": ["bread-butter", "Mexiacan tomatoes", "italian burger "],
+      "dishes": [
+        { "dishID": 1001, "dishName": "Plain Dosa", "price": 60 },
+        { "dishID": 1002, "dishName": "Spl. Dosa", "price": 80 }
+      ]
+    },
+    {
+      "restaurantID": 1002,
+      "restaurantName": "Asha",
+      "location": "Pune",
+      "rating": "5",
+      "cuisines": ["Ainu", "albanian", "Argentine", "Andhra"],
+      "dishes": [
+        { "dishID": 1001, "dishName": "Pav Bhaji", "price": 100 },
+        { "dishID": 1001, "dishName": "Spl. Pav Bhaji", "price": 140 }
+      ]
+    },
+    {
+      "restaurantID": 1003,
+      "restaurantName": "JW Marriot",
+      "location": "Pune",
+      "rating": 5,
+      "cuisines": ["Ainu", "italian burger ", "Argentine", "Andhra"],
+      "dishes": [
+        { "dishID": 1001, "dishName": "Pizza", "price": 150 },
+        { "dishID": 1001, "dishName": "Burger", "price": 100 }
+      ]
+    },
+    {
+      "restaurantID": 1004,
+      "restaurantName": "Neeraj",
+      "location": "Mumbai",
+      "rating": 5,
+      "cuisines": ["Bengali", "Berber", "Brazilian"],
+      "dishes": [
+        { "dishID": 1001, "dishName": "Paratha", "price": 50 },
+        { "dishID": 1001, "dishName": "Cheese Paratha", "price": 75 }
+      ]
+    }
+  ]
