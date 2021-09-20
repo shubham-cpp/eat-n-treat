@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Restaurants from "./assets/data.json";
-import RestaurantList from "./components/RestaurantsList";
+import RestaurauntList from './components/RestaurantList'
 import RestrauntDetails from "./components/RestrauntDetails";
 import Navbar from "./components/Navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -13,14 +13,16 @@ function App() {
      <Navbar/>
      <Searchbar/>
      <Chatbot/>
-      <Router>
+     <Router>
         <Switch>
             <Route path="/" exact>
-              <RestaurantList restaurants={Restaurants}/>
+              <RestaurauntList restaurants={Restaurants}/>
             </Route>
             <Route path="/restaurant/:id" component={RestrauntDetails} />
         </Switch>
       </Router>
+     
+      
     </div>
   );
 }
