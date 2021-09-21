@@ -24,10 +24,19 @@ code {
 }
 
 .scrollableDiv {
-<<<<<<< HEAD
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
 }
+
+.dishes {
+  max-height: 30rem;
+  width: "20rem";
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
 
 .loginButtonContainer {
   display: flex;
@@ -47,16 +56,19 @@ code {
   cursor: pointer;
   margin: 0 10px;
 }
-=======
-  overflow-x: auto;
-  overflow-y: hidden;
-  white-space: nowrap;
+
+#signup-modal-description {
+  padding: 10px;
 }
 
-.dishes {
-  max-height: 30rem;
-  width: "20rem";
-  overflow: scroll;
-  overflow-x: hidden;
+#login-modal-description {
+  padding: 10px;
 }
->>>>>>> 2eaa9dba41579af6d4fbfdaa3ad20f26e8dd3a7a
+
+.form-control {
+  margin: 10px 10px;
+}
+
+ 
+
+
