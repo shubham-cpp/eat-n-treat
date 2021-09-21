@@ -1,4 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import "materialize-css/dist/css/materialize.min.css";
+import "materialize-css/dist/js/materialize.min.js";
 
 import Navbar from "./components/Navbar";
 import Searchbar from "./components/Searchbar";
@@ -16,7 +18,6 @@ function App() {
     <div>
       <Navbar />
       <Searchbar />
-      <Chatbot />
       <Router>
         <Switch>
           <Route path="/" exact>
@@ -25,6 +26,7 @@ function App() {
           <Route path="/restaurant/:id" component={RestDetails} />
         </Switch>
       </Router>
+      <Chatbot />
     </div>
   );
 }

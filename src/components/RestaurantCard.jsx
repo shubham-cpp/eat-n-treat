@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import ReactStars from 'react-rating-stars-component';
 
+
 export default function RestaurantCard(props) {
     var scrollRef = useRef();
 
@@ -30,7 +31,7 @@ export default function RestaurantCard(props) {
                         {
                             props.restaurant.cuisines.map(cuisine => {
                                 return (
-                                    <div className="chip" style={{height: "fit-content", width: "fit-content"}}>
+                                    <div className="chip" style={{ width: "fit-content", display: "inline-block" }}>
                                         { cuisine }
                                     </div>
                                 );
