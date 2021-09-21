@@ -18,6 +18,12 @@
 // import ModelSignUp from './components/ModelSignUp'
 // import BootSignup from './components/BootSignup'
 
+<<<<<<< HEAD
+=======
+import Restaurants from "./assets/data.json";
+import RestaurantList from "./components/RestaurantsList";
+import { Main as RestDetails } from "./components/RestrauntDetails/Main";
+>>>>>>> 2eaa9dba41579af6d4fbfdaa3ad20f26e8dd3a7a
 
 function App() {
 
@@ -37,10 +43,10 @@ function App() {
     <div id="app">
       {/* <Router>
         <Switch>
-            <Route path="/" exact>
-              <RestaurantList restaurants={Restaurants}/>
-            </Route>
-            <Route path="/restaurant/:id" component={RestrauntDetails} />
+          <Route path="/" exact>
+            <RestaurantList restaurants={Restaurants} />
+          </Route>
+          <Route path="/restaurant/:id" component={RestDetails} />
         </Switch>
       </Router> */}
       
