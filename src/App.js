@@ -7,7 +7,8 @@ import Chatbot from "./components/Chatbotcomp";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Restaurants from "./assets/data.json";
-import RestaurantList from "./components/RestaurantsList";
+import RestaurantList from "./components/RestaurantList";
+
 import { Main as RestDetails } from "./components/RestrauntDetails/Main";
 
 function App() {

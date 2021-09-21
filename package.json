@@ -53,19 +53,5 @@
   "devDependencies": {
     "chai": "^4.3.4",
     "mocha": "^9.1.1"
-  },
-  "description": "",
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nidhimsingh/eat-n-treat.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/nidhimsingh/eat-n-treat/issues"
-  },
-  "homepage": "https://github.com/nidhimsingh/eat-n-treat#readme",
-  "proxy": "http://localhost:5000"
+  }
 }
