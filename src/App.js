@@ -13,11 +13,11 @@ import { Main as RestDetails } from "./components/RestrauntDetails/Main";
 
 function App() {
   return (
-    <div>
-      <Navbar />
-      <Searchbar />
-      <Chatbot />
+    <>
       <Router>
+        <Navbar />
+        <Searchbar />
+        <Chatbot />
         <Switch>
           <Route path="/" exact>
             <RestaurantList restaurants={Restaurants} />
@@ -25,7 +25,7 @@ function App() {
           <Route path="/restaurant/:id" component={RestDetails} />
         </Switch>
       </Router>
-    </div>
+    </>
   );
 }
 export default App;
