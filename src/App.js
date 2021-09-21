@@ -1,25 +1,74 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+// // import "bootstrap/dist/css/bootstrap.min.css";
+// // import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+// import React, {useState} from 'react';
+// // import Modal from "react-responsive-modal";
 
-import Restaurants from "./assets/data.json";
-import RestaurantList from "./components/RestaurantsList";
-import RestrauntDetails from "./components/RestrauntDetails";
-// import Landing from "./components/Landing";
+// // import Restaurants from "./assets/data.json";
+// // import RestaurantList from "./components/RestaurantsList";
+// // import RestrauntDetails from "./components/RestrauntDetails";
 
-import { dividerClasses } from "@mui/material";
+// // import { SignUp } from './components/SignUp';
+// // import { Login } from './components/Login';
+// import { Log } from './components/log';
+
+// // import { dividerClasses } from "@mui/material";
+// import ModelLogin from './components/ModelLogin'
+// import BootLogin from './components/BootLogin'
+
+// import ModelSignUp from './components/ModelSignUp'
+// import BootSignup from './components/BootSignup'
+
 
 function App() {
+
+//   const [showSignUp, setShowSignUp] = useState(false);
+//   const [showLogin, setShowLogin] = useState(false);
+
+//   const openSignUp = () => {
+//     setShowSignUp(prev => !prev)
+//   };
+
+//  const openLogin = () => {
+//    setShowLogin(prev => !prev)
+//  };
+
+
   return (
     <div id="app">
-      <Router>
+      {/* <Router>
         <Switch>
             <Route path="/" exact>
               <RestaurantList restaurants={Restaurants}/>
             </Route>
             <Route path="/restaurant/:id" component={RestrauntDetails} />
         </Switch>
-      </Router>
-      {/* <Landing /> */}
+      </Router> */}
+      
+    
+      {/* <div class="loginButtonContainer">
+
+        <button className="loginButton" onClick={ openLogin }>Log in</button>
+        <Login showLogin={ showLogin } setShowLogin={setShowLogin} />
+
+        
+
+        <button className="loginButton" onClick={ openSignUp }>Sign Up</button>
+        <SignUp showSignUp={ showSignUp } setShowSignUp={setShowSignUp} />
+
+      </div> */}
+
+        {/* <button onClick={ openLogin }>Log in</button>
+        <Log showLogin={ showLogin } setShowLogin={setShowLogin} /> */}
+
+        {/* <button onClick={ openSignUp }>Sign Up</button>
+        <SignUp showSignUp={ showSignUp } setShowSignUp={setShowSignUp} /> */}
+      {/* <sign /> */}
+      {/* <ModelLogin /> */}
+      {/* <BootLogin /> */}
+      {/* <BootSignup /> */}
+
+
+      
     </div>    
 
   );
