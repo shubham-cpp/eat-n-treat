@@ -1,0 +1,12 @@
+.botavatar{
+    width: 35px;
+    height: 35px;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.9rem;
+    margin-right: 10px;
+    background-color:purple;
+    font-weight: bold;
+}

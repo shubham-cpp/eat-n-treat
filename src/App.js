@@ -1,4 +1,9 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+
+import Navbar from "./components/Navbar";
+import Searchbar from "./components/Searchbar";
+import Chatbot from "./components/Chatbotcomp";
+
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Restaurants from "./assets/data.json";
@@ -7,7 +12,10 @@ import { Main as RestDetails } from "./components/RestrauntDetails/Main";
 
 function App() {
   return (
-    <div id="app">
+    <div>
+      <Navbar />
+      <Searchbar />
+      <Chatbot />
       <Router>
         <Switch>
           <Route path="/" exact>
@@ -19,5 +27,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
