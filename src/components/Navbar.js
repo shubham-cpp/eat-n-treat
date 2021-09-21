@@ -4,6 +4,10 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import { Link } from "react-router-dom";
 import "./navbar.css";
+
+import Signup from './Signup';
+import Login  from './Login';
+
 function NavBar() {
   return (
     <div className="entry">
@@ -14,10 +18,16 @@ function NavBar() {
           </Navbar.Brand>
           <Nav className="items">
             <Nav.Link>
-              <Link to="/login" style={{ textDecoration: 'none' }}>Login</Link>
+              <Link to="/" style={{ textDecoration: 'none' }}>
+                {/* Login */}
+                <Login />
+              </Link>
             </Nav.Link>
             <Nav.Link>
-              <Link to="/signup" style={{ textDecoration: 'none' }}>Sign up</Link>
+              <Link to="/" style={{ textDecoration: 'none' }}>
+                {/* Sign up */}
+                <Signup />
+              </Link>
             </Nav.Link>
           </Nav>
         </Container>
