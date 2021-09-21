@@ -7,7 +7,7 @@ import "./navbar.css";
 function NavBar() {
   return (
     <div className="entry">
-      <Navbar className="color-bg" bg="dark" variant="dark">
+      <Navbar className="color-bg fixed-top" bg="dark" variant="dark">
         <Container>
           <Navbar.Brand>
             <Link to="/" style={{ textDecoration: 'none' }}>Eat and Treat</Link>
