@@ -1,22 +1,23 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Restaurants from "./assets/data.json";
+
 import RestaurauntList from './components/RestaurantList'
 import RestrauntDetails from "./components/RestrauntDetails";
 import Navbar from "./components/Navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Searchbar from "./components/Searchbar";
 import Chatbot from "./components/Chatbotcomp";
+
+import React from "react"
+
 function App() {
   return (
     <div>
      <Navbar/>
-     <Searchbar/>
      <Chatbot/>
      <Router>
         <Switch>
             <Route path="/" exact>
-              <RestaurauntList restaurants={Restaurants}/>
+              <RestaurauntList/>
             </Route>
             <Route path="/restaurant/:id" component={RestrauntDetails} />
         </Switch>
