@@ -18,7 +18,7 @@
     "cuisines": ["Ainu", "albanian", "Argentine", "Andhra"],
     "dishes": [
       { "dishID": 1001, "dishName": "Pav Bhaji", "price": 100 },
-      { "dishID": 1001, "dishName": "Spl. Pav Bhaji", "price": 140 }
+      { "dishID": 1002, "dishName": "Spl. Pav Bhaji", "price": 140 }
     ]
   },
   {
@@ -29,7 +29,7 @@
     "cuisines": ["Ainu", "italian burger ", "Argentine", "Andhra"],
     "dishes": [
       { "dishID": 1001, "dishName": "Pizza", "price": 150 },
-      { "dishID": 1001, "dishName": "Burger", "price": 100 }
+      { "dishID": 1002, "dishName": "Burger", "price": 100 }
     ]
   },
   {
@@ -40,7 +40,7 @@
     "cuisines": ["Bengali", "Berber", "Brazilian"],
     "dishes": [
       { "dishID": 1001, "dishName": "Paratha", "price": 50 },
-      { "dishID": 1001, "dishName": "Cheese Paratha", "price": 75 }
+      { "dishID": 1002, "dishName": "Cheese Paratha", "price": 75 }
     ]
   }
 ]
