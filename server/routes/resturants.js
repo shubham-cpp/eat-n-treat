@@ -1,6 +1,25 @@
 const router=require("express").Router();
 const Restaurant=require("../model/restaurants");
-router.post("/resturantPost", async(req,res)=>{
+
+var fs=require(fs);
+var path=require(path);
+
+
+var multer = require('multer');
+
+var storage = multer.diskStorage({
+	destination: (req, file, cb) => {
+		cb(null, '../images')
+	},
+	filename: (req, file, cb) => {
+		cb(null, file.originalname + '-' + Date.now())
+	}
+});
+
+var upload = multer({ storage: storage });
+
+router.post("/resturantPost",upload.single('image'),async(req,res)=>{
+    console.log(req.file)
 
     const rName = req.body.restaurantName;
     const rRStatus = req.body.restaurantRegistrationStatus;
@@ -8,6 +27,12 @@ router.post("/resturantPost", async(req,res)=>{
     const rEmail = req.body.restaurantEmail;
     const raddressLine = req.body.restaurantAdress.rAddressLine;
     const City = req.body.restaurantAdress.rCity;
+    const review= req.body.review;
+    const menuName=req.body.menu.menuName;
+    const menuPrice= req.body.menu.menuPrice;
+    const menuImage=req.body.menu.menuImage;
+    
+
 
     const newRestaurant=new Restaurant({
         restaurantName : rName,
@@ -17,7 +42,13 @@ router.post("/resturantPost", async(req,res)=>{
         restaurantAdress:{
             rAddressLine: raddressLine,
             rCity:City  
-        }   
+        },
+        review:review,
+        menu:{
+            menuName:menuName,
+            menuPrice:menuPrice,
+            menuImage:menuImage
+        }
     });
 
     const savedResturant = await newRestaurant.save();
