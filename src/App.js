@@ -9,9 +9,9 @@ import { Main as RestDetails } from "./components/RestrauntDetails/Main";
 function App() {
   return (
     <div>
-      <Navbar />
-      <Chatbot />
       <Router>
+        <Navbar />
+        <Chatbot />
         <Switch>
           <Route path="/" exact>
             <RestaurantList />
@@ -19,7 +19,7 @@ function App() {
           <Route path="/restaurant/:id" component={RestDetails} />
         </Switch>
       </Router>
-    </div>
+      </div>
   );
 }
 export default App;
