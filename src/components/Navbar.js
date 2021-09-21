@@ -10,14 +10,14 @@ function NavBar() {
       <Navbar className="color-bg" bg="dark" variant="dark">
         <Container>
           <Navbar.Brand>
-            <Link to="/">Eat and Treat</Link>
+            <Link to="/" style={{ textDecoration: 'none' }}>Eat and Treat</Link>
           </Navbar.Brand>
           <Nav className="items">
             <Nav.Link>
-              <Link to="/login">Login</Link>
+              <Link to="/login" style={{ textDecoration: 'none' }}>Login</Link>
             </Nav.Link>
             <Nav.Link>
-              <Link to="/signup">Sign up</Link>
+              <Link to="/signup" style={{ textDecoration: 'none' }}>Sign up</Link>
             </Nav.Link>
           </Nav>
         </Container>
