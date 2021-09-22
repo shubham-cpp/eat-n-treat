@@ -81,3 +81,13 @@ code {
   overflow-x: hidden;
 }
 
+
+
+#signup-modal-description {
+  padding: 10px;
+}
+
+#login-modal-description {
+  padding: 10px;
+}
+
