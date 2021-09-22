@@ -22,6 +22,20 @@ class ActionProvider {
         this.setChatbotMsg(message)
     }
 
+    OrderInsHandler = () =>{
+        const message = this.createChatBotMessage("Here are the details regarding how to order the food",{
+            widget:"OrderIns"
+        })
+        this.setChatbotMsg(message)
+    }
+
+    TopHotelHandler = () =>{
+        const message = this.createChatBotMessage("Sure,Here are the top hotels from your area",{
+            widget:"HotelLocation"
+        })
+        this.setChatbotMsg(message)
+    }
+
     setChatbotMsg = (message)=>{
         this.setState(state =>({...state,messages:[...state.messages,message]}))
     }

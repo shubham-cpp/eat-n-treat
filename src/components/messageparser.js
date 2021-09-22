@@ -14,6 +14,12 @@ class MessageParser {
       else if (lowercase.includes("delivery issue") || lowercase.includes("delivery") ){
         this.actionProvider.deliveryHandler()
     }
+    else if (lowercase.includes("order food")||lowercase.includes("order the food")||lowercase.includes("order instructions")){
+      this.actionProvider.OrderInsHandler()
+    }
+    else if(lowercase.includes("top restaraunts")||lowercase.includes("top hotels")){
+      this.actionProvider.TopHotelHandler()
+    }
     else{
       this.actionProvider.nothingHandler()
     }

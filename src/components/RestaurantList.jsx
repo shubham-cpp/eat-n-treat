@@ -9,7 +9,7 @@ export default function RestaurantList(props) {
         return res !== "" ? item.restaurantName.toLowerCase().includes(res) || item.location.toLowerCase().includes(res) : item
     })
     return (
-        <div className="container" style={{marginTop:"0",verticalAlign:"auto"}}>
+        <div className="container" style={{marginTop:"0",verticalAlign:"auto",backgroundColor:"greenyellow",padding:"10px"}}>
             <div className="search">
                 <div className="searchInputs">
                     <input
