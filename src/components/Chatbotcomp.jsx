@@ -5,13 +5,15 @@ import config from './config'
 import MessageParser from './messageparser'
 import './chatbotcomp.css'
 
+import ChatBubble from '@material-ui/icons/ChatBubble';
+
 
 function Chatbotcomp() {
   const [showBot, toggleBot] = useState(false);
 
   return (
     <div>
-      <div style={{marginLeft:"850px",position:"fixed",zIndex:11}}>
+      <div style={{marginTop:"50px",marginLeft:"850px",position:"fixed",zIndex:11}}>
       {showBot && (
         <Chatbot
           config={config}
@@ -21,7 +23,9 @@ function Chatbotcomp() {
       )}
       </div>
       <div  style={{position:"fixed",zIndex:10,float:"right"}}>
-        <button className="open-button" onClick={() => toggleBot((prev) => !prev)}>Bot</button>
+        <button className="open-button" onClick={() => toggleBot((prev) => !prev)}>
+          <ChatBubble style={{ height: "30px", width: "30px" }}/>
+        </button>
         <span></span>
         <span></span>
       </div>

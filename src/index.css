@@ -33,13 +33,17 @@ code {
 
 
 .search {
-  margin-top: 0;
-  margin-left: 35%;
+  margin-top: 5%;
+  width: 100%;
+  background-color: white;
 }
 
 .searchInputs {
    margin-top: 10px;
    display: flex;
+   margin-left: auto;
+   margin-right: auto;
+   width: 60%;
  }
  
  .searchInputs input{
@@ -83,21 +87,11 @@ code {
 
 
 
-.flex-nowrap-scrollableDiv::-webkit-scrollbar {
-  width: 5px;
+#signup-modal-description {
+  padding: 10px;
 }
 
-/* Track */
-.flex-nowrap-scrollableDiv::-webkit-scrollbar-track {
-  background: #f1f1f1; 
-}
- 
-/* Handle */
-.flex-nowrap-scrollableDiv::-webkit-scrollbar-thumb {
-  background: #888; 
+#login-modal-description {
+  padding: 10px;
 }
 
-/* Handle on hover */
-.flex-nowrap-scrollableDiv::-webkit-scrollbar-thumb:hover {
-  background: #555; 
-}
