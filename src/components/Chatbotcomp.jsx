@@ -13,7 +13,7 @@ function Chatbotcomp() {
 
   return (
     <div>
-      <div style={{marginTop:"50px",marginLeft:"850px",position:"fixed",zIndex:11}}>
+      <div style={{marginTop:"70px",marginLeft:"850px",position:"fixed",zIndex:100,padding:"5px"}}>
       {showBot && (
         <Chatbot
           config={config}
