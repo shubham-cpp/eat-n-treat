@@ -14,7 +14,7 @@
     "restaurantID": 1002,
     "restaurantName": "Asha",
     "location": "Pune",
-    "rating": "5",
+    "rating": 5,
     "cuisines": ["Ainu", "albanian", "Argentine", "Andhra"],
     "dishes": [
       { "dishID": 1001, "dishName": "Pav Bhaji", "price": 100 },

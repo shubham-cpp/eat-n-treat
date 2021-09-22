@@ -33,13 +33,17 @@ code {
 
 
 .search {
-  margin-top: 0;
-  margin-left: 35%;
+  margin-top: 5%;
+  width: 100%;
+  background-color: white;
 }
 
 .searchInputs {
    margin-top: 10px;
    display: flex;
+   margin-left: auto;
+   margin-right: auto;
+   width: 60%;
  }
  
  .searchInputs input{
@@ -79,5 +83,15 @@ code {
   width: "20rem";
   overflow: scroll;
   overflow-x: hidden;
+}
+
+
+
+#signup-modal-description {
+  padding: 10px;
+}
+
+#login-modal-description {
+  padding: 10px;
 }
 
