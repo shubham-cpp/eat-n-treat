@@ -24,7 +24,7 @@ export default function RestaurantList(props) {
                     </div>
                 </div>
             </div>
-            <div className="row flex-row" style={{ marginTop: "10%" }}>
+            <div className="row flex-row" style={{ marginTop: "5%" }}>
                 {
                     filterdata.map(restaurant => {
                         return (
