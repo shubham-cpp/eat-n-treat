@@ -9,8 +9,8 @@ export default function RestaurantList(props) {
         return res !== "" ? item.restaurantName.toLowerCase().includes(res) || item.location.toLowerCase().includes(res) : item
     })
     return (
-        <div className="container" style={{marginTop:"0",verticalAlign:"auto"}}>
-            <div className="search fixed-top">
+        <div className="container" style={{marginTop:"30px",verticalAlign:"auto",padding:"10px"}}>
+            <div className="search">
                 <div className="searchInputs">
                     <input
                         type="text"
@@ -24,7 +24,7 @@ export default function RestaurantList(props) {
                     </div>
                 </div>
             </div>
-            <div className="row flex-row" style={{ marginTop: "15%" }}>
+            <div className="row flex-row" style={{ marginTop: "10%" }}>
                 {
                     filterdata.map(restaurant => {
                         return (
