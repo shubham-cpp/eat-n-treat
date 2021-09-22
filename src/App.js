@@ -1,31 +1,29 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import "materialize-css/dist/css/materialize.min.css";
+import "materialize-css/dist/js/materialize.min.js";
+
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Navbar from "./components/Navbar";
-import Searchbar from "./components/Searchbar";
 import Chatbot from "./components/Chatbotcomp";
-
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
-import Restaurants from "./assets/data.json";
+import React from "react"
 import RestaurantList from "./components/RestaurantList";
-
 import { Main as RestDetails } from "./components/RestrauntDetails/Main";
 
 function App() {
   return (
     <div>
-      <Navbar />
-      <Searchbar />
-      <Chatbot />
       <Router>
+        <Navbar />
+        <Chatbot />
         <Switch>
           <Route path="/" exact>
-            <RestaurantList restaurants={Restaurants} />
+            <RestaurantList />
           </Route>
           <Route path="/restaurant/:id" component={RestDetails} />
         </Switch>
       </Router>
-    </div>
+      </div>
   );
 }
 export default App;

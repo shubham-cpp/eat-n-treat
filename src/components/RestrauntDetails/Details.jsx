@@ -9,7 +9,7 @@ export default function Details({ data, addToCart }) {
   );
   return (
     <>
-      <div className="col">
+      <div className="col" style={{ marginTop: "6rem" }}>
         <h3 className="text-center">{restaurant.restaurantName}</h3>
         <p>Location: {restaurant.location}</p>
         <p>Rating: {restaurant.rating}</p>

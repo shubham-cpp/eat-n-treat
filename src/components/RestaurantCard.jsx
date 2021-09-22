@@ -1,5 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { Link } from 'react-router-dom';
+import ReactStars from 'react-rating-stars-component';
+
 
 export default function RestaurantCard(props) {
     var scrollRef = useRef();
@@ -29,7 +31,7 @@ export default function RestaurantCard(props) {
                         {
                             props.restaurant.cuisines.map(cuisine => {
                                 return (
-                                    <div className="chip" style={{height: "fit-content", width: "fit-content"}}>
+                                    <div className="chip" style={{ width: "fit-content", display: "inline-block" }}>
                                         { cuisine }
                                     </div>
                                 );
@@ -38,6 +40,17 @@ export default function RestaurantCard(props) {
                     </div> <br />
                     {props.restaurant.location} <br />
                     Ratings: <br />
+                    <ReactStars
+                        count={5}
+                        value={props.restaurant.rating}
+                        edit={false}
+                        size={24}
+                        isHalf={true}
+                        emptyIcon={<i className="far fa-star"></i>}
+                        halfIcon={<i className="fa fa-star-half-alt"></i>}
+                        fullIcon={<i className="fa fa-star"></i>}
+                        activeColor="#ffd700"
+                    />
                     {props.restaurant.rating}/5
                 </div>
                 <Link to={`/restaurant/${props.restaurant.restaurantID}`} className="btn btn-primary">VIEW MORE</Link>

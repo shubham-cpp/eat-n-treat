@@ -3,7 +3,7 @@
     "restaurantID": 1001,
     "restaurantName": "Annapoorna",
     "location": "Pune",
-    "rating": 3,
+    "rating": 4,
     "cuisines": ["bread-butter", "Mexiacan tomatoes", "italian burger "],
     "dishes": [
       { "dishID": 1001, "dishName": "Plain Dosa", "price": 60 },
@@ -14,7 +14,7 @@
     "restaurantID": 1002,
     "restaurantName": "Asha",
     "location": "Pune",
-    "rating": "5",
+    "rating": 5,
     "cuisines": ["Ainu", "albanian", "Argentine", "Andhra"],
     "dishes": [
       { "dishID": 1001, "dishName": "Pav Bhaji", "price": 100 },
@@ -41,6 +41,28 @@
     "dishes": [
       { "dishID": 1001, "dishName": "Paratha", "price": 50 },
       { "dishID": 1002, "dishName": "Cheese Paratha", "price": 75 }
+    ]
+  },
+  {
+    "restaurantID": 1005,
+    "restaurantName": "bricks hotel",
+    "location": "mumbai",
+    "rating": 3,
+    "cuisines": ["bread-butter", "Mexiacan tomatoes", "italian burger "],
+    "dishes": [
+      { "dishID": 1001, "dishName": "Plain Dosa", "price": 60 },
+      { "dishID": 1002, "dishName": "Spl. Dosa", "price": 80 }
+    ]
+  },
+  {
+    "restaurantID": 1006,
+    "restaurantName": "hotel ccd",
+    "location": "mumbai",
+    "rating": 3,
+    "cuisines": ["bread-butter", "Mexiacan tomatoes", "italian burger "],
+    "dishes": [
+      { "dishID": 1001, "dishName": "Plain Dosa", "price": 60 },
+      { "dishID": 1002, "dishName": "Spl. Dosa", "price": 80 }
     ]
   }
 ]
