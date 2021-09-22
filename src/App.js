@@ -1,5 +1,9 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import "materialize-css/dist/css/materialize.min.css";
+import "materialize-css/dist/js/materialize.min.js";
+
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
 import Navbar from "./components/Navbar";
 import Chatbot from "./components/Chatbotcomp";
 import React from "react"
