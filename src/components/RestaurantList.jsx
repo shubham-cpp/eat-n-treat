@@ -10,7 +10,7 @@ export default function RestaurantList(props) {
     })
     return (
         <div className="container" style={{marginTop:"0",verticalAlign:"auto"}}>
-            <div className="search">
+            <div className="search fixed-top">
                 <div className="searchInputs">
                     <input
                         type="text"
@@ -24,11 +24,11 @@ export default function RestaurantList(props) {
                     </div>
                 </div>
             </div>
-            <div className="row flex-row">
+            <div className="row flex-row" style={{ marginTop: "15%" }}>
                 {
                     filterdata.map(restaurant => {
                         return (
-                            <div className="col-3 pt-4">
+                            <div className="col-4 pt-4">
                                 <RestaurantCard restaurant={restaurant} />
                             </div>
                         );

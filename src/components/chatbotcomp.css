@@ -1,12 +1,14 @@
 .open-button {
-  background-color: #555;
+  background-color: teal;
   color: white;
   padding: 16px 20px;
   border: none;
+  border-radius: 50%;
   cursor: pointer;
   opacity: 0.8;
   position: fixed;
   bottom: 23px;
   right: 28px;
-  width: 100px;
+  width: 70px;
+  height: 70px;
 }
