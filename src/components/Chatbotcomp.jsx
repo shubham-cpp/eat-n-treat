@@ -3,7 +3,6 @@ import { Chatbot } from 'react-chatbot-kit'
 import ActionProvider from './actionprovider'
 import config from './config'
 import MessageParser from './messageparser'
-import './chatbotcomp.css'
 
 import ChatBubble from '@material-ui/icons/ChatBubble';
 
