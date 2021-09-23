@@ -1,9 +1,31 @@
 import React, { useEffect, useState } from "react";
-import Restaurants from "../assets/data.json";
+// import Restaurants from "../assets/data.json";
 import RestaurantCard from "./RestaurantCard";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
+
 export default function RestaurantList(props) {
   const [res, setRes] = useState([]);
+  // NOTE: First start express server
+  // Then start react server
+  const url = "http://localhost:5000/restaurant";
+  let Restaurants;
+
+  useEffect(() => {
+    fetch(url)
+      .then((res) => {
+        const abortCont = new AbortController();
+        if (!res.ok) {
+          throw Error("could not fetch the data for that resource");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        Restaurants = data;
+      })
+      .catch((err) => {
+        if (err.name === "AbortError") console.log("Fetch request aborted");
+      });
+  }, []);
 
   const filterdata = Restaurants.filter((item) => {
     return res !== ""
