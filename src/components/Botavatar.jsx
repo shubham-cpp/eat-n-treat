@@ -1,9 +1,9 @@
-import React from 'react'
-import './Botavatar.css'
+import React from "react";
+
 export default function Botavatar() {
     return (
         <div className="botavatar">
-            
+            S
         </div>
     )
 }
