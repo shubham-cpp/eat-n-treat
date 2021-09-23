@@ -9,10 +9,15 @@ import Chatbot from "./components/Chatbotcomp";
 import React from "react"
 import RestaurantList from "./components/RestaurantList";
 import { Main as RestDetails } from "./components/RestrauntDetails/Main";
+import { AuthProvider } from "./auth";
+
+import { Container } from "@material-ui/core";
+import Signup from "./components/Signup";
 
 function App() {
   return (
     <div>
+      <AuthProvider>
       <Router>
         <Navbar />
         <Chatbot />
@@ -22,7 +27,12 @@ function App() {
           </Route>
           <Route path="/restaurant/:id" component={RestDetails} />
         </Switch>
+        
+          <Container>
+            <Signup></Signup>
+          </Container>
       </Router>
+      </AuthProvider>
       </div>
   );
 }

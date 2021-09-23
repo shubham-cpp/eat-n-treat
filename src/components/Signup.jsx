@@ -1,11 +1,15 @@
 import * as React from 'react';
+import { useRef, useState } from 'react';
+
 import Box from '@mui/material/Box';
 import { makeStyles } from "@mui/styles";
 import { Form, FormGroup} from 'react-bootstrap';
-import { Grid, Avatar, FormControl, Typography, Button, Divider,Select, Checkbox, InputLabel, MenuItem, Link, Modal} from "@mui/material";
+import { Grid, FormControl, Typography, Button, Divider,Select, Checkbox, InputLabel, MenuItem, Link, Modal} from "@mui/material";
 
-import GoogleIcon from '@mui/icons-material/Google';
 import './loginStyle.css'
+
+import fire from '../firebase';
+
 
 
 const style = {
@@ -55,6 +59,12 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Signup() {
+  const emailRef = useRef()
+  const passwordRef = useRef()
+  const [emailError, setEmailError] = useState("")
+  const [passwordError, setPasswordError] = useState("")
+  const [hasAccount, setHasAccount] = useState(false)
+
 
   const classes = useStyles();
 
@@ -75,6 +85,22 @@ export default function Signup() {
         setCity(e.target.value);
     };
 
+    function handleSubmit(e1){
+      fire.auth().createUserWithEmailAndPassword(emailRef, passwordRef)
+      .catch((error) => {
+        switch(error.code) {
+          case "auth/invalid-email":
+          case "auth/user-disabled":
+          case "auth/user-not-found":
+            setEmailError(error.message);
+            break;
+          case "auth/wrong-password":
+            setPasswordError();
+            break;
+        }
+      })
+    }
+
   return (
     <div>
       <Button onClick={handleOpenSignup}> Signup </Button>
@@ -94,7 +120,7 @@ export default function Signup() {
         <div id="signup-modal-description" className="paper">
         {/* <form  className={classes.form}> */}
 
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <Grid container spacing={1}>
           <Grid item xs={12} sm={6}>
               <FormGroup>
@@ -122,9 +148,10 @@ export default function Signup() {
               <FormGroup>
                 <input type="email"
                 //  value={this.state.email} onChange={this.handleEmailChange}
-                className="form-control" placeholder="Email  *"/>
+                className="form-control" ref={emailRef} placeholder="Email  *" required/>
               </FormGroup>
               </Grid>
+
               <Grid item xs={12} sm={6}>
               <FormGroup>
                 <input
@@ -132,6 +159,7 @@ export default function Signup() {
                 className="form-control" placeholder="Address  *"/>
               </FormGroup>
               </Grid>
+              
               <Grid item xs={12} sm={6}>
               <FormControl fullWidth size="small">
                   <InputLabel id='city' ref={inputLabel} fullWidth required > City</InputLabel>
@@ -152,7 +180,7 @@ export default function Signup() {
               <FormGroup>
                 <input type="password"
                 // value={this.state.pass} onChange={this.handlePasswordChange}
-                className="form-control" placeholder="Password * "/>
+                className="form-control" ref = {passwordRef} placeholder="Password * " required/>
               </FormGroup>
               </Grid>
 
@@ -168,21 +196,16 @@ export default function Signup() {
 
               <Grid item xs={12}>
               <Button
-                    type="submit"
+                    input type="submit"
                     fullWidth
                     variant="contained"
                     color="primary"
-                    disabled={acceptNotice === false ? true : false}
+                    //disabled={acceptNotice === false ? true : false}
                     // className={classes.submit}
                 >
                     Create account
                 </Button>
-                <Divider spacing={2}> or </Divider>
-
-                <Button className="GoogleButton" fullWidth variant="contained">
-                    <Avatar sx={{ width: 28, height: 28, bgcolor: "#000"}}><GoogleIcon /></Avatar>
-                      Continue with Google
-                </Button>
+                
               </Grid>
 
               <Grid item xs={12} xm={10}>

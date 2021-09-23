@@ -1,11 +1,15 @@
 import * as React from 'react';
+import { useRef } from 'react';
 import { makeStyles } from "@mui/styles";
-import { Box, Grid, Avatar, Typography, Button, Divider, Link, Modal} from "@mui/material";
-import { FormGroup} from 'react-bootstrap'
+import { Box, Grid, Typography, Button, Divider, Link, Modal} from "@mui/material";
+import { FormGroup } from 'react-bootstrap'
+import swal from 'sweetalert';
 
-import GoogleIcon from '@mui/icons-material/Google';
+
 import './loginStyle.css'
+import fire from '../firebase';
 
+export var user=null;
 
 const style = {
   position: 'absolute',
@@ -41,7 +45,8 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function BootLogin() {
-
+  const emailRef = useRef()
+  const passwordRef = useRef()
   const classes = useStyles();
 
   const [openLogin, setOpenLogin] = React.useState(false);
@@ -51,6 +56,33 @@ export default function BootLogin() {
   const handleOpenLogin = () => {
     setOpenLogin(prev => !prev)
   };
+
+  function handleSubmit(e){
+    e.preventDefault();
+    fire.auth().signInWithEmailAndPassword(emailRef,passwordRef)
+            .then(function(){
+
+              swal({
+                title:"Logged In Successfully !",
+                icon:"success",
+                buttons:false,
+                timer:2000
+              });
+              user = fire.auth().currentUser;
+              
+              console.log("login ",user)
+            })
+            .catch(function(error) {
+          var errorMessage = error.message;
+            swal({
+              title:"Error!",
+              text:errorMessage,
+              buttons:false,
+              timer:2000,
+              icon:"error"
+            }); 
+            })
+  }
 
   return (
     <div>
@@ -69,7 +101,7 @@ export default function BootLogin() {
         </Typography>
 
         <div id="login-modal-description" className="paperLogin">
-        <form  className={classes.form}>
+        <form  className={classes.form} onSubmit={handleSubmit}>
 
           <Grid container spacing={1}>
               <Grid item xs={12} >
@@ -77,7 +109,7 @@ export default function BootLogin() {
                   <input type="email"
                   // value={this.state.email}
                   // onChange={this.handleEmailChange}
-                  className="form-control" placeholder="Enter Email"/>
+                  className="form-control" ref = {emailRef} placeholder="Enter Email"/>
                 </FormGroup>
               </Grid>
               <Grid item xs={12} >
@@ -85,7 +117,7 @@ export default function BootLogin() {
                   <input type="password"
                   // value={this.state.password}
                   // onChange={this.handlePasswordChange}
-                  className="form-control" placeholder="Enter Password"/>
+                  className="form-control" ref={passwordRef} placeholder="Enter Password"/>
                 </FormGroup>
               </Grid>
               <Grid item xs={12} >
@@ -99,16 +131,6 @@ export default function BootLogin() {
                       Log In
                   </Button>
               </Grid>
-              <Grid item xs={12} >
-                <Divider spacing={2}> or </Divider>
-              </Grid>
-              <Grid item xs={12} >
-                <Button className="GoogleButton" fullWidth variant="contained">
-                  <Avatar sx={{ width: 28, height: 28, bgcolor: "#000"}}><GoogleIcon /></Avatar>
-                  Continue with Google
-                </Button>
-              </Grid>
-
               <Grid item xs={12} >
                 <Divider spacing={1}></Divider>
               </Grid>
