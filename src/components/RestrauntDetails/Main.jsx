@@ -3,9 +3,10 @@ import { useParams } from "react-router";
 import { Link, Route } from "react-router-dom";
 import Cart from "./Cart";
 import Details from "./Details";
-import data from "../../assets/data.json";
+// import data from "../../assets/data.json";
 
-export function Main() {
+export function Main(props) {
+  const data = props.data;
   const { id } = useParams();
   const [cartItems, setCartItems] = useState([]);
   const [totalItems, setTotalItems] = useState(0);

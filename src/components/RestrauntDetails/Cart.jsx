@@ -62,8 +62,8 @@ export default function Cart({ cartItems, addToCart, removeFromCart }) {
         <div className="container">
           {cartItems.length === 0 && <p>Cart is empty</p>}
           {cartItems.map((item) => (
-            <div key={item.dishID} className="row">
-              <div className="col">{item.dishName}</div>
+            <div key={item.menuID} className="row">
+              <div className="col">{item.menuName}</div>
               <div className="col">
                 <button onClick={() => addToCart(item)}>+</button>
               </div>
@@ -71,7 +71,7 @@ export default function Cart({ cartItems, addToCart, removeFromCart }) {
                 <button onClick={() => removeFromCart(item)}>-</button>
               </div>
               <div className="col">
-                {item.qty} x Rs. {item.price}
+                {item.qty} x Rs. {item.menuPrice}
               </div>
             </div>
           ))}
