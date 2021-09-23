@@ -24,10 +24,9 @@ router.post("/", upload.single("resturanturl"), (req, res) => {
   const imgurl = req.file.path;
   const rPhone = req.body.restaurantPhone;
   const rEmail = req.body.restaurantEmail;
-
   const rCity = req.body.rCity;
   const rating = req.body.rating;
-  // const userName=req.body.review.userName;
+  const cuisine = req.body.cuisine;
   const reviewText = req.body.reviewText;
   const user = req.body.user;
   const username = req.body.username;
@@ -42,6 +41,7 @@ router.post("/", upload.single("resturanturl"), (req, res) => {
     restaurantEmail: rEmail,
     rCity: rCity,
     rating: rating,
+    cuisine: cuisine,
     reviews: {
       reviewText: reviewText,
       user: user,
@@ -117,4 +117,18 @@ router.post("/addProducts", (req, res) => {
     .catch((err) => console.log(err));
 });
 
+
+router.patch("/:resturantid", (req, res) => {
+  _id = req.params.resturantid;
+  Restaurant.findByIdAndUpdate(_id, {
+    $set: {
+      restaurantName: req.body.restaurantName,
+      restaurantPhone: req.body.restaurantPhone,
+      restaurantEmail: req.body.restaurantEmail,
+    },
+  });
+  res.json({ status: "Data Update Successfully" });
+});
+
 module.exports = router;
+

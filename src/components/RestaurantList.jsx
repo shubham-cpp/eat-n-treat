@@ -2,23 +2,20 @@ import React, { useEffect, useState } from "react";
 import Restaurants from "../assets/data.json";
 import RestaurantCard from "./RestaurantCard";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
-// import axios from "axios";
+import axios from "axios";
+
+import { Switch, Route } from 'react-router-dom';
+
 
 export default function RestaurantList(props) {
   const [res, setRes] = useState([]);
   // NOTE: First start express server
   // Then start react server
-  // const url = "http://localhost:5000/restaurant";
-  // let Restaurants = [];
+  const url = "http://localhost:5000/restaurant";
+  //let Restaurants = [];
 
-  // axios
-  //   .get("http://localhost:5000/restaurant")
-  //   .then((res) => {
-  //     console.log(res.data);
-
-  //     Restaurants = res.data;
-  //   })
-  //   .catch((err) => console.log("Unable to catch err", err));
+  // Restaurants = await axios.get("http://localhost:5000/restaurant")
+  // console.log(Restaurants.data);
   // useEffect(() => {
   //   fetch(url)
   //     .then((res) => {
@@ -37,12 +34,27 @@ export default function RestaurantList(props) {
   //     });
   // }, []);
 
+  const [Restaurants, setRestaurants] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/restaurant")
+      .then((restaurants) => {
+        setRestaurants(restaurants.data);
+        props.cbRestaurants(restaurants.data);
+      })
+  }, []);
+
+  console.log(Restaurants);
+
   const filterdata = Restaurants.filter((item) => {
+    //console.log(item)
     return res !== ""
       ? item.restaurantName.toLowerCase().includes(res) ||
           item.location.toLowerCase().includes(res)
       : item;
   });
+
   return (
     <div
       className="container"
@@ -64,6 +76,7 @@ export default function RestaurantList(props) {
       </div>
       <div className="row flex-row" style={{ marginTop: "5%" }}>
         {filterdata.map((restaurant) => {
+          console.log(restaurant)
           return (
             <div className="col-4 pt-4">
               <RestaurantCard restaurant={restaurant} />
@@ -71,6 +84,11 @@ export default function RestaurantList(props) {
           );
         })}
       </div>
+      {/* <Switch>
+        <Route path="/restaurant/:id" >
+          <RestDetails data={ Restaurants }/>
+        </Route>
+      </Switch> */}
     </div>
   );
 }

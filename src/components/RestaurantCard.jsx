@@ -29,10 +29,11 @@ export default function RestaurantCard(props) {
                 <div className="card-text">
                     <div className="flex-nowrap scrollableDiv" ref={scrollRef}>
                         {
-                            props.restaurant.cuisines.map(cuisine => {
+                            props.restaurant.cuisine.map(cuis => {
+                                console.log(cuis)
                                 return (
                                     <div className="chip" style={{ width: "fit-content", display: "inline-block" }}>
-                                        { cuisine }
+                                        { cuis }
                                     </div>
                                 );
                             })
@@ -53,7 +54,7 @@ export default function RestaurantCard(props) {
                     />
                     {props.restaurant.rating}/5
                 </div>
-                <Link to={`/restaurant/${props.restaurant.restaurantID}`} className="btn btn-primary">VIEW MORE</Link>
+                <Link to={`/restaurant/${props.restaurant._id}`} className="btn btn-primary">VIEW MORE</Link>
             </div>
              
         </div>
