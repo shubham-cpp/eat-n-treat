@@ -10,7 +10,7 @@ export default function RestaurantList(props) {
     })
     return (
         <div className="container" style={{marginTop:"30px",verticalAlign:"auto",padding:"10px"}}>
-            <div className="search">
+            <div className="search" >
                 <div className="searchInputs">
                     <input
                         type="text"

@@ -18,7 +18,7 @@ mongoose
   .then(() => console.log("Connected to db"))
   .catch((err) => console.log(err));
 
-app.use("/customer", require("./routes/customer"));
+app.use("/customer/", require("./routes/customer"));
 app.use("/restaurant", require("./routes/resturants"));
 app.use("/admin", require("./routes/admin"));
 app.use("/order", require("./routes/order"));

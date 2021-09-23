@@ -5,7 +5,7 @@ import HotelDisplay from './HotelDisplay'
 
 function HotelLocation() {
     let arr=[]
-    const userLoc = "pune"
+    const userLoc = "mumbai"
     const exist = data.find((item) => item.location.toLowerCase() === userLoc);
 
     if(exist){
