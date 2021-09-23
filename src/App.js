@@ -6,12 +6,15 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Chatbot from "./components/Chatbotcomp";
-import React from "react";
+import React, { useState } from "react";
 import RestaurantList from "./components/RestaurantList";
 import { Main as RestDetails } from "./components/RestrauntDetails/Main";
 
 
 function App() {
+
+  const [restaurants, setRestaurants] = useState([]);
+
   return (
   <div style={{backgroundColor:"#FFFDD0"}}>
       <Router>
@@ -19,9 +22,11 @@ function App() {
         <Chatbot />
         <Switch>
           <Route path="/" exact>
-            <RestaurantList />
+            <RestaurantList cbRestaurants={ setRestaurants } />
           </Route>
-          <Route path="/restaurant/:id" component={RestDetails} />
+          <Route path="/restaurant/:id">
+            <RestDetails data={ restaurants }/>
+          </Route>
         </Switch>
       </Router>
     </div>
