@@ -10,11 +10,12 @@ import React from "react";
 import RestaurantList from "./components/RestaurantList";
 import { Main as RestDetails } from "./components/RestrauntDetails/Main";
 
+
 function App() {
   return (
-    <div>
+  <div style={{backgroundColor:"#FFFDD0"}}>
       <Router>
-        <Navbar />
+        <Navbar btn={<button>click me</button>} />
         <Chatbot />
         <Switch>
           <Route path="/" exact>
