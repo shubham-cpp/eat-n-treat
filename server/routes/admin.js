@@ -1,49 +1,48 @@
 const router = require("express").Router();
-const Admins = require("../model/admin");
 const mongoose = require("mongoose");
-router.post("/", async (req, res) => {
+const Admins = require("../model/admin");
+
+router.post("/", (req, res) => {
   const id = mongoose.Types.ObjectId();
-  aName = req.body.adminName;
-  aEmail = req.body.adminEmail;
-  aPhone = req.body.adminPhone;
+
   const newAdmin = new Admins({
     _id: id,
-    adminName: aName,
-    adminEmail: aEmail,
-    adminPhone: aPhone,
+    adminName: req.body.adminName,
+    adminEmail: req.body.adminEmail,
+    adminPhone: req.body.adminPhone,
   });
 
-  const savedAdmin = await newAdmin.save();
-  res.json(savedAdmin);
+  newAdmin
+    .save()
+    .then((data) => res.json(data))
+    .catch((err) => res.json({ err: err }));
 });
 
-router.get("/", async (req, res) => {
-  allAdmin = await Admins.find({});
-  res.json(allAdmin);
+/* NOTE */
+/* We'll never be in a situation to get all admins */
+// router.get("/", (req, res) => {
+//   Admins.find({}).then((results) => res.json(results));
+// });
+
+router.get("/:adminid", (req, res) => {
+  Admins.findById(req.params.adminid).then((data) => res.json(data));
 });
 
-router.get("/:adminid", async (req, res) => {
-  _id = req.params.adminid;
-  oneAdmin = await Admins.findById(_id);
-  res.json(oneAdmin);
-});
-
-router.patch("/:adminid", async (req, res) => {
-  _id = req.params.adminid;
-  await Admins.findByIdAndUpdate(_id, {
+router.patch("/:adminid", (req, res) => {
+  const id = req.params.adminid;
+  Admins.findByIdAndUpdate(id, {
     $set: {
       adminName: req.body.adminName,
       adminEmail: req.body.adminPhone,
       adminPhone: req.body.adminPhone,
     },
-  });
-  res.json({ status: "Data Update Successfully" });
+  }).then(() => res.json({ status: "Data Update Successfully" }));
 });
 
-router.delete("/:adminid", async (req, res) => {
-  _id = req.params.adminid;
-  await Admins.remove({ _id: _id });
-  res.json({ status: "removed admin" });
+router.delete("/:adminid", (req, res) => {
+  Admins.findByIdAndRemove(req.params.adminid).then(() =>
+    res.json({ status: "removed admin" })
+  );
 });
 
 module.exports = router;

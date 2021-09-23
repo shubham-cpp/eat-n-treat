@@ -6,10 +6,10 @@ const mongoose = require("mongoose");
 var multer = require("multer");
 
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
+  destination: function (_, _, cb) {
     cb(null, "./uploads/");
   },
-  filename: function (req, file, cb) {
+  filename: function (_, file, cb) {
     cb(null, Date.now() + file.originalname);
   },
 });
@@ -25,7 +25,7 @@ router.post("/", upload.single("resturanturl"), (req, res) => {
   const rPhone = req.body.restaurantPhone;
   const rEmail = req.body.restaurantEmail;
 
-  const City = req.body.rCity;
+  const rCity = req.body.rCity;
   const rating = req.body.rating;
   // const userName=req.body.review.userName;
   const reviewText = req.body.reviewText;
@@ -40,7 +40,7 @@ router.post("/", upload.single("resturanturl"), (req, res) => {
     resturanturl: imgurl,
     restaurantPhone: rPhone,
     restaurantEmail: rEmail,
-    rCity: City,
+    rCity: rCity,
     rating: rating,
     reviews: {
       reviewText: reviewText,
@@ -57,18 +57,18 @@ router.post("/", upload.single("resturanturl"), (req, res) => {
     .then((savedResturant) => {
       res.json(savedResturant);
     })
-    .catch((err) => console.log("error"));
+    .catch((err) => console.log("error ", err));
 });
 
-router.get("/", async (req, res) => {
-  const allResturants = await Restaurant.find({});
-  res.json(allResturants);
+router.get("/", (req, res) => {
+  Restaurant.find({}).then((data) => res.json(data));
 });
 
 router.post("/addReview", (req, res) => {
   var reviews = [];
+  const id = req.body.restaurantID;
 
-  Restaurant.findById(req.body.restaurantID)
+  Restaurant.findById(id)
     .then((restaurant) => {
       reviews = restaurant.reviews;
       reviews.push({
@@ -78,7 +78,7 @@ router.post("/addReview", (req, res) => {
       });
       console.log(reviews);
       Restaurant.findOneAndUpdate(
-        { _id: req.body.restaurantID },
+        { _id: id },
         { reviews: reviews },
         { new: true, upsert: false }
       )
@@ -93,7 +93,9 @@ router.post("/addReview", (req, res) => {
 
 router.post("/addProducts", (req, res) => {
   var menus = [];
-  Restaurant.findById(req.body.restaurantID)
+  const id = req.body.restaurantID;
+
+  Restaurant.findById(id)
     .then((restaurant) => {
       menus = restaurant.menus;
       menus.push({
@@ -102,7 +104,7 @@ router.post("/addProducts", (req, res) => {
       });
       console.log(products);
       Restaurant.findOneAndUpdate(
-        { _id: req.body.restaurantID },
+        { _id: id },
         { menus: menus },
         { new: true, upsert: false }
       )

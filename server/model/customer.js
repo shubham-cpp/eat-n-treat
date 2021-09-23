@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
+// TODO: Use express-validator
+
 const customerSchema = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
+
   customerName: {
     type: String,
     required: true,

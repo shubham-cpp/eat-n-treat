@@ -1,16 +1,18 @@
 const router = require("express").Router();
-const Orders = require("../model/order");
 const mongoose = require("mongoose");
+const Orders = require("../model/order");
+
 router.post("/", async (req, res) => {
   const pid = req.body.menuItemId;
-  const iquantity = req.body.quantity;
-  const iBillAmount = req.body.billAmount;
-  const iOrderStatus = req.body.orderStatus;
+  const quantity = req.body.quantity;
+  const billAmount = req.body.billAmount;
+  const orderStatus = req.body.orderStatus;
+
   const newOrder = new Orders({
     menuItemId: mongoose.Types.ObjectId(pid),
-    quantity: iquantity,
-    billAmount: iBillAmount,
-    orderStatus: iOrderStatus,
+    quantity: quantity,
+    billAmount: billAmount,
+    orderStatus: orderStatus,
   });
 
   newOrder
@@ -23,31 +25,31 @@ router.post("/", async (req, res) => {
     });
 });
 
-router.get("/", (req, res) => {
-  Orders.find({})
-    .then((allOrders) => {
-      res.json(allOrders);
-    })
-    .catch((err) => console.log("Caught:", err.message));
-});
+/* NOTE */
+/* We'll never be in a situation to retrieve all order */
+// router.get("/", (req, res) => {
+//   Orders.find({})
+//     .then((allOrders) => {
+//       res.json(allOrders);
+//     })
+//     .catch((err) => console.log("Caught:", err.message));
+// });
 
-router.get("/:orderid", (req, res) => {
-  const _id = req.params.orderid;
-  Orders.findById(_id)
-    .then((oneOrder) => {
-      res.json(oneOrder);
-    })
-    .catch((err) => console.log("Caught:", err.message));
-});
+/* NOTE */
+/* We'll never be in a situation to retrieve one single order */
+// router.get("/:orderid", (req, res) => {
+//   const _id = req.params.orderid;
+//   Orders.findById(_id)
+//     .then((oneOrder) => {
+//       res.json(oneOrder);
+//     })
+//     .catch((err) => console.log("Caught:", err.message));
+// });
 
 router.delete("/:orderid", (req, res) => {
-  const _id = req.params.orderid;
-  Orders.remove({ _id: _id })
-    .then(res.json("delete success!"))
-    .catch(res.json("delete err!"));
+  Orders.findByIdAndRemove(req.params.orderid)
+    .then(res.json({ msg: "delete success!" }))
+    .catch(res.json({ msg: "delete err!" }));
 });
 
-// router.patch("/:orderid",(req,res)=>{
-
-// })
 module.exports = router;

@@ -35,6 +35,8 @@ const restaurantSchema = new mongoose.Schema({
       _id: mongoose.Schema.Types.ObjectId,
       reviewText: String,
       user: { type: mongoose.Schema.Types.ObjectId, ref: "customer" },
+      // TODO: Review for removal.
+      // Why do we need username
       username: String,
     }),
   },
