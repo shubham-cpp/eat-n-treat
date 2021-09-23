@@ -8,7 +8,7 @@ import { Grid, FormControl, Typography, Button, Divider,Select, Checkbox, InputL
 
 import './loginStyle.css'
 
-import fire from '../firebase';
+import firebaseConfig from '../firebase';
 
 
 
@@ -86,7 +86,7 @@ export default function Signup() {
     };
 
     function handleSubmit(e1){
-      fire.auth().createUserWithEmailAndPassword(emailRef, passwordRef)
+      firebaseConfig.auth().createUserWithEmailAndPassword(emailRef, passwordRef)
       .catch((error) => {
         switch(error.code) {
           case "auth/invalid-email":

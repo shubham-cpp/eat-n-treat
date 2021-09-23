@@ -7,7 +7,7 @@ import swal from 'sweetalert';
 
 
 import './loginStyle.css'
-import fire from '../firebase';
+import firebaseConfig from '../firebase';
 
 export var user=null;
 
@@ -59,7 +59,7 @@ export default function BootLogin() {
 
   function handleSubmit(e){
     e.preventDefault();
-    fire.auth().signInWithEmailAndPassword(emailRef,passwordRef)
+    firebaseConfig.auth().signInWithEmailAndPassword(emailRef,passwordRef)
             .then(function(){
 
               swal({
@@ -68,7 +68,7 @@ export default function BootLogin() {
                 buttons:false,
                 timer:2000
               });
-              user = fire.auth().currentUser;
+              user = firebaseConfig.auth().currentUser;
               
               console.log("login ",user)
             })
