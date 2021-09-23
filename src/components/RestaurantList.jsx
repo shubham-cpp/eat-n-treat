@@ -2,8 +2,40 @@ import React, { useEffect, useState } from "react";
 import Restaurants from "../assets/data.json";
 import RestaurantCard from "./RestaurantCard";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
+// import axios from "axios";
+
 export default function RestaurantList(props) {
   const [res, setRes] = useState([]);
+  // NOTE: First start express server
+  // Then start react server
+  // const url = "http://localhost:5000/restaurant";
+  // let Restaurants = [];
+
+  // axios
+  //   .get("http://localhost:5000/restaurant")
+  //   .then((res) => {
+  //     console.log(res.data);
+
+  //     Restaurants = res.data;
+  //   })
+  //   .catch((err) => console.log("Unable to catch err", err));
+  // useEffect(() => {
+  //   fetch(url)
+  //     .then((res) => {
+  //       const abortCont = new AbortController();
+  //       if (!res.ok) {
+  //         throw Error("could not fetch the data for that resource");
+  //       }
+  //       return res.json();
+  //     })
+  //     .then((data) => {
+  //       Restaurants = data;
+  //       console.log(data);
+  //     })
+  //     .catch((err) => {
+  //       if (err.name === "AbortError") console.log("Fetch request aborted");
+  //     });
+  // }, []);
 
   const filterdata = Restaurants.filter((item) => {
     return res !== ""
