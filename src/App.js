@@ -2,11 +2,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "materialize-css/dist/css/materialize.min.css";
 import "materialize-css/dist/js/materialize.min.js";
 
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Chatbot from "./components/Chatbotcomp";
-import React from "react"
+import React from "react";
 import RestaurantList from "./components/RestaurantList";
 import { Main as RestDetails } from "./components/RestrauntDetails/Main";
 
@@ -23,7 +23,7 @@ function App() {
           <Route path="/restaurant/:id" component={RestDetails} />
         </Switch>
       </Router>
-      </div>
+    </div>
   );
 }
 export default App;
