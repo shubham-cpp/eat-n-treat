@@ -1,9 +1,22 @@
 import React, { useEffect, useState } from "react";
-import Restaurants from "../assets/data.json";
 import RestaurantCard from "./RestaurantCard";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
+import axios from "axios";
+
 export default function RestaurantList(props) {
   const [res, setRes] = useState([]);
+  // NOTE: First start express server
+  // Then start react server
+  const url = "http://localhost:5000/restaurant";
+
+  const [Restaurants, setRestaurants] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:5000/restaurant").then((restaurants) => {
+      setRestaurants(restaurants.data);
+      props.cbRestaurants(restaurants.data);
+    });
+  }, []);
 
   const filterdata = Restaurants.filter((item) => {
     return res !== ""
@@ -11,6 +24,7 @@ export default function RestaurantList(props) {
           item.location.toLowerCase().includes(res)
       : item;
   });
+
   return (
     <div
       className="container"
@@ -39,6 +53,11 @@ export default function RestaurantList(props) {
           );
         })}
       </div>
+      {/* <Switch>
+        <Route path="/restaurant/:id" >
+          <RestDetails data={ Restaurants }/>
+        </Route>
+      </Switch> */}
     </div>
   );
 }
