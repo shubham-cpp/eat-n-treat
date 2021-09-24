@@ -1,16 +1,14 @@
 import * as React from 'react';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
 import { makeStyles } from "@mui/styles";
 import { Form, FormGroup} from 'react-bootstrap';
 import { Grid, FormControl, Typography, Button, Divider,Select, Checkbox, InputLabel, MenuItem, Link, Modal} from "@mui/material";
-
+import swal from 'sweetalert';
+import { useAuth } from '../auth';
 import './loginStyle.css'
-
-import firebaseConfig from '../firebase';
-
-
 
 const style = {
   position: 'absolute',
@@ -61,10 +59,8 @@ const useStyles = makeStyles((theme) => ({
 export default function Signup() {
   const emailRef = useRef()
   const passwordRef = useRef()
-  const [emailError, setEmailError] = useState("")
-  const [passwordError, setPasswordError] = useState("")
-  const [hasAccount, setHasAccount] = useState(false)
-
+  const { signup } = useAuth()
+  const history = useHistory();
 
   const classes = useStyles();
 
@@ -86,20 +82,70 @@ export default function Signup() {
     };
 
     function handleSubmit(e1){
-      firebaseConfig.auth().createUserWithEmailAndPassword(emailRef, passwordRef)
-      .catch((error) => {
-        switch(error.code) {
-          case "auth/invalid-email":
-          case "auth/user-disabled":
-          case "auth/user-not-found":
-            setEmailError(error.message);
-            break;
-          case "auth/wrong-password":
-            setPasswordError();
-            break;
-        }
-      })
+      var firstName = document.forms["Signup"]["firstname"]
+      var lastName = document.forms["Signup"]["lastname"]
+      var phone = document.forms["Signup"]["phone"]
+      var email = document.forms["Signup"]["email"]
+      var address = document.forms["Signup"]["address"]
+      var password = document.forms["Signup"]["password"]
+      var atposition=email.indexOf("@");  
+      var dotposition=email.lastIndexOf(".");
+      if (firstName.value === "") {
+        window.alert("Please enter your first name.");
+        firstName.focus();
+        return false;
     }
+    if (lastName.value === "") {
+      window.alert("Please enter your last name.");
+      lastName.focus();
+      return false;
+    }
+    if (address.value === "") {
+      window.alert("Please enter your address.");
+      address.focus();
+      return false;
+    }
+    if(phone.length<10){
+      window.alert("Please enter a 10 digit phone number.");
+      phone.focus();
+      return false;
+    }
+    if (atposition<1 || dotposition<atposition+2 || dotposition+2>=email.length)
+    {  
+      window.alert("Please enter a valid e-mail address.");  
+      email.focus()
+      return false;  
+      }  
+      if(password.length<6){
+        window.alert("Password must be at least 6 characters long.")
+        password.focus()
+        return false
+      }
+      e1.preventDefault();
+      signup(emailRef, passwordRef)
+            .then(function(){
+              swal({
+                title:"Signed Up Successfully !",
+                icon:"success",
+                buttons:false,
+                timer:2000
+              });
+              
+              console.log("Signup ")
+              history.push("/home");
+            })
+          
+            .catch(function(error) {
+          var errorMessage = error.message;
+            swal({
+              title:"Error!",
+              text:errorMessage,
+              buttons:false,
+              timer:2000,
+              icon:"error"
+            }); 
+            });
+          };
 
   return (
     <div>
@@ -120,27 +166,27 @@ export default function Signup() {
         <div id="signup-modal-description" className="paper">
         {/* <form  className={classes.form}> */}
 
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} name="Signup">
           <Grid container spacing={1}>
           <Grid item xs={12} sm={6}>
               <FormGroup>
                 <input
-                // value={this.state.firstName} onChange={this.handleFirstNameChange}
-                className="form-control" placeholder="First Name  *"/>
+                 //value={this.state.firstName} onBlur={handleFirstNameChange}
+                className="form-control" name="firstname" placeholder="First Name  *"/>
               </FormGroup>
               </Grid>
               <Grid item xs={12} sm={6}>
               <FormGroup>
                 <input
                 // value={this.state.lastName} onChange={this.handleLastNameChange}
-                className="form-control" placeholder="Last Name  *"/>
+                className="form-control" name = "lastname"placeholder="Last Name  *"/>
               </FormGroup>
               </Grid>
               <Grid item xs={12}>
               <FormGroup>
                 <input type="number"
                 // value={this.state.email} onChange={this.handlePhoneChange}
-                className="form-control" placeholder="Phone  *"/>
+                className="form-control" name="phone" placeholder="Phone  *"/>
               </FormGroup>
               </Grid>
 
@@ -148,7 +194,7 @@ export default function Signup() {
               <FormGroup>
                 <input type="email"
                 //  value={this.state.email} onChange={this.handleEmailChange}
-                className="form-control" ref={emailRef} placeholder="Email  *" required/>
+                className="form-control" ref={emailRef} name="email" placeholder="Email  *" required/>
               </FormGroup>
               </Grid>
 
@@ -156,7 +202,7 @@ export default function Signup() {
               <FormGroup>
                 <input
                 // value={this.state.email} onChange={this.handleAddChange}
-                className="form-control" placeholder="Address  *"/>
+                className="form-control" name="address" placeholder="Address  *"/>
               </FormGroup>
               </Grid>
               
@@ -180,7 +226,7 @@ export default function Signup() {
               <FormGroup>
                 <input type="password"
                 // value={this.state.pass} onChange={this.handlePasswordChange}
-                className="form-control" ref = {passwordRef} placeholder="Password * " required/>
+                className="form-control" ref = {passwordRef} name = "password" placeholder="Password * " required/>
               </FormGroup>
               </Grid>
 

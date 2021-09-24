@@ -21,9 +21,9 @@ function App() {
 
   return (
     <div>
-      <AuthProvider>
+      
   <div style={{backgroundColor:"#FFFDD0"}}>
-      <Router>
+      <Router><AuthProvider>
         <Navbar btn={<button>click me</button>} />
         <Chatbot />
         <Switch>
@@ -37,9 +37,9 @@ function App() {
         
           <Container>
             <Signup></Signup>
-          </Container>
+          </Container></AuthProvider>
       </Router>    </div>
-      </AuthProvider>
+      
       
       </div>
 

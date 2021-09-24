@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { useRef } from 'react';
 import { makeStyles } from "@mui/styles";
-import { Box, Grid, Typography, Button, Divider, Link, Modal} from "@mui/material";
+import { Box, Grid, Typography, Button, Divider, Modal} from "@mui/material";
 import { FormGroup } from 'react-bootstrap'
 import swal from 'sweetalert';
-
+import { useAuth } from '../auth';
 
 import './loginStyle.css'
-import firebaseConfig from '../firebase';
-
+import { useHistory, Link } from "react-router-dom";
 export var user=null;
 
 const style = {
@@ -47,6 +46,8 @@ const useStyles = makeStyles((theme) => ({
 export default function BootLogin() {
   const emailRef = useRef()
   const passwordRef = useRef()
+  const { login } = useAuth()
+  const history = useHistory();
   const classes = useStyles();
 
   const [openLogin, setOpenLogin] = React.useState(false);
@@ -59,19 +60,19 @@ export default function BootLogin() {
 
   function handleSubmit(e){
     e.preventDefault();
-    firebaseConfig.auth().signInWithEmailAndPassword(emailRef,passwordRef)
+    login(emailRef, passwordRef)
             .then(function(){
-
               swal({
                 title:"Logged In Successfully !",
                 icon:"success",
                 buttons:false,
                 timer:2000
               });
-              user = firebaseConfig.auth().currentUser;
               
-              console.log("login ",user)
+              console.log("login ")
+              history.push("/home");
             })
+          
             .catch(function(error) {
           var errorMessage = error.message;
             swal({
@@ -81,8 +82,8 @@ export default function BootLogin() {
               timer:2000,
               icon:"error"
             }); 
-            })
-  }
+            });
+          };
 
   return (
     <div>
@@ -109,7 +110,7 @@ export default function BootLogin() {
                   <input type="email"
                   // value={this.state.email}
                   // onChange={this.handleEmailChange}
-                  className="form-control" ref = {emailRef} placeholder="Enter Email"/>
+                  className="form-control" name="email" ref={emailRef} placeholder="Enter Email"/>
                 </FormGroup>
               </Grid>
               <Grid item xs={12} >
@@ -117,7 +118,7 @@ export default function BootLogin() {
                   <input type="password"
                   // value={this.state.password}
                   // onChange={this.handlePasswordChange}
-                  className="form-control" ref={passwordRef} placeholder="Enter Password"/>
+                  className="form-control" name="password" ref={passwordRef} placeholder="Enter Password"/>
                 </FormGroup>
               </Grid>
               <Grid item xs={12} >

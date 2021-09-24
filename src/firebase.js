@@ -1,15 +1,14 @@
-import * as firebase from "firebase/app"
+import firebase from "firebase/app"
 import "firebase/auth"
-//import firebase from "firebase"
 
-const firebaseConfig = firebase.initializeApp({
-  apiKey: "AIzaSyCc8zYvZJsc9_NyvVXGh0CyP3o1qJ0tZzc",
-  authDomain: "eatntreat-4a0d2.firebaseapp.com",
-  projectId: "eatntreat-4a0d2",
-  storageBucket: "eatntreat-4a0d2.appspot.com",
-  messagingSenderId: "143156328785",
-  appId: "1:143156328785:web:e6768e65a36b36b2c13b70",
-  measurementId: "G-L8S4HD1BPS"
-});
+const app = firebase.initializeApp({
+  apiKey: "AIzaSyCxW3AjObm52XyoHXI5FQ8zogsTGAEwkqg",
+  authDomain: "eatntreat-7a9fa.firebaseapp.com",
+  projectId: "eatntreat-7a9fa",
+  storageBucket: "eatntreat-7a9fa.appspot.com",
+  messagingSenderId: "814989241675",
+  appId: "1:814989241675:web:d9d41428e0a21c09484cce"
+})
 
-export default firebaseConfig;
+export const auth = app.auth()
+export default app
