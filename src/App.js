@@ -22,17 +22,20 @@ function App() {
       <div style={{ backgroundColor: "#FFFDD0" }}>
         <Router>
           <AuthProvider>
+            // TODO: Test using Enzyme 1
             <Navbar btn={<button>click me</button>} />
+            // TODO: Test using Enzyme 2
             <Chatbot />
             <Switch>
               <Route path="/" exact>
+                // TODO: Test using Enzyme 3
                 <RestaurantList cbRestaurants={setRestaurants} />
               </Route>
               <Route path="/restaurant/:id">
+                // TODO: Test using Enzyme 4
                 <RestDetails data={restaurants} />
               </Route>
             </Switch>
-
             <Container>
               <Signup></Signup>
             </Container>
