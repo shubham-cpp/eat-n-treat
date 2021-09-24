@@ -3,9 +3,9 @@ import "materialize-css/dist/css/materialize.min.css";
 import "materialize-css/dist/js/materialize.min.js";
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-
+import Chatbotcomp from './components/Chatbotcomp'
 import Navbar from "./components/Navbar";
-import React from "react"
+import React,{useState} from "react"
 import RestaurantList from "./components/RestaurantList";
 import { Main as RestDetails } from "./components/RestrauntDetails/Main";
 import { AuthProvider } from "./auth";
@@ -13,30 +13,28 @@ import { AuthProvider } from "./auth";
 import { Container } from "@material-ui/core";
 import Signup from "./components/Signup";
 
-
 function App() {
-  return (
-    <div>
-      
-  <div style={{backgroundColor:"#FFFDD0"}}>
-      <Router><AuthProvider>
-        <Navbar btn={<button>click me</button>} />
-        <Chatbot />
-        <Switch>
-          <Route path="/" exact>
-            <RestaurantList />
-          </Route>
-          <Route path="/restaurant/:id" component={RestDetails} />
-        </Switch>
-        
-          <Container>
-            <Signup></Signup>
-          </Container></AuthProvider>
-      </Router>    </div>
-      
-      
-      </div>
+  const [restaurants, setRestaurants] = useState([]);
 
+  return (
+    <>
+      <div style={{ backgroundColor: "#FFFDD0" }}>
+        <Router>
+          <AuthProvider>
+            <Navbar btn={<button>click me</button>} />
+            <Chatbotcomp />
+            <Switch>
+              <Route path="/" exact>
+                <RestaurantList cbRestaurants={setRestaurants} />
+              </Route>
+              <Route path="/restaurant/:id">
+                <RestDetails data={restaurants} />
+              </Route>
+            </Switch>
+          </AuthProvider>
+        </Router>{" "}
+      </div>
+    </>
   );
 }
 export default App;

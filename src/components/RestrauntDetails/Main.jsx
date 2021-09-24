@@ -13,11 +13,11 @@ export function Main(props) {
   const calculateQty = (total, item) => total + item.qty;
 
   const addToCart = (dish) => {
-    const exist = cartItems.find((item) => item.dishID === dish.dishID);
+    const exist = cartItems.find((item) => item.menuID === dish.menuID);
     if (exist) {
       setCartItems(
         cartItems.map((item) =>
-          item.dishID === dish.dishID ? { ...exist, qty: exist.qty + 1 } : item
+          item.menuID === dish.menuID ? { ...exist, qty: exist.qty + 1 } : item
         )
       );
     } else {
@@ -28,14 +28,14 @@ export function Main(props) {
   };
 
   const removeFromCart = (dish) => {
-    const exist = cartItems.find((item) => item.dishID === dish.dishID);
+    const exist = cartItems.find((item) => item.menuID === dish.menuID);
     // Remove item from cart
     if (exist.qty === 1) {
-      setCartItems(cartItems.filter((item) => item.dishID !== dish.dishID));
+      setCartItems(cartItems.filter((item) => item.menuID !== dish.menuID));
     } else {
       setCartItems(
         cartItems.map((item) =>
-          item.dishID === dish.dishID ? { ...exist, qty: exist.qty - 1 } : item
+          item.menuID === dish.menuID ? { ...exist, qty: exist.qty - 1 } : item
         )
       );
     }

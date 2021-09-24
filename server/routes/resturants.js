@@ -68,7 +68,7 @@ router.get("/", (req, res) => {
 
 router.post("/addReview", (req, res) => {
   var reviews = [];
-  const id = req.body.restaurantID;
+  const id = req.body.rID;
 
   Restaurant.findById(id)
     .then((restaurant) => {
@@ -93,9 +93,61 @@ router.post("/addReview", (req, res) => {
     .catch((err) => console.log(err));
 });
 
-router.post("/addProducts", (req, res) => {
+router.patch("/:rID", (req, res) => {
+  const id = req.params.rID;
+  Restaurant.findByIdAndUpdate(
+    { _id: id },
+    {
+      restaurantName: req.body.restaurantName,
+      restaurantPhone: req.body.restaurantPhone,
+      restaurantEmail: req.body.restaurantEmail,
+    }
+  )
+    .then((data) => res.json(data))
+    .catch((err) => console.log("Caught:", err.message));
+});
+
+router.get("/:restaurantid", (req, res) => {
+  const _id = req.params.restaurantid;
+  Restaurant.findById(_id)
+    .then((data) => res.json(data))
+    .catch((err) => console.log("Caught:", err.message));
+});
+
+router.delete("/:restaurantid", (req, res) => {
+  Restaurant.findByIdAndRemove(req.params.restaurantid)
+    .then(res.json({ msg: "delete success!" }))
+    .catch(res.json({ msg: "delete err!" }));
+});
+
+// Get all items from menus
+router.get("/menu/:rid/", (req, res) => {
+  Restaurant.findById(req.params.rid)
+    .then((data) => res.json({ menus: data.menus }))
+    .catch((err) => res.json({ "error while fetching menu": err }));
+});
+
+//to update menu
+router.patch("/menu/update/:menuID", (req, res) => {
+  Restaurant.findOneAndUpdate(
+    { "menus._id": req.params.menuID },
+    {
+      $set: {
+        menus: {
+          menuName: req.body.menuName,
+          menuPrice: req.body.menuPrice,
+        },
+      },
+    }
+  )
+    .then((data) => res.json(data))
+    .catch((err) => res.json({ err: err }));
+});
+
+// Add items to menus
+router.post("/menu", (req, res) => {
   var menus = [];
-  const id = req.body.restaurantID;
+  const id = req.body.rID;
 
   Restaurant.findById(id)
     .then((restaurant) => {
@@ -120,62 +172,6 @@ router.post("/addProducts", (req, res) => {
     .catch((err) => console.log(err));
 });
 
-
-router.patch("/:rid", (req, res) => {
-  const id = req.params.rid;
-  Restaurant.findByIdAndUpdate({ _id: id }, {
-    restaurantName: req.body.restaurantName,
-    restaurantPhone: req.body.restaurantPhone,
-    restaurantEmail: req.body.restaurantEmail
-  },
-  ).then((data) => res.json(data)).catch((err) => console.log("Caught:", err.message))
-})
-
-router.get("/:restaurantid", (req, res) => {
-  const _id = req.params.restaurantid;
-  Restaurant.findById(_id)
-    .then((data) => res.json(data))
-    .catch((err) => console.log("Caught:", err.message));
-});
-
-router.delete("/:restaurantid", (req, res) => {
-  Restaurant.findByIdAndRemove(req.params.restaurantid)
-    .then(res.json({ msg: "delete success!" }))
-    .catch(res.json({ msg: "delete err!" }));
-});
-
-
-//to update menu
-router.patch("/menu/:menuID", (req, res) => {
-  Restaurant.findById(
-    req.body.rID,
-  ).then((data) => {
-    //   let menuObj = data.menus.find((menuItem) => menuItem._id === req.params.menuID);
-    let menuObj = data.menus.find(
-      (menuItem) => console.log(menuItem._id));
-
-
-    console.log(menuObj)
-    let menuObjIndex = data.menus.findIndex((menuItem) => menuItem._id === req.params.menuID);
-    let newMenuObj = {
-      _id: menuObj._id,
-      menuName: req.body.menuName || menuObj.menuName,
-      menuPrice: req.body.menuPrice || menuObj.menuPrice,
-    };
-    data.menus[menuObjIndex] = newMenuObj;
-    Restaurant.findOneAndUpdate(
-      req.body.rID,
-      {
-        menus: data.menus
-      }
-    ).then((data) => console.log(data)).catch((err) => console.log(err))
-  }).catch((err) => console.log(err));
-
-
-
-
-})
-
 router.delete("/menu/:menuId", (req, res) => {
   const _id = req.params.menuId;
   Restaurant.findByIdAndRemove(_id)
@@ -183,6 +179,4 @@ router.delete("/menu/:menuId", (req, res) => {
     .catch(res.json({ msg: "delete err!" }));
 });
 
-
 module.exports = router;
-
