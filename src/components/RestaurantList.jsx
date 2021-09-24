@@ -3,7 +3,7 @@ import RestaurantCard from "./RestaurantCard";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import axios from "axios";
 
-export default function RestaurantList(props) {
+export default function RestaurantList({ cbRestaurants }) {
   const [res, setRes] = useState([]);
   // NOTE: First start express server
   // Then start react server
@@ -11,10 +11,12 @@ export default function RestaurantList(props) {
 
   const [Restaurants, setRestaurants] = useState([]);
 
+  // TODO: Solve warning react-hooks/exhaustive-deps
+  // Look into useCallback
   useEffect(() => {
-    axios.get("http://localhost:5000/restaurant").then((restaurants) => {
+    axios.get(url).then((restaurants) => {
       setRestaurants(restaurants.data);
-      props.cbRestaurants(restaurants.data);
+      cbRestaurants(restaurants.data);
     });
   }, []);
 
