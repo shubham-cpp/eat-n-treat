@@ -1,12 +1,14 @@
 import * as React from 'react';
+import { useRef } from 'react';
+import { useHistory } from 'react-router-dom';
+
 import Box from '@mui/material/Box';
 import { makeStyles } from "@mui/styles";
 import { Form, FormGroup} from 'react-bootstrap';
-import { Grid, Avatar, FormControl, Typography, Button, Divider,Select, Checkbox, InputLabel, MenuItem, Link, Modal} from "@mui/material";
-
-import GoogleIcon from '@mui/icons-material/Google';
+import { Grid, FormControl, Typography, Button, Divider,Select, Checkbox, InputLabel, MenuItem, Link, Modal} from "@mui/material";
+import swal from 'sweetalert';
+import { useAuth } from '../auth';
 import './loginStyle.css'
-
 
 const style = {
   position: 'absolute',
@@ -55,8 +57,11 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Signup() {
+  const emailRef = useRef()
+  const passwordRef = useRef()
+  const { signup } = useAuth()
+  const history = useHistory();
 
-  const classes = useStyles();
 
   const [openSignup, setOpenSignup] = React.useState(false);
   const handleOpenSignup = () => setOpenSignup(true);
@@ -67,13 +72,40 @@ export default function Signup() {
 //   };
 
     const [city, setCity] = React.useState("");
-    const [acceptNotice, setAcceptNotice] = React.useState(false);
     const inputLabel = React.useRef("");
     const [labelWidth, setLabelWidth] = React.useState(0);
 
     const handleChange = e => {
         setCity(e.target.value);
     };
+
+    function handleSubmit(e1){
+      e1.preventDefault();
+      
+      signup(emailRef, passwordRef)
+            .then(function(){
+              swal({
+                title:"Signed Up Successfully !",
+                icon:"success",
+                buttons:false,
+                timer:2000
+              });
+              
+              console.log("Signup ")
+              history.push("/home");
+            })
+          
+            .catch(function(error) {
+          var errorMessage = error.message;
+            swal({
+              title:"Error!",
+              text:errorMessage,
+              buttons:false,
+              timer:2000,
+              icon:"error"
+            }); 
+            });
+          };
 
   return (
     <div>
@@ -94,27 +126,27 @@ export default function Signup() {
         <div id="signup-modal-description" className="paper">
         {/* <form  className={classes.form}> */}
 
-        <Form>
+        <Form name="Signup">
           <Grid container spacing={1}>
           <Grid item xs={12} sm={6}>
               <FormGroup>
                 <input
-                // value={this.state.firstName} onChange={this.handleFirstNameChange}
-                className="form-control" placeholder="First Name  *"/>
+                 //value={this.state.firstName} onBlur={handleFirstNameChange}
+                className="form-control" name="firstname" placeholder="First Name  *"/>
               </FormGroup>
               </Grid>
               <Grid item xs={12} sm={6}>
               <FormGroup>
                 <input
                 // value={this.state.lastName} onChange={this.handleLastNameChange}
-                className="form-control" placeholder="Last Name  *"/>
+                className="form-control" name = "lastname"placeholder="Last Name  *"/>
               </FormGroup>
               </Grid>
               <Grid item xs={12}>
               <FormGroup>
                 <input type="number"
                 // value={this.state.email} onChange={this.handlePhoneChange}
-                className="form-control" placeholder="Phone  *"/>
+                className="form-control" name="phone" placeholder="Phone  *"/>
               </FormGroup>
               </Grid>
 
@@ -122,16 +154,18 @@ export default function Signup() {
               <FormGroup>
                 <input type="email"
                 //  value={this.state.email} onChange={this.handleEmailChange}
-                className="form-control" placeholder="Email  *"/>
+                className="form-control" ref={emailRef} name="email" placeholder="Email  *" required/>
               </FormGroup>
               </Grid>
+
               <Grid item xs={12} sm={6}>
               <FormGroup>
                 <input
                 // value={this.state.email} onChange={this.handleAddChange}
-                className="form-control" placeholder="Address  *"/>
+                className="form-control" name="address" placeholder="Address  *"/>
               </FormGroup>
               </Grid>
+              
               <Grid item xs={12} sm={6}>
               <FormControl fullWidth size="small">
                   <InputLabel id='city' ref={inputLabel} fullWidth required > City</InputLabel>
@@ -152,37 +186,23 @@ export default function Signup() {
               <FormGroup>
                 <input type="password"
                 // value={this.state.pass} onChange={this.handlePasswordChange}
-                className="form-control" placeholder="Password * "/>
+                className="form-control" ref = {passwordRef} name = "password" placeholder="Password * " required/>
               </FormGroup>
               </Grid>
 
               <Grid item xs={12}>
-                <div className={classes.signupNotice}>
-                <div>
-                    <Checkbox onChange={(e) => setAcceptNotice(e.target.checked)} />
-                    I agree to EatNtreat's <span>Terms of Service</span> and
-                    <span> Privacy Policy </span>
-                  </div>
-                </div>
-              </Grid>
-
-              <Grid item xs={12}>
               <Button
-                    type="submit"
+                    input type="submit"
                     fullWidth
+                    onClick={handleSubmit}
                     variant="contained"
                     color="primary"
-                    disabled={acceptNotice === false ? true : false}
+
                     // className={classes.submit}
                 >
                     Create account
                 </Button>
-                <Divider spacing={2}> or </Divider>
-
-                <Button className="GoogleButton" fullWidth variant="contained">
-                    <Avatar sx={{ width: 28, height: 28, bgcolor: "#000"}}><GoogleIcon /></Avatar>
-                      Continue with Google
-                </Button>
+                
               </Grid>
 
               <Grid item xs={12} xm={10}>

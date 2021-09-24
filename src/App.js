@@ -9,6 +9,10 @@ import Chatbot from "./components/Chatbotcomp";
 import React, { useState } from "react";
 import RestaurantList from "./components/RestaurantList";
 import { Main as RestDetails } from "./components/RestrauntDetails/Main";
+import { AuthProvider } from "./auth";
+
+import { Container } from "@material-ui/core";
+import Signup from "./components/Signup";
 
 
 function App() {
@@ -16,8 +20,10 @@ function App() {
   const [restaurants, setRestaurants] = useState([]);
 
   return (
+    <div>
+      
   <div style={{backgroundColor:"#FFFDD0"}}>
-      <Router>
+      <Router><AuthProvider>
         <Navbar btn={<button>click me</button>} />
         <Chatbot />
         <Switch>
@@ -28,8 +34,15 @@ function App() {
             <RestDetails data={ restaurants }/>
           </Route>
         </Switch>
-      </Router>
-    </div>
+        
+          <Container>
+            <Signup></Signup>
+          </Container></AuthProvider>
+      </Router>    </div>
+      
+      
+      </div>
+
   );
 }
 export default App;
