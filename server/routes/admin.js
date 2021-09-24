@@ -11,7 +11,6 @@ router.post("/", (req, res) => {
     adminEmail: req.body.adminEmail,
     adminPhone: req.body.adminPhone,
   });
-
   newAdmin
     .save()
     .then((data) => res.json(data))
@@ -44,5 +43,7 @@ router.delete("/:adminid", (req, res) => {
     res.json({ status: "removed admin" })
   );
 });
+
+
 
 module.exports = router;
