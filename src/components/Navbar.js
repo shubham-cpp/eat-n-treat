@@ -10,6 +10,7 @@ import Login from "./Login";
 function NavBar() {
   return (
     <div className="entry">
+
       <Navbar className="color-bg fixed-top" bg="dark" variant="dark">
         <Container>
           <Navbar.Brand>

@@ -3,9 +3,8 @@ import "materialize-css/dist/css/materialize.min.css";
 import "materialize-css/dist/js/materialize.min.js";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
+import Chatbotcomp from "./components/Chatbotcomp";
 import Navbar from "./components/Navbar";
-import Chatbot from "./components/Chatbotcomp";
 import React, { useState } from "react";
 import RestaurantList from "./components/RestaurantList";
 import { Main as RestDetails } from "./components/RestrauntDetails/Main";
@@ -25,7 +24,7 @@ function App() {
             // TODO: Test using Enzyme 1
             <Navbar btn={<button>click me</button>} />
             // TODO: Test using Enzyme 2
-            <Chatbot />
+            <Chatbotcomp />
             <Switch>
               <Route path="/" exact>
                 // TODO: Test using Enzyme 3
@@ -36,9 +35,6 @@ function App() {
                 <RestDetails data={restaurants} />
               </Route>
             </Switch>
-            <Container>
-              <Signup></Signup>
-            </Container>
           </AuthProvider>
         </Router>{" "}
       </div>

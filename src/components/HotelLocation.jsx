@@ -1,14 +1,24 @@
-import React from "react";
-import data from "../assets/data.json";
+import React,{useState,useEffect} from "react";
 import HotelDisplay from "./HotelDisplay";
-
-function HotelLocation() {
+import axios from "axios";
+function HotelLocation(props) {
   let arr = [];
+  const [Restaurants, setRestaurants] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/restaurant")
+      .then((restaurants) => {
+        setRestaurants(restaurants.data);
+        props.cbRestaurants(restaurants.data);
+      })
+  }, []);
   const userLoc = "mumbai";
-  const exist = data.find((item) => item.location.toLowerCase() === userLoc);
+  console.log("Location"+Restaurants)
+  const exist = Restaurants.find((item) => item.rCity.toLowerCase() === userLoc);
 
   if (exist) {
-    data.map((item) => {
+    Restaurants.map((item) => {
       if (
         userLoc === item.location.toLowerCase() &&
         (item.rating === 4 || item.rating === 5)
