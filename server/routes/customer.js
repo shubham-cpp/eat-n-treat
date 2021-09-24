@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const Customer = require("../model/customer");
 const mongoose = require("mongoose");
-router.post("/", async (req, res) => {
+router.post("/", (req, res) => {
   const cName = req.body.customerName;
   const cPhone = req.body.phone;
   const cEmail = req.body.email;
@@ -18,40 +18,50 @@ router.post("/", async (req, res) => {
       city: city,
     },
   });
-
-  const savedCustomer = await newCustomer.save();
-  res.json("Data Enter");
+  newCustomer.save().then(() => {
+    res.json("Data Enter");
+  }).catch((err) => {
+    res.status(400).send("unable to save to database");
+  })
 });
 
-router.get("/", async (req, res) => {
-  var allCustomer = await Customer.find({});
-  res.json(allCustomer);
+router.get("/", (req, res) => {
+  Customer.find({}).then((allCustomer) => {
+    res.json(allCustomer);
+  }).catch((err) => {
+    console.log("Caught:", err.message)
+  })
+
 });
 
-router.get("/:custid", async (req, res) => {
+router.get("/:custid", (req, res) => {
   const _id = req.params.custid;
-  const oCustomer = await Customer.findById(_id);
-  res.json(oCustomer);
+  Customer.findById(_id).then((oCustomer) => {
+    res.json(oCustomer);
+  })
+    .catch((err) => console.log("Caught:", err.message));
 });
 
-router.patch("/:custid", async (req, res) => {
+router.patch("/:custid", (req, res) => {
   const _id = req.params.custid;
-  await Customer.findByIdAndUpdate(_id, {
+  Customer.findByIdAndUpdate(_id, {
     $set: {
       customerName: req.body.customerName,
       phone: req.body.phone,
       email: req.body.email,
-      addressLine: req.body.address.addressLine,
-      city: req.body.address.city,
+      address: {
+        addressLine: req.body.address.addressLine,
+        city: req.body.address.city,
+      }
     },
-  });
-  res.json({ Status: "Updated" });
+  }).then(() => res.json({ status: "Data Update Successfully" }));
 });
 
-router.delete("/:custid", async (req, res) => {
+router.delete("/:custid", (req, res) => {
   const _id = req.params.custId;
-  await Customer.remove({ _id: _id });
-  res.json({ status: "Remove Customer" });
+  Customer.remove({ _id: _id })
+    .then(res.json({ msg: "delete success!" }))
+    .catch(res.json({ msg: "delete err!" }));
 });
 
 module.exports = router;

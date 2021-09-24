@@ -1,11 +1,14 @@
 import * as React from 'react';
+import { useRef } from 'react';
 import { makeStyles } from "@mui/styles";
-import { Box, Grid, Avatar, Typography, Button, Divider, Link, Modal} from "@mui/material";
-import { FormGroup} from 'react-bootstrap'
+import { Box, Grid, Typography, Button, Divider, Modal} from "@mui/material";
+import { FormGroup } from 'react-bootstrap'
+import swal from 'sweetalert';
+import { useAuth } from '../auth';
 
-import GoogleIcon from '@mui/icons-material/Google';
 import './loginStyle.css'
-
+import { useHistory, Link } from "react-router-dom";
+export var user=null;
 
 const style = {
   position: 'absolute',
@@ -41,7 +44,10 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function BootLogin() {
-
+  const emailRef = useRef()
+  const passwordRef = useRef()
+  const { login } = useAuth()
+  const history = useHistory();
   const classes = useStyles();
 
   const [openLogin, setOpenLogin] = React.useState(false);
@@ -51,6 +57,33 @@ export default function BootLogin() {
   const handleOpenLogin = () => {
     setOpenLogin(prev => !prev)
   };
+
+  function handleSubmit(e){
+    e.preventDefault();
+    login(emailRef, passwordRef)
+            .then(function(){
+              swal({
+                title:"Logged In Successfully !",
+                icon:"success",
+                buttons:false,
+                timer:2000
+              });
+              
+              console.log("login ")
+              history.push("/home");
+            })
+          
+            .catch(function(error) {
+          var errorMessage = error.message;
+            swal({
+              title:"Error!",
+              text:errorMessage,
+              buttons:false,
+              timer:2000,
+              icon:"error"
+            }); 
+            });
+          };
 
   return (
     <div>
@@ -77,7 +110,7 @@ export default function BootLogin() {
                   <input type="email"
                   // value={this.state.email}
                   // onChange={this.handleEmailChange}
-                  className="form-control" placeholder="Enter Email"/>
+                  className="form-control" name="email" ref={emailRef} placeholder="Enter Email"/>
                 </FormGroup>
               </Grid>
               <Grid item xs={12} >
@@ -85,13 +118,14 @@ export default function BootLogin() {
                   <input type="password"
                   // value={this.state.password}
                   // onChange={this.handlePasswordChange}
-                  className="form-control" placeholder="Enter Password"/>
+                  className="form-control" name="password" ref={passwordRef} placeholder="Enter Password"/>
                 </FormGroup>
               </Grid>
               <Grid item xs={12} >
                 <Button
                       type="submit"
                       fullWidth
+                      onClick={handleSubmit}
                       variant="contained"
                       color="primary"
                       className={classes.submit}
@@ -99,16 +133,6 @@ export default function BootLogin() {
                       Log In
                   </Button>
               </Grid>
-              <Grid item xs={12} >
-                <Divider spacing={2}> or </Divider>
-              </Grid>
-              <Grid item xs={12} >
-                <Button className="GoogleButton" fullWidth variant="contained">
-                  <Avatar sx={{ width: 28, height: 28, bgcolor: "#000"}}><GoogleIcon /></Avatar>
-                  Continue with Google
-                </Button>
-              </Grid>
-
               <Grid item xs={12} >
                 <Divider spacing={1}></Divider>
               </Grid>

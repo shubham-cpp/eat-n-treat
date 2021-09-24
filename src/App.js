@@ -8,21 +8,35 @@ import Navbar from "./components/Navbar";
 import React from "react"
 import RestaurantList from "./components/RestaurantList";
 import { Main as RestDetails } from "./components/RestrauntDetails/Main";
+import { AuthProvider } from "./auth";
+
+import { Container } from "@material-ui/core";
+import Signup from "./components/Signup";
 
 
 function App() {
   return (
+    <div>
+      
   <div style={{backgroundColor:"#FFFDD0"}}>
-      <Router>
-        <Navbar/>
+      <Router><AuthProvider>
+        <Navbar btn={<button>click me</button>} />
+        <Chatbot />
         <Switch>
           <Route path="/" exact>
             <RestaurantList />
           </Route>
           <Route path="/restaurant/:id" component={RestDetails} />
         </Switch>
-      </Router>
+        
+          <Container>
+            <Signup></Signup>
+          </Container></AuthProvider>
+      </Router>    </div>
+      
+      
       </div>
+
   );
 }
 export default App;

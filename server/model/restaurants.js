@@ -29,8 +29,8 @@ const restaurantSchema = new mongoose.Schema({
   rating: {
     type: Number,
   },
-  cuisine:{
-    type:Array
+  cuisine: {
+    type: Array
   },
   reviews: {
     type: Array,
@@ -46,13 +46,9 @@ const restaurantSchema = new mongoose.Schema({
   menus: {
     type: Array,
     of: new mongoose.Schema({
-      _id: mongoose.Schema.Types.ObjectId,
-      menuName: {
-        type: String,
-      },
-      menuPrice: {
-        type: Number,
-      },
+      menuID: mongoose.Schema.Types.ObjectId,
+      menuName: String,
+      menuPrice: Number,
     }),
   },
 });
