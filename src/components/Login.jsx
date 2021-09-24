@@ -102,7 +102,7 @@ export default function BootLogin() {
         </Typography>
 
         <div id="login-modal-description" className="paperLogin">
-        <form  className={classes.form} onSubmit={handleSubmit}>
+        <form  className={classes.form}>
 
           <Grid container spacing={1}>
               <Grid item xs={12} >
@@ -125,6 +125,7 @@ export default function BootLogin() {
                 <Button
                       type="submit"
                       fullWidth
+                      onClick={handleSubmit}
                       variant="contained"
                       color="primary"
                       className={classes.submit}
