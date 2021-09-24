@@ -1,54 +1,24 @@
 import React, { useEffect, useState } from "react";
-import Restaurants from "../assets/data.json";
 import RestaurantCard from "./RestaurantCard";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import axios from "axios";
-
-import { Switch, Route } from 'react-router-dom';
-
 
 export default function RestaurantList(props) {
   const [res, setRes] = useState([]);
   // NOTE: First start express server
   // Then start react server
   const url = "http://localhost:5000/restaurant";
-  //let Restaurants = [];
-
-  // Restaurants = await axios.get("http://localhost:5000/restaurant")
-  // console.log(Restaurants.data);
-  // useEffect(() => {
-  //   fetch(url)
-  //     .then((res) => {
-  //       const abortCont = new AbortController();
-  //       if (!res.ok) {
-  //         throw Error("could not fetch the data for that resource");
-  //       }
-  //       return res.json();
-  //     })
-  //     .then((data) => {
-  //       Restaurants = data;
-  //       console.log(data);
-  //     })
-  //     .catch((err) => {
-  //       if (err.name === "AbortError") console.log("Fetch request aborted");
-  //     });
-  // }, []);
 
   const [Restaurants, setRestaurants] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/restaurant")
-      .then((restaurants) => {
-        setRestaurants(restaurants.data);
-        props.cbRestaurants(restaurants.data);
-      })
+    axios.get("http://localhost:5000/restaurant").then((restaurants) => {
+      setRestaurants(restaurants.data);
+      props.cbRestaurants(restaurants.data);
+    });
   }, []);
 
-  console.log(Restaurants);
-
   const filterdata = Restaurants.filter((item) => {
-    //console.log(item)
     return res !== ""
       ? item.restaurantName.toLowerCase().includes(res) ||
           item.location.toLowerCase().includes(res)
@@ -76,7 +46,6 @@ export default function RestaurantList(props) {
       </div>
       <div className="row flex-row" style={{ marginTop: "5%" }}>
         {filterdata.map((restaurant) => {
-          console.log(restaurant)
           return (
             <div className="col-4 pt-4">
               <RestaurantCard restaurant={restaurant} />
