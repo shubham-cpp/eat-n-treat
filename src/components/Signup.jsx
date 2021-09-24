@@ -62,7 +62,6 @@ export default function Signup() {
   const { signup } = useAuth()
   const history = useHistory();
 
-  const classes = useStyles();
 
   const [openSignup, setOpenSignup] = React.useState(false);
   const handleOpenSignup = () => setOpenSignup(true);
@@ -73,7 +72,6 @@ export default function Signup() {
 //   };
 
     const [city, setCity] = React.useState("");
-    const [acceptNotice, setAcceptNotice] = React.useState(false);
     const inputLabel = React.useRef("");
     const [labelWidth, setLabelWidth] = React.useState(0);
 
@@ -82,46 +80,8 @@ export default function Signup() {
     };
 
     function handleSubmit(e1){
-      var firstName = document.forms["Signup"]["firstname"]
-      var lastName = document.forms["Signup"]["lastname"]
-      var phone = document.forms["Signup"]["phone"]
-      var email = document.forms["Signup"]["email"]
-      var address = document.forms["Signup"]["address"]
-      var password = document.forms["Signup"]["password"]
-      var atposition=email.indexOf("@");  
-      var dotposition=email.lastIndexOf(".");
-      if (firstName.value === "") {
-        window.alert("Please enter your first name.");
-        firstName.focus();
-        return false;
-    }
-    if (lastName.value === "") {
-      window.alert("Please enter your last name.");
-      lastName.focus();
-      return false;
-    }
-    if (address.value === "") {
-      window.alert("Please enter your address.");
-      address.focus();
-      return false;
-    }
-    if(phone.length<10){
-      window.alert("Please enter a 10 digit phone number.");
-      phone.focus();
-      return false;
-    }
-    if (atposition<1 || dotposition<atposition+2 || dotposition+2>=email.length)
-    {  
-      window.alert("Please enter a valid e-mail address.");  
-      email.focus()
-      return false;  
-      }  
-      if(password.length<6){
-        window.alert("Password must be at least 6 characters long.")
-        password.focus()
-        return false
-      }
       e1.preventDefault();
+      
       signup(emailRef, passwordRef)
             .then(function(){
               swal({
@@ -166,7 +126,7 @@ export default function Signup() {
         <div id="signup-modal-description" className="paper">
         {/* <form  className={classes.form}> */}
 
-        <Form onSubmit={handleSubmit} name="Signup">
+        <Form name="Signup">
           <Grid container spacing={1}>
           <Grid item xs={12} sm={6}>
               <FormGroup>
@@ -231,22 +191,13 @@ export default function Signup() {
               </Grid>
 
               <Grid item xs={12}>
-                <div className={classes.signupNotice}>
-                <div>
-                    <Checkbox onChange={(e) => setAcceptNotice(e.target.checked)} />
-                    I agree to EatNtreat's <span>Terms of Service</span> and
-                    <span> Privacy Policy </span>
-                  </div>
-                </div>
-              </Grid>
-
-              <Grid item xs={12}>
               <Button
                     input type="submit"
                     fullWidth
+                    onClick={handleSubmit}
                     variant="contained"
                     color="primary"
-                    //disabled={acceptNotice === false ? true : false}
+
                     // className={classes.submit}
                 >
                     Create account
