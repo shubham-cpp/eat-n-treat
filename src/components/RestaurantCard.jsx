@@ -39,7 +39,7 @@ export default function RestaurantCard(props) {
             })}
           </div>{" "}
           <br />
-          {props.restaurant.location} <br />
+          {props.restaurant.rCity} <br />
           Ratings: <br />
           <ReactStars
             count={5}
