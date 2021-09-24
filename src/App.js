@@ -14,35 +14,32 @@ import { AuthProvider } from "./auth";
 import { Container } from "@material-ui/core";
 import Signup from "./components/Signup";
 
-
 function App() {
-
   const [restaurants, setRestaurants] = useState([]);
 
   return (
-    <div>
-      
-  <div style={{backgroundColor:"#FFFDD0"}}>
-      <Router><AuthProvider>
-        <Navbar btn={<button>click me</button>} />
-        <Chatbot />
-        <Switch>
-          <Route path="/" exact>
-            <RestaurantList cbRestaurants={ setRestaurants } />
-          </Route>
-          <Route path="/restaurant/:id">
-            <RestDetails data={ restaurants }/>
-          </Route>
-        </Switch>
-        
-          <Container>
-            <Signup></Signup>
-          </Container></AuthProvider>
-      </Router>    </div>
-      
-      
-      </div>
+    <>
+      <div style={{ backgroundColor: "#FFFDD0" }}>
+        <Router>
+          <AuthProvider>
+            <Navbar btn={<button>click me</button>} />
+            <Chatbot />
+            <Switch>
+              <Route path="/" exact>
+                <RestaurantList cbRestaurants={setRestaurants} />
+              </Route>
+              <Route path="/restaurant/:id">
+                <RestDetails data={restaurants} />
+              </Route>
+            </Switch>
 
+            <Container>
+              <Signup></Signup>
+            </Container>
+          </AuthProvider>
+        </Router>{" "}
+      </div>
+    </>
   );
 }
 export default App;
