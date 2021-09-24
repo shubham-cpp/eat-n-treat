@@ -5,11 +5,8 @@ import Dish from "./Dish";
 export default function Details({ data, addToCart }) {
   const { id } = useParams();
 
-  const restaurant = data.find(
-    ( r ) => r._id === String(id)
-  );
-  console.log(data)
-  console.log(`id=${id}`);
+  const restaurant = data.find((r) => r._id === String(id));
+
   return (
     <>
       <div className="col" style={{ marginTop: "5rem" }}>
@@ -25,8 +22,7 @@ export default function Details({ data, addToCart }) {
         <h4>Order</h4>
         <div className="dishes">
           {restaurant.menus.map((dish) => {
-            console.log(dish)
-            return <Dish dish={dish} key={dish.dishID} addToCart={addToCart} />
+            return <Dish dish={dish} key={dish.dishID} addToCart={addToCart} />;
           })}
         </div>
       </div>
