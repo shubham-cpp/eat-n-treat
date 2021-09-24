@@ -50,8 +50,7 @@ export default function RestaurantList(props) {
   const filterdata = Restaurants.filter((item) => {
     //console.log(item)
     return res !== ""
-      ? item.restaurantName.toLowerCase().includes(res) ||
-          item.location.toLowerCase().includes(res)
+      ? item.restaurantName.toLowerCase().includes(res)  || item.rCity.toLowerCase().includes(res)
       : item;
   });
 

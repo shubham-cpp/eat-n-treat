@@ -121,6 +121,22 @@ code {
   height: 70px;
 }
 
+.close-button{
+  background-color: teal;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  width: 70px;
+  height: 70px;
+  z-index: 1000;
+  right:2px;
+
+}
 .items {
   justify-content: space-between;
 }

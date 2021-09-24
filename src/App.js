@@ -2,34 +2,27 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "materialize-css/dist/css/materialize.min.css";
 import "materialize-css/dist/js/materialize.min.js";
 
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Navbar from "./components/Navbar";
-import Chatbot from "./components/Chatbotcomp";
-import React, { useState } from "react";
+import React from "react"
 import RestaurantList from "./components/RestaurantList";
 import { Main as RestDetails } from "./components/RestrauntDetails/Main";
 
 
 function App() {
-
-  const [restaurants, setRestaurants] = useState([]);
-
   return (
   <div style={{backgroundColor:"#FFFDD0"}}>
       <Router>
-        <Navbar btn={<button>click me</button>} />
-        <Chatbot />
+        <Navbar/>
         <Switch>
           <Route path="/" exact>
-            <RestaurantList cbRestaurants={ setRestaurants } />
+            <RestaurantList />
           </Route>
-          <Route path="/restaurant/:id">
-            <RestDetails data={ restaurants }/>
-          </Route>
+          <Route path="/restaurant/:id" component={RestDetails} />
         </Switch>
       </Router>
-    </div>
+      </div>
   );
 }
 export default App;
