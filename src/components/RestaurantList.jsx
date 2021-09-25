@@ -22,8 +22,7 @@ export default function RestaurantList({ cbRestaurants }) {
 
   const filterdata = Restaurants.filter((item) => {
     return res !== ""
-      ? item.restaurantName.toLowerCase().includes(res) ||
-          item.location.toLowerCase().includes(res)
+      ? item.restaurantName.toLowerCase().includes(res)  || item.rCity.toLowerCase().includes(res)
       : item;
   });
 
