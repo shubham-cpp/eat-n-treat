@@ -1,4 +1,5 @@
 import * as React from "react";
+import {Link} from 'react-router-dom'
 import { Box, Modal } from "@mui/material";
 
 const style = {
@@ -32,7 +33,9 @@ export default function Cart({ cartItems, addToCart, removeFromCart, total }) {
       >
         {" "}
         Cart{" "}
+        <span>{cartItems.length>0 &&cartItems.length}</span>
       </button>
+      
       <Modal
         open={openLogin}
         onClose={handleCloseLogin}
@@ -61,13 +64,14 @@ export default function Cart({ cartItems, addToCart, removeFromCart, total }) {
                 ))}
               </div>
             </aside>
-            <button className="btn btn-primary">
-              Place Order
+        
+            
+            <Link className="btn btn-primary" to="/checkout">
+                      Checkout
               {
                 // TODO: Total is one behind actual value
               }
-              <span class="badge badge-light">{total > 0 && total}</span>
-            </button>
+            </Link>
           </div>
         </Box>
       </Modal>
