@@ -30,17 +30,16 @@ const restaurantSchema = new mongoose.Schema({
     type: Number,
   },
   cuisine: {
-    type: Array
+    type: Array,
   },
   reviews: {
     type: Array,
     of: new mongoose.Schema({
       _id: mongoose.Schema.Types.ObjectId,
       reviewText: String,
+      // NOTE: Retrieve name from here
+      // TODO: Lookup how to
       user: { type: mongoose.Schema.Types.ObjectId, ref: "customer" },
-      // TODO: Review for removal.
-      // Why do we need username
-      username: String,
     }),
   },
   menus: {

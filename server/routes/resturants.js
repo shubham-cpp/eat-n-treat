@@ -3,7 +3,7 @@ const Restaurant = require("../model/restaurants");
 const Customer = require("../model/customer");
 const mongoose = require("mongoose");
 
-var multer = require("multer");
+const multer = require("multer");
 
 const storage = multer.diskStorage({
   destination: function (_, _, cb) {
@@ -67,7 +67,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/addReview", (req, res) => {
-  var reviews = [];
+  let reviews = [];
   const id = req.body.rID;
 
   Restaurant.findById(id)
@@ -128,7 +128,7 @@ router.get("/menu/:rid/", (req, res) => {
 });
 
 //to update menu
-router.patch("/menu/update/:menuID", (req, res) => {
+router.patch("/menu/:menuID", (req, res) => {
   Restaurant.findOneAndUpdate(
     { "menus._id": req.params.menuID },
     {
@@ -146,7 +146,7 @@ router.patch("/menu/update/:menuID", (req, res) => {
 
 // Add items to menus
 router.post("/menu", (req, res) => {
-  var menus = [];
+  let menus = [];
   const id = req.body.rID;
 
   Restaurant.findById(id)

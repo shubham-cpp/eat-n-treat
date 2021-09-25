@@ -2,17 +2,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "materialize-css/dist/css/materialize.min.css";
 import "materialize-css/dist/js/materialize.min.js";
 
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Chatbotcomp from './components/Chatbotcomp'
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Chatbotcomp from "./components/Chatbotcomp";
 import Navbar from "./components/Navbar";
-import React,{useState} from "react"
+import React, { useState } from "react";
 import RestaurantList from "./components/RestaurantList";
 import { Main as RestDetails } from "./components/RestrauntDetails/Main";
 import { AuthProvider } from "./auth";
-
-import { Container } from "@material-ui/core";
-import Signup from "./components/Signup";
-
 function App() {
   const [restaurants, setRestaurants] = useState([]);
 

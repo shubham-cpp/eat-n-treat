@@ -1,5 +1,4 @@
 import * as React from "react";
-import { makeStyles } from "@mui/styles";
 import { Box, Modal } from "@mui/material";
 
 const style = {
@@ -15,20 +14,6 @@ const style = {
   p: 4,
   justifyContent: "space-between",
 };
-
-const useStyles = makeStyles((theme) => ({
-  avatar: {
-    margin: "0 8px",
-  },
-
-  input: {
-    padding: "10px",
-    lineHeight: "normal",
-    textAlign: "center",
-    "&&:placeholder": { color: "#f00" },
-  },
-  submit: {},
-}));
 
 export default function Cart({ cartItems, addToCart, removeFromCart, total }) {
   const [openLogin, setOpenLogin] = React.useState(false);
