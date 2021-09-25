@@ -8,26 +8,29 @@ import Details from "./Details";
 export function Main(props) {
   const data = props.data;
   const { id } = useParams();
-  // const [cartItems, setCartItems] = useState([]);
   const [cartItems, setCartItems] = useLocalStorage('cart',[]);
-  // const [totalItems, setTotalItems] = useState(0);
-
-  // Reducer function. Will return total items quantity
-  // const calculateQty = (total, item) => total + item.qty;
+ 
 
   const addToCart = (dish) => {
-    const exist = cartItems.find((item) => item._id === dish._id);
-    if (exist) {
-      setCartItems(
-        cartItems.map((item) =>
-          item._id === dish._id ? { ...exist, qty: exist.qty + 1 } : item
-        )
-      );
-    } else {
-      setCartItems([...cartItems, { ...dish, qty: 1 }]);
+    if(localStorage.getItem('rID')===id || localStorage.getItem('rID')===null ){
+      const exist = cartItems.find((item) => item._id === dish._id);
+
+      if (exist) {
+
+        setCartItems(
+          cartItems.map((item) =>
+            item._id === dish._id ? { ...exist, qty: exist.qty + 1 } : item
+          )
+        );
+      } else {
+        
+        setCartItems([...cartItems, { ...dish, qty: 1 }]);
+  
+        localStorage.setItem('rID',id)
+        
+      }
     }
 
-    // setTotalItems(cartItems.reduce(calculateQty, 0));
   };
 
   const removeFromCart = (dish) => {
@@ -35,6 +38,7 @@ export function Main(props) {
     // Remove item from cart
     if (exist.qty === 1) {
       setCartItems(cartItems.filter((item) => item._id !== dish._id));
+      localStorage.removeItem('rID')
     } else {
       setCartItems(
         cartItems.map((item) =>
@@ -49,7 +53,7 @@ export function Main(props) {
   return (
     <div className="container">
       <div className="col">
-        <Details addToCart={addToCart} id={id} data={data} />
+        <Details addToCart={addToCart} id={id} data={data} total={cartItems.length}/>
       </div>
       <div className="col">
         <Cart
