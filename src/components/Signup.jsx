@@ -1,5 +1,4 @@
-import * as React from "react";
-import { useRef } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 
 import Box from "@mui/material/Box";
@@ -35,32 +34,29 @@ const style = {
 };
 
 export default function Signup() {
-  const emailRef = useRef();
-  const passwordRef = useRef();
   const { signup } = useAuth();
   const history = useHistory();
 
   const [openSignup, setOpenSignup] = React.useState(false);
+  const [city, setCity] = React.useState("");
+  const [labelWidth] = React.useState(0);
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  const inputLabel = React.useRef("");
+
   const handleOpenSignup = () => setOpenSignup(true);
   const handleCloseSignup = () => setOpenSignup(false);
 
-  //   const handleOpenLogin = () => {
-  //     setOpenLogin(prev => !prev)
-  //   };
+  const handleChange = (e) => setCity(e.target.value);
+  const handleEmailChange = (e) => setEmail(e.target.value);
+  const handlePasswordChange = (e) => setPassword(e.target.value);
 
-  const [city, setCity] = React.useState("");
-  const inputLabel = React.useRef("");
-  const [labelWidth, setLabelWidth] = React.useState(0);
-
-  const handleChange = (e) => {
-    setCity(e.target.value);
-  };
-
-  function handleSubmit(e1) {
+  const handleSubmit = (e1) => {
     e1.preventDefault();
 
-    signup(emailRef, passwordRef)
-      .then(function () {
+    signup(email, password)
+      .then(() => {
         swal({
           title: "Signed Up Successfully !",
           icon: "success",
@@ -69,10 +65,9 @@ export default function Signup() {
         });
 
         console.log("Signup ");
-        history.push("/home");
+        history.push("/");
       })
-
-      .catch(function (error) {
+      .catch((error) => {
         var errorMessage = error.message;
         swal({
           title: "Error!",
@@ -82,7 +77,7 @@ export default function Signup() {
           icon: "error",
         });
       });
-  }
+  };
 
   return (
     <div>
@@ -145,9 +140,10 @@ export default function Signup() {
                   <FormGroup>
                     <input
                       type="email"
-                      //  value={this.state.email} onChange={this.handleEmailChange}
+                      value={email}
+                      onChange={handleEmailChange}
                       className="form-control"
-                      ref={emailRef}
+                      // ref={emailRef}
                       name="email"
                       placeholder="Email  *"
                       required
@@ -191,9 +187,10 @@ export default function Signup() {
                   <FormGroup>
                     <input
                       type="password"
-                      // value={this.state.pass} onChange={this.handlePasswordChange}
+                      value={password}
+                      onChange={handlePasswordChange}
                       className="form-control"
-                      ref={passwordRef}
+                      // ref = {passwordRef}
                       name="password"
                       placeholder="Password * "
                       required
