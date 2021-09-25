@@ -9,6 +9,7 @@ import React, { useState } from "react";
 import RestaurantList from "./components/RestaurantList";
 import { Main as RestDetails } from "./components/RestrauntDetails/Main";
 import { AuthProvider } from "./auth";
+import Checkout from "./components/Checkout";
 function App() {
   const [restaurants, setRestaurants] = useState([]);
 
@@ -25,6 +26,9 @@ function App() {
               </Route>
               <Route path="/restaurant/:id">
                 <RestDetails data={restaurants} />
+              </Route>
+              <Route path="/checkout">
+                <Checkout/>
               </Route>
             </Switch>
           </AuthProvider>
