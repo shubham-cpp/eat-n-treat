@@ -11,7 +11,7 @@ export default function Details({ data, addToCart }) {
     <>
       <div className="col" style={{ marginTop: "5rem" }}>
         <h3 className="text-center">{restaurant.restaurantName}</h3>
-        <p>Location: {restaurant.location}</p>
+        <p>Location: {restaurant.rCity}</p>
         <p>Rating: {restaurant.rating}</p>
         <p>
           Cuisines :{" "}
@@ -22,7 +22,7 @@ export default function Details({ data, addToCart }) {
         <h4>Order</h4>
         <div className="dishes">
           {restaurant.menus.map((dish) => {
-            return <Dish dish={dish} key={dish.menuID} addToCart={addToCart} />;
+            return <Dish dish={dish} key={dish._id} addToCart={addToCart} />;
           })}
         </div>
       </div>
