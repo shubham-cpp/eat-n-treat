@@ -57,10 +57,12 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Signup() {
-  const emailRef = useRef()
-  const passwordRef = useRef()
+  // const emailRef = useRef()
+  // const passwordRef = useRef()
   const { signup } = useAuth()
   const history = useHistory();
+
+  // const 
 
 
   const [openSignup, setOpenSignup] = React.useState(false);
@@ -75,14 +77,25 @@ export default function Signup() {
     const inputLabel = React.useRef("");
     const [labelWidth, setLabelWidth] = React.useState(0);
 
+    const [email, setEmail] = React.useState("");
+    const [password, setPassword] = React.useState("");
+
+    const handleEmailChange = e => {
+      setEmail(e.target.value);
+    }
+
+    const handlePasswordChange = e => {
+      setPassword(e.target.value);
+    }
+
     const handleChange = e => {
         setCity(e.target.value);
     };
 
-    function handleSubmit(e1){
+    const handleSubmit = e1 => {
       e1.preventDefault();
       
-      signup(emailRef, passwordRef)
+      signup(email, password)
             .then(function(){
               swal({
                 title:"Signed Up Successfully !",
@@ -92,7 +105,7 @@ export default function Signup() {
               });
               
               console.log("Signup ")
-              history.push("/home");
+              history.push("/");
             })
           
             .catch(function(error) {
@@ -153,8 +166,10 @@ export default function Signup() {
               <Grid item xs={12}>
               <FormGroup>
                 <input type="email"
-                //  value={this.state.email} onChange={this.handleEmailChange}
-                className="form-control" ref={emailRef} name="email" placeholder="Email  *" required/>
+                value={email} onChange={handleEmailChange}
+                className="form-control" 
+                // ref={emailRef} 
+                name="email" placeholder="Email  *" required/>
               </FormGroup>
               </Grid>
 
@@ -185,8 +200,10 @@ export default function Signup() {
               <Grid item xs={12}>
               <FormGroup>
                 <input type="password"
-                // value={this.state.pass} onChange={this.handlePasswordChange}
-                className="form-control" ref = {passwordRef} name = "password" placeholder="Password * " required/>
+                value={password} onChange={handlePasswordChange}
+                className="form-control" 
+                // ref = {passwordRef} 
+                name = "password" placeholder="Password * " required/>
               </FormGroup>
               </Grid>
 
