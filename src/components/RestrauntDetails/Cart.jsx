@@ -43,10 +43,10 @@ export default function Cart({ cartItems, addToCart, removeFromCart, total }) {
           <div id="login-modal-description" className="paperLogin">
             <aside className="col dishes">
               <h3>Cart Items</h3>
-              <div className="container">
+              <div className="container" style={{overflow:"scroll",maxHeight:"300px"}}>
                 {cartItems.length === 0 && <p>Cart is empty</p>}
                 {cartItems.map((item) => (
-                  <div key={item.menuID} className="row">
+                  <div key={item._id} className="row">
                     <div className="col">{item.menuName}</div>
                     <div className="col">
                       <button onClick={() => addToCart(item)}>+</button>

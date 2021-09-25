@@ -144,3 +144,7 @@ code {
 .react-chatbot-kit-chat-input {
   font-size: x-large;
 }
+
+.container::-webkit-scrollbar{
+  display: none;
+}
