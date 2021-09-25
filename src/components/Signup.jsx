@@ -65,6 +65,7 @@ export default function Signup() {
         });
 
         console.log("Signup ");
+        handleCloseSignup();
         history.push("/");
       })
       .catch((error) => {

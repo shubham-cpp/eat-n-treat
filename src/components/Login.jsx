@@ -63,6 +63,7 @@ export default function BootLogin() {
         });
 
         console.log("login ");
+        handleCloseLogin();
         history.push("/");
       })
 
