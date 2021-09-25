@@ -44,8 +44,8 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function BootLogin() {
-  const emailRef = useRef()
-  const passwordRef = useRef()
+  // const emailRef = useRef()
+  // const passwordRef = useRef()
   const { login } = useAuth()
   const history = useHistory();
   const classes = useStyles();
@@ -53,14 +53,26 @@ export default function BootLogin() {
   const [openLogin, setOpenLogin] = React.useState(false);
   // const handleOpenLogin = () => setOpenLogin(true);
   const handleCloseLogin = () => setOpenLogin(false);
+  
 
   const handleOpenLogin = () => {
     setOpenLogin(prev => !prev)
   };
 
+  const [email, setEmail] = React.useState("");
+    const [password, setPassword] = React.useState("");
+
+    const handleEmailChange = e => {
+      setEmail(e.target.value);
+    }
+
+    const handlePasswordChange = e => {
+      setPassword(e.target.value);
+    }
+
   function handleSubmit(e){
     e.preventDefault();
-    login(emailRef, passwordRef)
+    login(email, password)
             .then(function(){
               swal({
                 title:"Logged In Successfully !",
@@ -70,7 +82,7 @@ export default function BootLogin() {
               });
               
               console.log("login ")
-              history.push("/home");
+              history.push("/");
             })
           
             .catch(function(error) {
@@ -108,17 +120,21 @@ export default function BootLogin() {
               <Grid item xs={12} >
                 <FormGroup>
                   <input type="email"
-                  // value={this.state.email}
-                  // onChange={this.handleEmailChange}
-                  className="form-control" name="email" ref={emailRef} placeholder="Enter Email"/>
+                  value={email}
+                  onChange={handleEmailChange}
+                  className="form-control" name="email" 
+                  // ref={emailRef} 
+                  placeholder="Enter Email"/>
                 </FormGroup>
               </Grid>
               <Grid item xs={12} >
                 <FormGroup>
                   <input type="password"
-                  // value={this.state.password}
-                  // onChange={this.handlePasswordChange}
-                  className="form-control" name="password" ref={passwordRef} placeholder="Enter Password"/>
+                  value={password}
+                  onChange={handlePasswordChange}
+                  className="form-control" name="password" 
+                  // ref={passwordRef} 
+                  placeholder="Enter Password"/>
                 </FormGroup>
               </Grid>
               <Grid item xs={12} >
