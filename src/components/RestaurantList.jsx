@@ -18,7 +18,7 @@ export default function RestaurantList({ cbRestaurants }) {
       setRestaurants(restaurants.data);
       cbRestaurants(restaurants.data);
     });
-  }, []);
+  }, [cbRestaurants]);
 
   const filterdata = Restaurants.filter((item) => {
     return res !== ""
@@ -35,7 +35,7 @@ export default function RestaurantList({ cbRestaurants }) {
         <div className="searchInputs">
           <input
             type="text"
-            placeholder="Enter Restaraunt Name or location"
+            placeholder="Enter Restaurant Name or location"
             onChange={(event) => {
               setRes(event.target.value);
             }}
