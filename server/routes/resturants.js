@@ -6,10 +6,10 @@ const mongoose = require("mongoose");
 const multer = require("multer");
 
 const storage = multer.diskStorage({
-  destination: function (_, _, cb) {
+  destination: function(_, _, cb) {
     cb(null, "./uploads/");
   },
-  filename: function (_, file, cb) {
+  filename: function(_, file, cb) {
     cb(null, Date.now() + file.originalname);
   },
 });
@@ -17,7 +17,7 @@ const upload = multer({ storage: storage });
 
 router.post("/", upload.single("resturanturl"), (req, res) => {
   console.log(req.file);
-  const _id = mongoose.Types.ObjectId();
+  const id = mongoose.Types.ObjectId();
 
   const rName = req.body.restaurantName;
   const rRStatus = req.body.restaurantRegistrationStatus;
@@ -33,7 +33,7 @@ router.post("/", upload.single("resturanturl"), (req, res) => {
   const menuName = req.body.menuName;
   const menuPrice = req.body.menuPrice;
   const newRestaurant = new Restaurant({
-    _id: _id,
+    id: _id,
     restaurantName: rName,
     restaurantRegistrationStatus: rRStatus,
     resturanturl: imgurl,
@@ -62,35 +62,29 @@ router.post("/", upload.single("resturanturl"), (req, res) => {
     .catch((err) => console.log("error ", err));
 });
 
-router.get("/", (req, res) => {
+router.get("/", (_, res) => {
   Restaurant.find({}).then((data) => res.json(data));
 });
 
 router.post("/addReview", (req, res) => {
-  let reviews = [];
-  const id = req.body.rID;
+  const id = req.query.rID;
 
-  Restaurant.findById(id)
-    .then((restaurant) => {
-      reviews = restaurant.reviews;
-      reviews.push({
-        menuID: mongoose.Types.ObjectId(),
-        reviewText: req.body.reviewText,
-        user: req.body.user,
-        username: req.body.username,
-      });
-      Restaurant.findOneAndUpdate(
-        { _id: id },
-        { reviews: reviews },
-        { new: true, upsert: false }
-      )
-        .then((doc) => {
-          console.log(doc);
-          res.json(doc);
-        })
-        .catch((err) => console.log(err));
-    })
-    .catch((err) => console.log(err));
+  let reviewObj = {
+    menuID: mongoose.Types.ObjectId(),
+    reviewText: req.body.reviewText,
+    user: req.body.user,
+    username: req.body.username,
+  };
+
+  Restaurant.findOneAndUpdate(
+    { _id: id },
+    { $push: { reviews: reviewObj } },
+    { new: true, upsert: false }
+  )
+    .then((doc) => res.json(doc))
+    .catch((err) =>
+      res.json({ "Some error occured while appending to reviews": err })
+    );
 });
 
 router.patch("/:rID", (req, res) => {
@@ -107,15 +101,14 @@ router.patch("/:rID", (req, res) => {
     .catch((err) => console.log("Caught:", err.message));
 });
 
-router.get("/:restaurantid", (req, res) => {
-  const _id = req.params.restaurantid;
-  Restaurant.findById(_id)
+router.get("/:rID", (req, res) => {
+  Restaurant.findById(req.params.rID)
     .then((data) => res.json(data))
     .catch((err) => console.log("Caught:", err.message));
 });
 
-router.delete("/:restaurantid", (req, res) => {
-  Restaurant.findByIdAndRemove(req.params.restaurantid)
+router.delete("/:rID", (req, res) => {
+  Restaurant.findByIdAndRemove(req.params.rID)
     .then(res.json({ msg: "delete success!" }))
     .catch(res.json({ msg: "delete err!" }));
 });
@@ -146,30 +139,21 @@ router.patch("/menu/:menuID", (req, res) => {
 
 // Add items to menus
 router.post("/menu", (req, res) => {
-  let menus = [];
   const id = req.body.rID;
+  console.log(req.query);
+  const menuObj = {
+    menuID: mongoose.Types.ObjectId(),
+    menuName: req.body.menuName,
+    menuPrice: req.body.menuPrice,
+  };
 
-  Restaurant.findById(id)
-    .then((restaurant) => {
-      menus = restaurant.menus;
-      menus.push({
-        menuID: mongoose.Types.ObjectId(),
-        menuName: req.body.menuName,
-        menuPrice: req.body.menuPrice,
-      });
-      console.log(products);
-      Restaurant.findOneAndUpdate(
-        { _id: id },
-        { menus: menus },
-        { new: true, upsert: false }
-      )
-        .then((doc) => {
-          console.log(doc);
-          res.json(doc);
-        })
-        .catch((err) => console.log(err));
-    })
-    .catch((err) => console.log(err));
+  Restaurant.findOneAndUpdate(
+    { _id: id },
+    { $push: { menus: menuObj } },
+    { new: true, upsert: false }
+  )
+    .then((doc) => res.json(doc))
+    .catch((err) => res.json({ err: err }));
 });
 
 router.delete("/menu/:menuId", (req, res) => {
