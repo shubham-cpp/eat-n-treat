@@ -4,7 +4,12 @@ const mongoose = require("mongoose");
 const customerSchema = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
 
-  customerName: {
+  customerFName: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  customerLName: {
     type: String,
     required: true,
     trim: true,
@@ -20,9 +25,16 @@ const customerSchema = new mongoose.Schema({
     required: true,
   },
   address: {
-    addressLine: String,
-    city: String,
+    type: String,
+    required:true,
+    trim: true,
   },
+  city: {
+    type: String,
+    lowercase:true,
+    trim: true,
+    required:true,
+  }
 });
 
 module.exports = mongoose.model("customer", customerSchema);

@@ -1,22 +1,23 @@
 const router = require("express").Router();
 const Customer = require("../model/customer");
 const mongoose = require("mongoose");
-router.post("/", (req, res) => {
-  const cName = req.body.customerName;
+
+router.post("/", async (req, res) => {
+  const cFName = req.body.customerFName;
+  const cLName = req.body.customerLName;
   const cPhone = req.body.phone;
   const cEmail = req.body.email;
-  const addressLine1 = req.body.address.addressLine;
-  const city = req.body.address.city;
+  const address = req.body.address;
+  const city = req.body.city;
   const id = mongoose.Types.ObjectId();
   const newCustomer = new Customer({
     _id: id,
-    customerName: cName,
+    customerFName: cFName,
+    customerLName: cLName,
     phone: cPhone,
     email: cEmail,
-    address: {
-      addressLine: addressLine1,
-      city: city,
-    },
+    address: address,
+    city: city,
   });
   newCustomer.save().then(() => {
     res.json("Data Enter");
@@ -46,19 +47,18 @@ router.patch("/:custid", (req, res) => {
   const _id = req.params.custid;
   Customer.findByIdAndUpdate(_id, {
     $set: {
-      customerName: req.body.customerName,
+      customerFName: req.body.customerFName,
+      customerLName: req.body.customerLName,
       phone: req.body.phone,
       email: req.body.email,
-      address: {
-        addressLine: req.body.address.addressLine,
-        city: req.body.address.city,
-      }
+      address: req.body.address,
+      city: req.body.city,
     },
   }).then(() => res.json({ status: "Data Update Successfully" }));
 });
 
 router.delete("/:custid", (req, res) => {
-  const _id = req.params.custId;
+  const _id = req.params.custid;
   Customer.remove({ _id: _id })
     .then(res.json({ msg: "delete success!" }))
     .catch(res.json({ msg: "delete err!" }));
