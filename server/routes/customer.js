@@ -3,10 +3,10 @@ const Customer = require("../model/customer");
 const mongoose = require("mongoose");
 
 router.post("/", async (req, res) => {
-  const cFName = req.body.customerFName;
-  const cLName = req.body.customerLName;
+  const cFName = req.body.fName;
+  const cLName = req.body.lName;
   const cPhone = req.body.phone;
-  const cEmail = req.body.email;
+  const cEmail = req.body.eMail;
   const address = req.body.address;
   const city = req.body.city;
   const id = mongoose.Types.ObjectId();
@@ -18,11 +18,13 @@ router.post("/", async (req, res) => {
     email: cEmail,
     address: address,
     city: city,
-  });
+  }); 
   newCustomer.save().then(() => {
     res.json("Data Enter");
   }).catch((err) => {
-    res.status(400).send("unable to save to database");
+    console.log(err);
+    res.status(400).send("Failed!");
+
   })
 });
 
@@ -32,7 +34,6 @@ router.get("/", (req, res) => {
   }).catch((err) => {
     console.log("Caught:", err.message)
   })
-
 });
 
 router.get("/:custid", (req, res) => {
