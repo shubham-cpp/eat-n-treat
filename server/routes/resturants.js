@@ -16,7 +16,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.post("/", upload.single("resturanturl"), (req, res) => {
-  console.log(req.file);
   const id = mongoose.Types.ObjectId();
 
   const rName = req.body.restaurantName;
@@ -33,7 +32,7 @@ router.post("/", upload.single("resturanturl"), (req, res) => {
   const menuName = req.body.menuName;
   const menuPrice = req.body.menuPrice;
   const newRestaurant = new Restaurant({
-    id: _id,
+    id: id,
     restaurantName: rName,
     restaurantRegistrationStatus: rRStatus,
     resturanturl: imgurl,
@@ -66,8 +65,17 @@ router.get("/", (_, res) => {
   Restaurant.find({}).then((data) => res.json(data));
 });
 
-router.post("/addReview", (req, res) => {
-  const id = req.query.rID;
+router.get("/reviews/:rID", (req, res) => {
+  Restaurant.findById(req.params.rID)
+    .select("reviews")
+    .then((reviews) => res.json({ "All reviews": reviews }))
+    .catch((err) =>
+      res.json({ "Error while fetching reviews for restaurant": err.message })
+    );
+});
+
+router.post("/reviews/:rID", (req, res) => {
+  const id = req.params.rID;
 
   let reviewObj = {
     menuID: mongoose.Types.ObjectId(),
