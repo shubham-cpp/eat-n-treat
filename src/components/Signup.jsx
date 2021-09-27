@@ -1,5 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 import Box from "@mui/material/Box";
 import { Form, FormGroup } from "react-bootstrap";
@@ -38,12 +39,12 @@ export default function Signup() {
   const history = useHistory();
 
   const [openSignup, setOpenSignup] = React.useState(false);
-  const [city, setCity] = React.useState("");
   const [labelWidth] = React.useState(0);
   const [fname, setFname] = React.useState("");
   const [lname, setLname] = React.useState("");
   const [phone, setPhone] = React.useState("");
   const [address, setAddress] = React.useState("");
+  const [city, setCity] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
@@ -52,17 +53,17 @@ export default function Signup() {
   const handleOpenSignup = () => setOpenSignup(true);
   const handleCloseSignup = () => setOpenSignup(false);
 
-  const handleChange = (e) => setCity(e.target.value);
   const handleFnameChange = (e) => setFname(e.target.value);
   const handleLnameChange = (e) =>setLname(e.target.value);
   const handlePhoneChange = (e) =>setPhone(e.target.value);
   const handleAddressChange = (e) =>setAddress(e.target.value);
   const handleEmailChange = (e) => setEmail(e.target.value);
+  const handleCityChange = (e) => setCity(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
 
   const handleSubmit = (e1) => {
     var regExpPhone = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
-    var regExpPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})$/;
+    var regExpPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
     e1.preventDefault();
     if(fname===""){
       swal({
@@ -99,22 +100,34 @@ export default function Signup() {
     else if(password===""||!password.match(regExpPassword)){
       swal({
         title: "Wrong password syntax!",
-        text: "The password must contain at least 1 lowercase alphabet, at least 1 uppercase alphabet, at least 1 number, at least 1 special character and must be 6 characters or longer.",
+        text: "The password must contain at least 1 lowercase alphabet, at least 1 uppercase alphabet, at least 1 number and must be 6 characters or longer.",
         icon: "error",
         buttons: false,
         timer: 12000,
       })
     }
-    else{
+    else {
       signup(email, password)
-      .then(() => {
+        .then(() => {
         swal({
-          title: "Signed Up Successfully !",
+          title: "Signed Up Successfully! Please Login to continue.",
           icon: "success",
           buttons: false,
           timer: 2000,
         });
-
+        const data = {
+          fName: fname,
+          lName: lname,
+          phone: phone,
+          eMail: email,
+          address: address,
+          city: city,
+        };
+        axios.post("http://localhost:5000/customer",data, {headers: {
+          "Content-Type": "application/json",
+          },})
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
         console.log("Signup ");
         handleCloseSignup();
         history.push("/");
@@ -182,7 +195,6 @@ export default function Signup() {
                 <Grid item xs={12}>
                   <FormGroup>
                     <input
-                      type="number"
                       // value={this.state.email} onChange={this.handlePhoneChange}
                       className="form-control"
                       onChange={handlePhoneChange}
@@ -229,7 +241,7 @@ export default function Signup() {
                       labelId="city"
                       id="select"
                       value={city}
-                      onChange={handleChange}
+                      onChange={handleCityChange}
                       labelWidth={labelWidth}
                     >
                       <MenuItem value="Pune">Pune</MenuItem>
