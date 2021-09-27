@@ -6,10 +6,10 @@ const mongoose = require("mongoose");
 const multer = require("multer");
 
 const storage = multer.diskStorage({
-  destination: function (_, _, cb) {
+  destination: function(_, _, cb) {
     cb(null, "./uploads/");
   },
-  filename: function (_, file, cb) {
+  filename: function(_, file, cb) {
     cb(null, Date.now() + file.originalname);
   },
 });
@@ -146,30 +146,20 @@ router.patch("/menu/:menuID", (req, res) => {
 
 // Add items to menus
 router.post("/menu", (req, res) => {
-  let menus = [];
   const id = req.body.rID;
+  const menuObj = {
+    menuID: mongoose.Types.ObjectId(),
+    menuName: req.body.menuName,
+    menuPrice: req.body.menuPrice,
+  };
 
-  Restaurant.findById(id)
-    .then((restaurant) => {
-      menus = restaurant.menus;
-      menus.push({
-        menuID: mongoose.Types.ObjectId(),
-        menuName: req.body.menuName,
-        menuPrice: req.body.menuPrice,
-      });
-      console.log(products);
-      Restaurant.findOneAndUpdate(
-        { _id: id },
-        { menus: menus },
-        { new: true, upsert: false }
-      )
-        .then((doc) => {
-          console.log(doc);
-          res.json(doc);
-        })
-        .catch((err) => console.log(err));
-    })
-    .catch((err) => console.log(err));
+  Restaurant.findOneAndUpdate(
+    { _id: id },
+    { $push: { menus: menuObj } },
+    { new: true, upsert: false }
+  )
+    .then((doc) => res.json(doc))
+    .catch((err) => res.json({ err: err }));
 });
 
 router.delete("/menu/:menuId", (req, res) => {
