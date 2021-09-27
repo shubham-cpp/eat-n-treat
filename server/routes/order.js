@@ -1,30 +1,41 @@
 const router = require("express").Router();
 const mongoose = require("mongoose");
+const { body, validationResult } = require("express-validator");
+
 const Orders = require("../model/order");
 
-router.post("/", (req, res) => {
-  const cartList = req.body.cartList;
-  const customerID = req.body.customerID;
-  const restrauntID = req.body.restrauntID;
-  const totalAmount = req.body.totalAmount;
-  const orderStatus = "Pending";
+router.post(
+  "/",
+  body("cartList").isArray(),
+  body("totalAmount").isNumeric(),
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const cartList = req.body.cartList;
+    const customerID = req.body.customerID;
+    const restrauntID = req.body.restrauntID;
+    const totalAmount = req.body.totalAmount;
+    const orderStatus = "Pending";
 
-  const newOrder = new Orders({
-    _id: mongoose.Types.ObjectId(),
-    customerID: customerID,
-    cart: cartList,
-    restrauntID: restrauntID,
-    totalAmount: totalAmount,
-    orderStatus: orderStatus,
-  });
+    const newOrder = new Orders({
+      _id: mongoose.Types.ObjectId(),
+      customerID: customerID,
+      cart: cartList,
+      restrauntID: restrauntID,
+      totalAmount: totalAmount,
+      orderStatus: orderStatus,
+    });
 
-  newOrder
-    .save()
-    .then((savedOrder) => res.json(savedOrder))
-    .catch((err) =>
-      res.status(400).json({ "unable to save to database": err.message })
-    );
-});
+    newOrder
+      .save()
+      .then((savedOrder) => res.json(savedOrder))
+      .catch((err) =>
+        res.status(400).json({ "unable to save to database": err.message })
+      );
+  }
+);
 
 router.delete("/:orderid", (req, res) => {
   Orders.findByIdAndRemove(req.params.orderid)
