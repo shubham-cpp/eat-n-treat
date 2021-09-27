@@ -140,7 +140,6 @@ router.patch("/menu/:menuID", (req, res) => {
 // Add items to menus
 router.post("/menu", (req, res) => {
   const id = req.body.rID;
-  console.log(req.query);
   const menuObj = {
     menuID: mongoose.Types.ObjectId(),
     menuName: req.body.menuName,
