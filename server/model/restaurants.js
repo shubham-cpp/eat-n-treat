@@ -37,8 +37,6 @@ const restaurantSchema = new mongoose.Schema({
     of: new mongoose.Schema({
       _id: mongoose.Schema.Types.ObjectId,
       reviewText: String,
-      // NOTE: Retrieve name from here
-      // TODO: Lookup how to
       user: { type: mongoose.Schema.Types.ObjectId, ref: "customer" },
     }),
   },
