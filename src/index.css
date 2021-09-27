@@ -82,7 +82,11 @@ code {
   width: "20rem";
   overflow: scroll;
   overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-y: scroll;
+}
+
+.dishes::-webkit-scrollbar {
+  display: none;
 }
 
 #signup-modal-description {
@@ -121,7 +125,7 @@ code {
   height: 70px;
 }
 
-.close-button{
+.close-button {
   background-color: teal;
   color: white;
   padding: 16px 20px;
@@ -134,8 +138,7 @@ code {
   width: 70px;
   height: 70px;
   z-index: 1000;
-  right:2px;
-
+  right: 2px;
 }
 .items {
   justify-content: space-between;
@@ -145,6 +148,6 @@ code {
   font-size: x-large;
 }
 
-.container::-webkit-scrollbar{
+.container::-webkit-scrollbar {
   display: none;
 }

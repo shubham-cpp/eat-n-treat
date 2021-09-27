@@ -27,9 +27,10 @@ export default function RestaurantCard(props) {
         <h5 className="card-title">{props.restaurant.restaurantName}</h5>
         <div className="card-text">
           <div className="flex-nowrap scrollableDiv" ref={scrollRef}>
-            {props.restaurant.cuisine.map((cuis) => {
+            {props.restaurant.cuisine.map((cuis, index) => {
               return (
                 <div
+                  key={index}
                   className="chip"
                   style={{ width: "fit-content", display: "inline-block" }}
                 >

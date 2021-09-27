@@ -18,7 +18,7 @@ function App() {
       <div style={{ backgroundColor: "#FFFDD0" }}>
         <Router>
           <AuthProvider>
-            <Navbar btn={<button>click me</button>} />
+            <Navbar btn={<button>Click me</button>} />
             <Chatbotcomp />
             <Switch>
               <Route path="/" exact>
@@ -28,7 +28,7 @@ function App() {
                 <RestDetails data={restaurants} />
               </Route>
               <Route path="/checkout">
-                <Checkout/>
+                <Checkout />
               </Route>
             </Switch>
           </AuthProvider>

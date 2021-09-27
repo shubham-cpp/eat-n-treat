@@ -1,36 +1,33 @@
-import React, { useState } from "react";
+import React from "react";
 import { useParams } from "react-router";
 import { useLocalStorage } from "../useLocalStorage";
 import Cart from "./Cart";
 import Details from "./Details";
 
-
 export function Main(props) {
   const data = props.data;
   const { id } = useParams();
-  const [cartItems, setCartItems] = useLocalStorage('cart',[]);
- 
+  const [cartItems, setCartItems] = useLocalStorage("cart", []);
 
   const addToCart = (dish) => {
-    if(localStorage.getItem('rID')===id || localStorage.getItem('rID')===null ){
+    if (
+      localStorage.getItem("rID") === id ||
+      localStorage.getItem("rID") === null
+    ) {
       const exist = cartItems.find((item) => item._id === dish._id);
 
       if (exist) {
-
         setCartItems(
           cartItems.map((item) =>
             item._id === dish._id ? { ...exist, qty: exist.qty + 1 } : item
           )
         );
       } else {
-        
         setCartItems([...cartItems, { ...dish, qty: 1 }]);
-  
-        localStorage.setItem('rID',id)
-        
+
+        localStorage.setItem("rID", id);
       }
     }
-
   };
 
   const removeFromCart = (dish) => {
@@ -38,7 +35,7 @@ export function Main(props) {
     // Remove item from cart
     if (exist.qty === 1) {
       setCartItems(cartItems.filter((item) => item._id !== dish._id));
-      localStorage.removeItem('rID')
+      localStorage.removeItem("rID");
     } else {
       setCartItems(
         cartItems.map((item) =>
@@ -53,7 +50,12 @@ export function Main(props) {
   return (
     <div className="container">
       <div className="col">
-        <Details addToCart={addToCart} id={id} data={data} total={cartItems.length}/>
+        <Details
+          addToCart={addToCart}
+          id={id}
+          data={data}
+          total={cartItems.length}
+        />
       </div>
       <div className="col">
         <Cart

@@ -10,15 +10,11 @@ import HotelLocation from "./HotelLocation";
 function Chatbotcomp() {
   let [showChat, setShowChat] = useState(false);
 
-  const startChat = () => {
-    setShowChat(true);
-  };
-  const hideChat = () => {
-    setShowChat(false);
-  };
+  const startChat = () => setShowChat(true);
+  const hideChat = () => setShowChat(false);
 
   return (
-    <div>
+    <>
       <div
         style={{
           marginTop: "70px",
@@ -140,7 +136,7 @@ function Chatbotcomp() {
           </button>
         )}
       </div>
-    </div>
+    </>
   );
 }
 
