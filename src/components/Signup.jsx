@@ -40,6 +40,10 @@ export default function Signup() {
   const [openSignup, setOpenSignup] = React.useState(false);
   const [city, setCity] = React.useState("");
   const [labelWidth] = React.useState(0);
+  const [fname, setFname] = React.useState("");
+  const [lname, setLname] = React.useState("");
+  const [phone, setPhone] = React.useState("");
+  const [address, setAddress] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
@@ -49,13 +53,60 @@ export default function Signup() {
   const handleCloseSignup = () => setOpenSignup(false);
 
   const handleChange = (e) => setCity(e.target.value);
+  const handleFnameChange = (e) => setFname(e.target.value);
+  const handleLnameChange = (e) =>setLname(e.target.value);
+  const handlePhoneChange = (e) =>setPhone(e.target.value);
+  const handleAddressChange = (e) =>setAddress(e.target.value);
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
 
   const handleSubmit = (e1) => {
+    var regExpPhone = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+    var regExpPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})$/;
     e1.preventDefault();
-
-    signup(email, password)
+    if(fname===""){
+      swal({
+        title: "Enter the first name!",
+        icon: "error",
+        buttons: false,
+        timer: 3000,
+      });
+    }
+    else if(lname===""){
+      swal({
+        title: "Enter the last name!",
+        icon: "error",
+        buttons: false,
+        timer: 3000,
+      });
+    }
+    else if(phone===""||!phone.match(regExpPhone)){
+      swal({
+        title: "Enter correct 10 digit phone number!",
+        icon: "error",
+        buttons: false,
+        timer: 3000,
+      });
+    }
+    else if(address===""){
+      swal({
+        title: "Enter the address!",
+        icon: "error",
+        buttons: false,
+        timer: 3000,
+      });
+    }
+    else if(password===""||!password.match(regExpPassword)){
+      swal({
+        title: "Wrong password syntax!",
+        text: "The password must contain at least 1 lowercase alphabet, at least 1 uppercase alphabet, at least 1 number, at least 1 special character and must be 6 characters or longer.",
+        icon: "error",
+        buttons: false,
+        timer: 12000,
+      })
+    }
+    else{
+      signup(email, password)
       .then(() => {
         swal({
           title: "Signed Up Successfully !",
@@ -78,6 +129,7 @@ export default function Signup() {
           icon: "error",
         });
       });
+    }
   };
 
   return (
@@ -111,6 +163,7 @@ export default function Signup() {
                       //value={this.state.firstName} onBlur={handleFirstNameChange}
                       className="form-control"
                       name="firstname"
+                      onChange = {handleFnameChange}
                       placeholder="First Name  *"
                     />
                   </FormGroup>
@@ -121,6 +174,7 @@ export default function Signup() {
                       // value={this.state.lastName} onChange={this.handleLastNameChange}
                       className="form-control"
                       name="lastname"
+                      onChange={handleLnameChange}
                       placeholder="Last Name  *"
                     />
                   </FormGroup>
@@ -131,6 +185,7 @@ export default function Signup() {
                       type="number"
                       // value={this.state.email} onChange={this.handlePhoneChange}
                       className="form-control"
+                      onChange={handlePhoneChange}
                       name="phone"
                       placeholder="Phone  *"
                     />
@@ -158,6 +213,7 @@ export default function Signup() {
                       // value={this.state.email} onChange={this.handleAddChange}
                       className="form-control"
                       name="address"
+                      onChange={handleAddressChange}
                       placeholder="Address  *"
                     />
                   </FormGroup>
