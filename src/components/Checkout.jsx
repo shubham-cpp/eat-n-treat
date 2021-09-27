@@ -1,7 +1,7 @@
 import React from "react";
 
 function Checkout() {
-  const restID = localStorage.getItem("rID");
+  // const restID = localStorage.getItem("rID");
   const cartItems = JSON.parse(localStorage.getItem("cart"));
   console.log(cartItems);
   return (
@@ -17,8 +17,8 @@ function Checkout() {
           </tr>
         </thead>
         <tbody>
-          {cartItems.map((item) => (
-            <tr>
+          {cartItems.map((item, index) => (
+            <tr key={index}>
               <td>{item.menuName}</td>
               <td>{item.qty}</td>
               <td>{item.menuPrice}</td>
