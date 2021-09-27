@@ -10,6 +10,10 @@ import RestaurantList from "./components/RestaurantList";
 import { Main as RestDetails } from "./components/RestrauntDetails/Main";
 import { AuthProvider } from "./auth";
 import Checkout from "./components/Checkout";
+
+import LogReg from "./components/RegisterRst";
+
+
 function App() {
   const [restaurants, setRestaurants] = useState([]);
 
@@ -18,7 +22,7 @@ function App() {
       <div style={{ backgroundColor: "#FFFDD0" }}>
         <Router>
           <AuthProvider>
-            <Navbar btn={<button>Click me</button>} />
+            {/* <Navbar btn={<button>Click me</button>} /> */}
             <Chatbotcomp />
             <Switch>
               <Route path="/" exact>
@@ -30,9 +34,14 @@ function App() {
               <Route path="/checkout">
                 <Checkout />
               </Route>
+
+              <Route path='/login' component={LogReg} />
+              <Route path='/register' component={LogReg} />
+              
             </Switch>
           </AuthProvider>
-        </Router>{" "}
+          
+        </Router>{" "}  
       </div>
     </>
   );
