@@ -35,39 +35,23 @@ router.post(
     const id = mongoose.Types.ObjectId();
 
     const rName = req.body.restaurantName;
-    const rRStatus = req.body.restaurantRegistrationStatus;
+    const status = false;
     const imgurl = req.file.path;
     const rPhone = req.body.restaurantPhone;
     const rEmail = req.body.restaurantEmail;
     const rCity = req.body.rCity;
-    const rating = req.body.rating;
+    const rating = req.body.rating || 0;
     const cuisine = req.body.cuisine;
-    const reviewText = req.body.reviewText;
-    const user = req.body.user;
-    const username = req.body.username;
-    const menuName = req.body.menuName;
-    const menuPrice = req.body.menuPrice;
     const newRestaurant = new Restaurant({
       id: id,
       restaurantName: rName,
-      restaurantRegistrationStatus: rRStatus,
+      restaurantRegistrationStatus: status,
       resturanturl: imgurl,
       restaurantPhone: rPhone,
       restaurantEmail: rEmail,
       rCity: rCity,
       rating: rating,
       cuisine: cuisine,
-      reviews: {
-        _id: mongoose.Types.ObjectId(),
-        reviewText: reviewText,
-        user: user,
-        username: username,
-      },
-      menus: {
-        menuID: mongoose.Types.ObjectId(),
-        menuName: menuName,
-        menuPrice: menuPrice,
-      },
     });
     newRestaurant
       .save()
@@ -132,7 +116,8 @@ router.patch("/:rID", (req, res) => {
       restaurantName: req.body.restaurantName,
       restaurantPhone: req.body.restaurantPhone,
       restaurantEmail: req.body.restaurantEmail,
-    }
+    },
+    { new: true, upsert: false }
   )
     .then((data) => res.json(data))
     .catch((err) => res.json("Caught:", err.message));
@@ -163,12 +148,11 @@ router.patch("/menu/:menuID", (req, res) => {
     { "menus._id": req.params.menuID },
     {
       $set: {
-        menus: {
-          menuName: req.body.menuName,
-          menuPrice: req.body.menuPrice,
-        },
+        "menus.$.menuName": req.body.menuName,
+        "menus.$.menuPrice": req.body.menuPrice,
       },
-    }
+    },
+    { new: true, upsert: false }
   )
     .then((data) => res.json(data))
     .catch((err) => res.json({ "Error in updating menu": err.message }));
