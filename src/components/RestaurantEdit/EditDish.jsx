@@ -39,92 +39,51 @@ export default function EditDish({
   setMenuName,
   setMenuPrice,
 }) {
-  const classes = useStyles();
-
-  const [openPopup, setOpenPopup] = useState(false);
-  const handleOpenPopup = () => setOpenPopup((prev) => !prev);
-  const handleClosePopup = () => setOpenPopup(false);
+  const [showForm, setShowForm] = useState(false);
   return (
-    <>
+    <form>
       <div className="card mx-2" style={{ width: "20rem" }}>
-        <div className="card-title">{dish.menuName}</div>
-        <p className="card-text">
-          Rs.{dish.menuPrice} <br />
-          <button
-            onClick={handleFunction}
-            className="btn btn-outline-success float-end m-2"
-          >
-            {btnName}
-          </button>
-          <button
-            onClick={handleOpenPopup}
-            className="btn btn-outline-success float-top-end m-2"
-          >
-            Update
-          </button>
-        </p>
-      </div>
-
-      <Modal
-        open={openPopup}
-        onClose={handleClosePopup}
-        aria-labelledby="login-modal-title"
-        aria-describedby="login-modal-description"
-      >
-        <Box sx={style}>
-          <div className="paperLogin">
-            <h6>Edit Restaurant Details</h6>
-            <div
-              className="container"
-              style={{ overflow: "scroll", maxHeight: "300px" }}
-            >
-              {/* Make axios request instead of form action */}
-              {/* Create Function to do this */}
-              <form className={classes.form} onSubmit={updateFunction}>
-                <Grid container spacing={1}>
-                  <Grid item xs={12}>
-                    <FormGroup>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="menuName"
-                        placeholder="Menu Name"
-                        onChange={(e) => setMenuName(e.target.value)}
-                      />
-                    </FormGroup>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <FormGroup>
-                      <input
-                        type="number"
-                        className="form-control"
-                        name="menuPrice"
-                        placeholder="Menu Price"
-                        onChange={(e) => setMenuPrice(e.target.value)}
-                      />
-                    </FormGroup>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Button
-                      type="submit"
-                      fullWidth
-                      // onClick={handleSubmit}
-                      variant="contained"
-                      color="primary"
-                      className={classes.submit}
-                    >
-                      Submit
-                    </Button>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Divider spacing={1}></Divider>
-                  </Grid>
-                </Grid>
-              </form>
-            </div>
+        {!showForm && <div className="card-title">{dish.menuName}</div>}
+        {showForm && (
+          <div className="card-title">
+            <input
+              type="text"
+              name="menuName"
+              placeholder="Menu Name"
+              onChange={(e) => setMenuName(e.target.value)}
+            />
           </div>
-        </Box>
-      </Modal>
-    </>
+        )}
+        {!showForm && <p className="card-text">Rs.{dish.menuPrice}</p>}
+        {showForm && (
+          <input
+            type="number"
+            name="menuPrice"
+            placeholder="Menu Price"
+            onChange={(e) => setMenuPrice(e.target.value)}
+          />
+        )}
+        <button
+          onClick={(e) => {
+            updateFunction(e, dish._id);
+            setShowForm((prev) => !prev);
+          }}
+          className="btn btn-outline-success float-top-end m-2"
+        >
+          {showForm ? "Save" : "Update"}
+        </button>
+        <button
+          className="card-text"
+          onClick={(e) => {
+            e.preventDefault();
+            handleFunction();
+          }}
+          disabled={showForm}
+          className="btn btn-outline-success float-end m-2"
+        >
+          {btnName}
+        </button>
+      </div>
+    </form>
   );
 }

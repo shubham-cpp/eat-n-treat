@@ -45,15 +45,23 @@ export default function EditRestaurant({ data }) {
   const [openRestaurantUpdate, setOpenRestaurantUpdate] = useState(false);
   const [menuName, setMenuName] = useState("");
   const [menuPrice, setMenuPrice] = useState(0);
+  const [openPopup, setOpenPopup] = useState(false);
   const [restaurantName, setRestaurantName] = useState("");
   const [restaurantNumber, setRestaurantNumber] = useState(0);
   const [restaurantEmail, setRestaurantEmail] = useState("");
 
+  // This is for add item to menu pop up
   const handleCloseLogin = () => setOpenLogin(false);
   const handleOpenLogin = () => setOpenLogin((prev) => !prev);
+
+  // This is for restaurant pop up
   const handleCloseRestaurantUpdate = () => setOpenRestaurantUpdate(false);
   const handleOpenRestaurantUpdate = () =>
     setOpenRestaurantUpdate((prev) => !prev);
+
+  // This is for update item popup
+  const handleOpenPopup = () => setOpenPopup((prev) => !prev);
+  const handleClosePopup = () => setOpenPopup(false);
 
   /**
    * Delete item from menu
@@ -100,11 +108,12 @@ export default function EditRestaurant({ data }) {
     const url = `http://localhost:5000/restaurant/menu/${mid}`;
     const data = { menuName, menuPrice };
 
+    // console.log(data);
     // console.log(mid);
     axios
       .patch(url, data)
       .then((res) => {
-        handleCloseRestaurantUpdate();
+        // handleClosePopup();
         setRestaurant(res.data);
       })
       .catch((err) => console.log("Some error occured ", err));
@@ -154,9 +163,13 @@ export default function EditRestaurant({ data }) {
                   key={dish._id}
                   btnName="Delete"
                   handleFunction={() => handleDelete(id, dish._id)}
-                  updateFunction={(e) => handleUpdate(e, dish._id)}
+                  updateFunction={handleUpdate}
+                  // updateFunction={(e) => handleUpdate(e, dish._id)}
                   setMenuName={setMenuName}
                   setMenuPrice={setMenuPrice}
+                  openPopup={openPopup}
+                  handleOpenPopup={handleOpenPopup}
+                  handleClosePopup={handleClosePopup}
                 />
               </div>
             );
