@@ -103,12 +103,12 @@ export default function EditRestaurant(props) {
     const data = { menuName, menuPrice };
 
     // console.log(mid);
-    // axios
-    //   .patch(url, data)
-    //   .then(() => {
-    //     handleCloseLogin();
-    //   })
-    //   .catch((err) => console.log("Some error occured ", err));
+    axios
+      .patch(url, data)
+      .then(() => {
+        handleCloseRestaurantUpdate();
+      })
+      .catch((err) => console.log("Some error occured ", err));
   };
 
   /**
@@ -155,8 +155,13 @@ export default function EditRestaurant(props) {
                   btnName="Delete"
                   handleFunction={() => handleDelete(id, dish._id)}
                   updateFunction={(e) => handleUpdate(e, dish._id)}
+                  handleCloseRestaurantUpdate={handleCloseRestaurantUpdate}
+                  handleOpenRestaurantUpdate={handleOpenRestaurantUpdate}
+                  setOpenRestaurantUpdate={setOpenRestaurantUpdate}
+                  openRestaurantUpdate={openRestaurantUpdate}
+                  setMenuName={setMenuName}
+                  setMenuPrice={setMenuPrice}
                 />
-                {/* <button onClick={handleOpenUpdate}>Update</button> */}
               </div>
             );
           })}
@@ -224,77 +229,6 @@ export default function EditRestaurant(props) {
         </Box>
       </Modal>
 
-      <Modal
-        open={openRestaurantUpdate}
-        onClose={handleCloseRestaurantUpdate}
-        aria-labelledby="login-modal-title"
-        aria-describedby="login-modal-description"
-      >
-        <Box sx={style}>
-          <div className="paperLogin">
-            <h6>Edit Restaurant Details</h6>
-            <div
-              className="container"
-              style={{ overflow: "scroll", maxHeight: "300px" }}
-            >
-              {/* Make axios request instead of form action */}
-              {/* Create Function to do this */}
-              <form className={classes.form} onSubmit={handleRestaurantUpdate}>
-                <Grid container spacing={1}>
-                  <Grid item xs={12}>
-                    <FormGroup>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="restaurantName"
-                        placeholder="Restaurant Name"
-                        onChange={(e) => setRestaurantName(e.target.value)}
-                      />
-                    </FormGroup>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <FormGroup>
-                      <input
-                        type="email"
-                        className="form-control"
-                        name="restaurantEmail"
-                        placeholder="Restaurant Email"
-                        onChange={(e) => setRestaurantEmail(e.target.value)}
-                      />
-                    </FormGroup>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <FormGroup>
-                      <input
-                        type="number"
-                        className="form-control"
-                        name="restaurantPhone"
-                        placeholder="Restaurant Phone Number"
-                        onChange={(e) => setRestaurantNumber(e.target.value)}
-                      />
-                    </FormGroup>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Button
-                      type="submit"
-                      fullWidth
-                      // onClick={handleSubmit}
-                      variant="contained"
-                      color="primary"
-                      className={classes.submit}
-                    >
-                      Submit
-                    </Button>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Divider spacing={1}></Divider>
-                  </Grid>
-                </Grid>
-              </form>
-            </div>
-          </div>
-        </Box>
-      </Modal>
       <Modal
         open={openUpdate}
         onClose={handleCloseUpdate}
