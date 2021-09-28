@@ -24,6 +24,8 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     height: "100vh",
+    width: "85vw",
+    marginRight: "5%",
     overflow: "auto",
   },
   container: {
@@ -52,7 +54,7 @@ const AdminDash = (props) => {
         <AppMenu setComponent={setComponent}/>
       </Drawer>
       <main className={classes.content}>
-        <Container maxWidth="lg" className={classes.container}>
+        <Container style={{ width: "100%", height: "100%" }} className={classes.container}>
           {component}
         </Container>
       </main>
