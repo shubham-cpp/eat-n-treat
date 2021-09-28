@@ -19,7 +19,7 @@ function App() {
   const [restaurants, setRestaurants] = useState([]);
 
   return (
-    <div style={{ backgroundColor: "#FFFDD0" }}>
+    <>
       <Router>
         <AuthProvider>
           <Navbar btn={<button>Click me</button>} />
@@ -42,7 +42,7 @@ function App() {
           </Switch>
         </AuthProvider>
       </Router>{" "}
-    </div>
+    </>
   );
 }
 export default App;
