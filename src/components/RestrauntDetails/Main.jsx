@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router";
 import { useLocalStorage } from "../useLocalStorage";
+import { Link } from "react-router-dom";
 import Cart from "./Cart";
 import Details from "./Details";
 
@@ -65,6 +66,15 @@ export function Main(props) {
           total={cartItems.length}
         />
       </div>
+
+      <button className="btn btn-outline-primary">
+        <Link
+          to={`/restaurant/edit/${id}`}
+          style={{ textDecoration: "none", color: "whitesmoke" }}
+        >
+          Edit Restaurant
+        </Link>
+      </button>
     </div>
   );
 }
