@@ -22,7 +22,14 @@ export default function Details({ data, addToCart }) {
         <h4>Order</h4>
         <div className="dishes">
           {restaurant.menus.map((dish) => {
-            return <Dish dish={dish} key={dish._id} addToCart={addToCart} />;
+            return (
+              <Dish
+                dish={dish}
+                key={dish._id}
+                handleFunction={() => addToCart(dish)}
+                btnName="Add"
+              />
+            );
           })}
         </div>
       </div>
