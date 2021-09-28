@@ -1,13 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import { Link } from "react-router-dom";
-
+import firebase from "../firebase";
 import Signup from "./Signup";
 import Login from "./Login";
+import { useAuth } from "../auth";
 
 function NavBar(props) {
+  const { logout } = useAuth();
+  const [email, setEmail] = useState("");
+  const [loggedout, setLoggedout] = useState(true);
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      setEmail(user.email);
+      setLoggedout(false);
+    }
+  });
+  console.log("logged out", loggedout);
   return (
     <div>
       <div className="entry">
@@ -27,16 +38,22 @@ function NavBar(props) {
             {!props.change ? (
               <Nav className="items">
                 <Nav.Link>
-                  <Link to="/" style={{ textDecoration: "none" }}>
-                    {/* Login */}
-                    <Login />
-                  </Link>
+                  {/* Login */}
+                  {loggedout && <Login />}
                 </Nav.Link>
                 <Nav.Link>
-                  <Link to="/" style={{ textDecoration: "none" }}>
-                    {/* Sign up */}
-                    <Signup />
-                  </Link>
+                  {/* Sign up */}
+                  {loggedout && <Signup />}
+                  {!loggedout && (
+                    <button
+                      onClick={() => {
+                        logout();
+                        setLoggedout(true);
+                      }}
+                    >
+                      Log out
+                    </button>
+                  )}
                 </Nav.Link>
               </Nav>
             ) : (
@@ -48,5 +65,3 @@ function NavBar(props) {
     </div>
   );
 }
-
-export default NavBar;

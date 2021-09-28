@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 
 export default function RestaurantCard(props) {
-  var scrollRef = useRef();
+  let scrollRef = useRef();
+  const restaurant = props.restaurant;
 
   useEffect(() => {
     scrollRef.current.addEventListener("mousewheel", horizontalScroll, false);
@@ -19,15 +20,17 @@ export default function RestaurantCard(props) {
   return (
     <div className="card">
       <img
-        src="https://mdbootstrap.com/img/new/standard/nature/184.jpg"
+        src={restaurant.resturanturl}
+        width="200"
+        height="200"
         className="card-img-top"
         alt="..."
       />
       <div className="card-body">
-        <h5 className="card-title">{props.restaurant.restaurantName}</h5>
+        <h5 className="card-title">{restaurant.restaurantName}</h5>
         <div className="card-text">
           <div className="flex-nowrap scrollableDiv" ref={scrollRef}>
-            {props.restaurant.cuisine.map((cuis, index) => {
+            {restaurant.cuisine.map((cuis, index) => {
               return (
                 <div
                   key={index}
@@ -40,11 +43,11 @@ export default function RestaurantCard(props) {
             })}
           </div>{" "}
           <br />
-          {props.restaurant.rCity} <br />
+          {restaurant.rCity} <br />
           Ratings: <br />
           <ReactStars
             count={5}
-            value={props.restaurant.rating}
+            value={restaurant.rating}
             edit={false}
             size={24}
             isHalf={true}
@@ -53,12 +56,9 @@ export default function RestaurantCard(props) {
             fullIcon={<i className="fa fa-star"></i>}
             activeColor="#ffd700"
           />
-          {props.restaurant.rating}/5
+          {restaurant.rating}/5
         </div>
-        <Link
-          to={`/restaurant/${props.restaurant._id}`}
-          className="btn btn-primary"
-        >
+        <Link to={`/restaurant/${restaurant._id}`} className="btn btn-primary">
           VIEW MORE
         </Link>
       </div>

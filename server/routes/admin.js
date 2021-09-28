@@ -1,11 +1,15 @@
 const router = require("express").Router();
 const mongoose = require("mongoose");
+// const { body, validationResult } = require("express-validator");
+const bcrypt = require("bcrypt");
 const Admins = require("../model/admin");
 
 const bcrypt = require("bcrypt");
 
 router.post("/", (req, res) => {
   const id = mongoose.Types.ObjectId();
+  const salt = bcrypt.genSaltSync(10);
+  const hash = bcrypt.hashSync(req.body.password, salt);
 
   // Admins.findOne({ username: req.body.username })
   //   .then((admin))
@@ -70,7 +74,5 @@ router.delete("/:adminid", (req, res) => {
     res.json({ status: "removed admin" })
   );
 });
-
-
 
 module.exports = router;
