@@ -166,14 +166,13 @@ export default function Signup() {
           </Typography>
 
           <div id="signup-modal-description" className="paper">
-            {/* <form  className={classes.form}> */}
 
             <Form name="Signup">
               <Grid container spacing={1}>
                 <Grid item xs={12} sm={6}>
                   <FormGroup>
                     <input
-                      //value={this.state.firstName} onBlur={handleFirstNameChange}
+                      //value={firstName}
                       className="form-control"
                       name="firstname"
                       onChange = {handleFnameChange}
@@ -184,7 +183,7 @@ export default function Signup() {
                 <Grid item xs={12} sm={6}>
                   <FormGroup>
                     <input
-                      // value={this.state.lastName} onChange={this.handleLastNameChange}
+                      // value={lastName} 
                       className="form-control"
                       name="lastname"
                       onChange={handleLnameChange}
@@ -195,7 +194,7 @@ export default function Signup() {
                 <Grid item xs={12}>
                   <FormGroup>
                     <input
-                      // value={this.state.email} onChange={this.handlePhoneChange}
+                      // value={email} 
                       className="form-control"
                       onChange={handlePhoneChange}
                       name="phone"
@@ -222,7 +221,7 @@ export default function Signup() {
                 <Grid item xs={12} sm={6}>
                   <FormGroup>
                     <input
-                      // value={this.state.email} onChange={this.handleAddChange}
+                      // value={address}
                       className="form-control"
                       name="address"
                       onChange={handleAddressChange}
@@ -247,7 +246,7 @@ export default function Signup() {
                       <MenuItem value="Pune">Pune</MenuItem>
                       <MenuItem value="Mumbai">Mumbai</MenuItem>
                       <MenuItem value="Nagpur">Nagpur</MenuItem>
-                      <MenuItem value="Nagpur">Goa</MenuItem>
+                      <MenuItem value="Goa">Goa</MenuItem>
                       <MenuItem value="Kolhapur">Kolhapur</MenuItem>
                     </Select>
                   </FormControl>
@@ -275,8 +274,6 @@ export default function Signup() {
                     onClick={handleSubmit}
                     variant="contained"
                     color="primary"
-
-                    // className={classes.submit}
                   >
                     Create account
                   </Button>
