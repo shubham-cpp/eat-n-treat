@@ -1,35 +1,5 @@
 import React from "react";
-import { makeStyles } from "@mui/styles";
-import { Box, Grid, Button, Divider, Modal } from "@mui/material";
-import { FormGroup } from "react-bootstrap";
 import { useState } from "react";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 925,
-  bgcolor: "background.paper",
-  border: "1px solid #141414",
-  borderRadius: "8px",
-  boxShadow: 24,
-  p: 4,
-  justifyContent: "space-between",
-};
-
-const useStyles = makeStyles((theme) => ({
-  avatar: {
-    margin: "0 8px",
-  },
-  input: {
-    padding: "10px",
-    lineHeight: "normal",
-    textAlign: "center",
-    "&&:placeholder": { color: "#f00" },
-  },
-  submit: {},
-}));
 
 export default function EditDish({
   dish,
@@ -73,7 +43,6 @@ export default function EditDish({
           {showForm ? "Save" : "Update"}
         </button>
         <button
-          className="card-text"
           onClick={(e) => {
             e.preventDefault();
             handleFunction();
