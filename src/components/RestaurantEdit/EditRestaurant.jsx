@@ -34,12 +34,14 @@ const useStyles = makeStyles((theme) => ({
   submit: {},
 }));
 
-export default function EditRestaurant(props) {
+export default function EditRestaurant({ data }) {
   const { id } = useParams();
   const classes = useStyles();
 
+  const [restaurant, setRestaurant] = useState(
+    data.find((r) => r._id === String(id))
+  );
   const [openLogin, setOpenLogin] = React.useState(false);
-  const [openUpdate, setOpenUpdate] = useState(false);
   const [openRestaurantUpdate, setOpenRestaurantUpdate] = useState(false);
   const [menuName, setMenuName] = useState("");
   const [menuPrice, setMenuPrice] = useState(0);
@@ -49,17 +51,12 @@ export default function EditRestaurant(props) {
 
   const handleCloseLogin = () => setOpenLogin(false);
   const handleOpenLogin = () => setOpenLogin((prev) => !prev);
-  const handleCloseUpdate = () => setOpenUpdate(false);
-  const handleOpenUpdate = () => {
-    setOpenUpdate((prev) => !prev);
-  };
   const handleCloseRestaurantUpdate = () => setOpenRestaurantUpdate(false);
   const handleOpenRestaurantUpdate = () =>
     setOpenRestaurantUpdate((prev) => !prev);
 
-  const restaurant = props.data.find((r) => r._id === String(id));
-
   /**
+   * Delete item from menu
    * Will send a delete request to server using @rid and @mid
    * @param {string} rid Restaurant Id
    * @param {string} mid Menu id
@@ -69,7 +66,7 @@ export default function EditRestaurant(props) {
 
     axios
       .delete(url)
-      .then((res) => console.log("Record Deleted ", res))
+      .then((res) => setRestaurant(res.data))
       .catch((err) => console.log("Unable to delete record ", err.message));
   };
 
@@ -88,7 +85,7 @@ export default function EditRestaurant(props) {
       .post(url, data)
       .then((res) => {
         handleCloseLogin();
-        console.log(res.data);
+        setRestaurant(res.data);
       })
       .catch((err) => console.log("Some error occured ", err));
   };
@@ -106,8 +103,9 @@ export default function EditRestaurant(props) {
     // console.log(mid);
     axios
       .patch(url, data)
-      .then(() => {
+      .then((res) => {
         handleCloseRestaurantUpdate();
+        setRestaurant(res.data);
       })
       .catch((err) => console.log("Some error occured ", err));
   };
@@ -122,8 +120,9 @@ export default function EditRestaurant(props) {
     const data = { restaurantName, restaurantNumber, restaurantEmail };
     axios
       .patch(url, data)
-      .then(() => {
+      .then((res) => {
         handleCloseRestaurantUpdate();
+        setRestaurant(res.data);
       })
       .catch((err) => console.log("Some error occured ", err));
   };
@@ -234,7 +233,7 @@ export default function EditRestaurant(props) {
       >
         <Box sx={style}>
           <div className="paperLogin">
-            <h6>Update Menu Item</h6>
+            <h6>Update Restaurant Details</h6>
             <div
               className="container"
               style={{ overflow: "scroll", maxHeight: "300px" }}
