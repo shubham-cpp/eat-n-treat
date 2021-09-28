@@ -2,6 +2,7 @@ import React from "react";
 import { makeStyles } from "@mui/styles";
 import { Box, Grid, Button, Divider, Modal } from "@mui/material";
 import { FormGroup } from "react-bootstrap";
+import { useState } from "react";
 
 const style = {
   position: "absolute",
@@ -35,14 +36,14 @@ export default function EditDish({
   btnName,
   handleFunction,
   updateFunction,
-  openRestaurantUpdate,
-  handleCloseRestaurantUpdate,
-  handleOpenRestaurantUpdate,
   setMenuName,
   setMenuPrice,
 }) {
   const classes = useStyles();
 
+  const [openPopup, setOpenPopup] = useState(false);
+  const handleOpenPopup = () => setOpenPopup((prev) => !prev);
+  const handleClosePopup = () => setOpenPopup(false);
   return (
     <>
       <div className="card mx-2" style={{ width: "20rem" }}>
@@ -56,7 +57,7 @@ export default function EditDish({
             {btnName}
           </button>
           <button
-            onClick={handleOpenRestaurantUpdate}
+            onClick={handleOpenPopup}
             className="btn btn-outline-success float-top-end m-2"
           >
             Update
@@ -65,8 +66,8 @@ export default function EditDish({
       </div>
 
       <Modal
-        open={openRestaurantUpdate}
-        onClose={handleCloseRestaurantUpdate}
+        open={openPopup}
+        onClose={handleClosePopup}
         aria-labelledby="login-modal-title"
         aria-describedby="login-modal-description"
       >

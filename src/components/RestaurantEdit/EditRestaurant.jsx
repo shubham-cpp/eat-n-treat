@@ -86,8 +86,9 @@ export default function EditRestaurant(props) {
 
     axios
       .post(url, data)
-      .then(() => {
+      .then((res) => {
         handleCloseLogin();
+        console.log(res.data);
       })
       .catch((err) => console.log("Some error occured ", err));
   };
@@ -155,10 +156,6 @@ export default function EditRestaurant(props) {
                   btnName="Delete"
                   handleFunction={() => handleDelete(id, dish._id)}
                   updateFunction={(e) => handleUpdate(e, dish._id)}
-                  handleCloseRestaurantUpdate={handleCloseRestaurantUpdate}
-                  handleOpenRestaurantUpdate={handleOpenRestaurantUpdate}
-                  setOpenRestaurantUpdate={setOpenRestaurantUpdate}
-                  openRestaurantUpdate={openRestaurantUpdate}
                   setMenuName={setMenuName}
                   setMenuPrice={setMenuPrice}
                 />
@@ -230,8 +227,8 @@ export default function EditRestaurant(props) {
       </Modal>
 
       <Modal
-        open={openUpdate}
-        onClose={handleCloseUpdate}
+        open={openRestaurantUpdate}
+        onClose={handleCloseRestaurantUpdate}
         aria-labelledby="login-modal-title"
         aria-describedby="login-modal-description"
       >
@@ -244,16 +241,30 @@ export default function EditRestaurant(props) {
             >
               {/* Make axios request instead of form action */}
               {/* Create Function to do this */}
-              <form className={classes.form} onSubmit={(e) => handleUpdate(e)}>
+              <form
+                className={classes.form}
+                onSubmit={(e) => handleRestaurantUpdate(e)}
+              >
                 <Grid container spacing={1}>
                   <Grid item xs={12}>
                     <FormGroup>
                       <input
                         type="text"
                         className="form-control"
-                        name="menuName"
-                        placeholder="Menu Name"
-                        onChange={(e) => setMenuName(e.target.value)}
+                        name="restaurantName"
+                        placeholder="Restaurant Name"
+                        onChange={(e) => setRestaurantName(e.target.value)}
+                      />
+                    </FormGroup>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <FormGroup>
+                      <input
+                        type="email"
+                        className="form-control"
+                        name="restaurantEmail"
+                        placeholder="Restaurant Email"
+                        onChange={(e) => setRestaurantEmail(e.target.value)}
                       />
                     </FormGroup>
                   </Grid>
@@ -262,9 +273,9 @@ export default function EditRestaurant(props) {
                       <input
                         type="number"
                         className="form-control"
-                        name="menuPrice"
-                        placeholder="Menu Price"
-                        onChange={(e) => setMenuPrice(e.target.value)}
+                        name="restaurantPhone"
+                        placeholder="Restaurant Phone Number"
+                        onChange={(e) => setRestaurantNumber(e.target.value)}
                       />
                     </FormGroup>
                   </Grid>
