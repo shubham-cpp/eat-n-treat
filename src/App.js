@@ -11,37 +11,38 @@ import Chatbotcomp from "./components/Chatbotcomp";
 import Checkout from "./components/Checkout";
 import RestaurantList from "./components/RestaurantList";
 import { Main as RestDetails } from "./components/RestrauntDetails/Main";
-// import { Main as EditRestaurant } from "./components/RestrauntEdit/Main";
 import EditRestaurant from "./components/RestaurantEdit/EditRestaurant";
+
+import LogReg from "./components/RegisterRst";
 
 function App() {
   const [restaurants, setRestaurants] = useState([]);
 
   return (
-    <>
-      <div style={{ backgroundColor: "#FFFDD0" }}>
-        <Router>
-          <AuthProvider>
-            <Navbar btn={<button>Click me</button>} />
-            <Chatbotcomp />
-            <Switch>
-              <Route path="/" exact>
-                <RestaurantList cbRestaurants={setRestaurants} />
-              </Route>
-              <Route path="/restaurant/:id" exact>
-                <RestDetails data={restaurants} />
-              </Route>
-              <Route path="/checkout">
-                <Checkout />
-              </Route>
-              <Route path="/restaurant/edit/:id">
-                <EditRestaurant data={restaurants} />
-              </Route>
-            </Switch>
-          </AuthProvider>
-        </Router>{" "}
-      </div>
-    </>
+    <div style={{ backgroundColor: "#FFFDD0" }}>
+      <Router>
+        <AuthProvider>
+          <Navbar btn={<button>Click me</button>} />
+          <Chatbotcomp />
+          <Switch>
+            <Route path="/" exact>
+              <RestaurantList cbRestaurants={setRestaurants} />
+            </Route>
+            <Route path="/restaurant/:id" exact>
+              <RestDetails data={restaurants} />
+            </Route>
+            <Route path="/checkout">
+              <Checkout />
+            </Route>
+            <Route path="/restaurant/edit/:id">
+              <EditRestaurant data={restaurants} />
+            </Route>
+            <Route path="/login" component={LogReg} />
+            <Route path="/register" component={LogReg} />
+          </Switch>
+        </AuthProvider>
+      </Router>{" "}
+    </div>
   );
 }
 export default App;
