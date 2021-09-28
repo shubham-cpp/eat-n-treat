@@ -30,7 +30,7 @@ router.post(
   (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.json({ errors: errors.array() });
     }
     const id = mongoose.Types.ObjectId();
 
@@ -75,7 +75,7 @@ router.post(
         res.json(savedResturant);
       })
       .catch((err) =>
-        res.status(400).json({ "Error while creating restaurant": err.message })
+        res.json({ "Error while creating restaurant": err.message })
       );
   }
 );
@@ -89,9 +89,7 @@ router.get("/reviews/:rID", (req, res) => {
     .select("reviews")
     .then((reviews) => res.json({ "All reviews": reviews }))
     .catch((err) =>
-      res
-        .status(400)
-        .json({ "Error while fetching reviews for restaurant": err.message })
+      res.json({ "Error while fetching reviews for restaurant": err.message })
     );
 });
 
@@ -104,7 +102,7 @@ router.post(
   (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.json({ errors: errors.array() });
     }
     const id = req.params.rID;
 
@@ -121,9 +119,7 @@ router.post(
     )
       .then((doc) => res.json(doc))
       .catch((err) =>
-        res
-          .status(400)
-          .json({ "Some error occured while appending to reviews": err })
+        res.json({ "Some error occured while appending to reviews": err })
       );
   }
 );
@@ -139,28 +135,26 @@ router.patch("/:rID", (req, res) => {
     }
   )
     .then((data) => res.json(data))
-    .catch((err) => res.status(400).json("Caught:", err.message));
+    .catch((err) => res.json("Caught:", err.message));
 });
 
 router.get("/:rID", (req, res) => {
   Restaurant.findById(req.params.rID)
     .then((data) => res.json(data))
-    .catch((err) => res.status(400).json("Caught:", err.message));
+    .catch((err) => res.json("Caught:", err.message));
 });
 
 router.delete("/:rID", (req, res) => {
   Restaurant.findByIdAndRemove(req.params.rID)
     .then(res.json({ msg: "delete success!" }))
-    .catch((err) => res.status(400).json({ "delete err!": err.message }));
+    .catch((err) => res.json({ "delete err!": err.message }));
 });
 
 // Get all items from menus
 router.get("/menu/:rid/", (req, res) => {
   Restaurant.findById(req.params.rid)
     .then((data) => res.json({ menus: data.menus }))
-    .catch((err) =>
-      res.status(400).json({ "error while fetching menu": err.message })
-    );
+    .catch((err) => res.json({ "error while fetching menu": err.message }));
 });
 
 //to update menu
@@ -177,18 +171,16 @@ router.patch("/menu/:menuID", (req, res) => {
     }
   )
     .then((data) => res.json(data))
-    .catch((err) =>
-      res.status(400).json({ "Error in updating menu": err.message })
-    );
+    .catch((err) => res.json({ "Error in updating menu": err.message }));
 });
 
 // Add items to menus
-router.post("/menu", body("menuPrice").isNumeric(), (req, res) => {
+router.post("/menu/:rID", body("menuPrice").isNumeric(), (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+    return res.json({ errors: errors.array() });
   }
-  const id = req.body.rID;
+  const id = req.params.rID;
   const menuObj = {
     menuID: mongoose.Types.ObjectId(),
     menuName: req.body.menuName,
@@ -204,11 +196,22 @@ router.post("/menu", body("menuPrice").isNumeric(), (req, res) => {
     .catch((err) => res.json({ err: err }));
 });
 
-router.delete("/menu/:menuId", (req, res) => {
-  const _id = req.params.menuId;
-  Restaurant.findByIdAndRemove(_id)
-    .then(res.json({ msg: "delete success!" }))
-    .catch(res.json({ msg: "delete err!" }));
+router.delete("/menu/:rid/:menuId", (req, res) => {
+  const id = req.params.menuId;
+  const rid = req.params.rid;
+  Restaurant.findByIdAndUpdate(
+    rid,
+    {
+      $pull: {
+        menus: {
+          _id: id,
+        },
+      },
+    },
+    { new: true, upsert: false }
+  )
+    .then((result) => res.json(result))
+    .catch((err) => res.json({ "delete err!": err.message }));
 });
 
 module.exports = router;
