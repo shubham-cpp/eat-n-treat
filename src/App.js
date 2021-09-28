@@ -12,17 +12,16 @@ import Checkout from "./components/Checkout";
 import RestaurantList from "./components/RestaurantList";
 import { Main as RestDetails } from "./components/RestrauntDetails/Main";
 import EditRestaurant from "./components/RestaurantEdit/EditRestaurant";
-
 import LogReg from "./components/RegisterRst";
 
 function App() {
   const [restaurants, setRestaurants] = useState([]);
-
+  let name = "";
   return (
     <>
       <Router>
         <AuthProvider>
-          <Navbar btn={<button>Click me</button>} />
+          <Navbar email={name} />
           <Chatbotcomp />
           <Switch>
             <Route path="/" exact>

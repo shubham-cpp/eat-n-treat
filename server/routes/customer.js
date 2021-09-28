@@ -18,29 +18,44 @@ router.post("/", async (req, res) => {
     email: cEmail,
     address: address,
     city: city,
-  }); 
-  newCustomer.save().then(() => {
-    res.json("Data Enter");
-  }).catch((err) => {
-    console.log(err);
-    res.status(400).send("Failed!");
-
-  })
+  });
+  newCustomer
+    .save()
+    .then(() => {
+      res.json("Data Enter");
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).send("Failed!");
+    });
 });
 
 router.get("/", (req, res) => {
-  Customer.find({}).then((allCustomer) => {
-    res.json(allCustomer);
-  }).catch((err) => {
-    console.log("Caught:", err.message)
-  })
+  Customer.find({})
+    .then((allCustomer) => {
+      res.json(allCustomer);
+    })
+    .catch((err) => {
+      console.log("Caught:", err.message);
+    });
+});
+
+router.get("/:email", (req, res) => {
+  Customer.findOne({ email: req.params.email })
+    .then((customer) => {
+      res.json(customer);
+    })
+    .catch((err) => {
+      console.log("Caught:", err.message);
+    });
 });
 
 router.get("/:custid", (req, res) => {
   const _id = req.params.custid;
-  Customer.findById(_id).then((oCustomer) => {
-    res.json(oCustomer);
-  })
+  Customer.findById(_id)
+    .then((oCustomer) => {
+      res.json(oCustomer);
+    })
     .catch((err) => console.log("Caught:", err.message));
 });
 
