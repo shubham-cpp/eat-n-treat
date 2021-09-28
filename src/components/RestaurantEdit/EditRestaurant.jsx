@@ -3,9 +3,9 @@ import { useParams } from "react-router";
 import { makeStyles } from "@mui/styles";
 import { Box, Grid, Button, Divider, Modal } from "@mui/material";
 import { FormGroup } from "react-bootstrap";
-
-import Dish from "../RestrauntDetails/Dish";
 import axios from "axios";
+
+import EditDish from "./EditDish";
 
 const style = {
   position: "absolute",
@@ -37,17 +37,33 @@ const useStyles = makeStyles((theme) => ({
 export default function EditRestaurant(props) {
   const { id } = useParams();
   const classes = useStyles();
-  // const history = useHistory();
 
   const [openLogin, setOpenLogin] = React.useState(false);
+  const [openUpdate, setOpenUpdate] = useState(false);
+  const [openRestaurantUpdate, setOpenRestaurantUpdate] = useState(false);
   const [menuName, setMenuName] = useState("");
   const [menuPrice, setMenuPrice] = useState(0);
+  const [restaurantName, setRestaurantName] = useState("");
+  const [restaurantNumber, setRestaurantNumber] = useState(0);
+  const [restaurantEmail, setRestaurantEmail] = useState("");
 
   const handleCloseLogin = () => setOpenLogin(false);
   const handleOpenLogin = () => setOpenLogin((prev) => !prev);
+  const handleCloseUpdate = () => setOpenUpdate(false);
+  const handleOpenUpdate = () => {
+    setOpenUpdate((prev) => !prev);
+  };
+  const handleCloseRestaurantUpdate = () => setOpenRestaurantUpdate(false);
+  const handleOpenRestaurantUpdate = () =>
+    setOpenRestaurantUpdate((prev) => !prev);
 
   const restaurant = props.data.find((r) => r._id === String(id));
 
+  /**
+   * Will send a delete request to server using @rid and @mid
+   * @param {string} rid Restaurant Id
+   * @param {string} mid Menu id
+   */
   const handleDelete = (rid, mid) => {
     const url = `http://localhost:5000/restaurant/menu/${rid}/${mid}`;
 
@@ -57,6 +73,11 @@ export default function EditRestaurant(props) {
       .catch((err) => console.log("Unable to delete record ", err.message));
   };
 
+  /**
+   * Will add the item to menu by
+   * Sending post request
+   * @param {event} e Event Object
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -71,6 +92,40 @@ export default function EditRestaurant(props) {
       .catch((err) => console.log("Some error occured ", err));
   };
 
+  /**
+   * Update item from menu
+   * @param {event} e Event Object
+   * @param {string} mid Menu id
+   */
+  const handleUpdate = (e, mid) => {
+    e.preventDefault();
+    const url = `http://localhost:5000/restaurant/menu/${mid}`;
+    const data = { menuName, menuPrice };
+
+    // console.log(mid);
+    // axios
+    //   .patch(url, data)
+    //   .then(() => {
+    //     handleCloseLogin();
+    //   })
+    //   .catch((err) => console.log("Some error occured ", err));
+  };
+
+  /**
+   * Send a patch request to update restaurant details
+   * @param {event} e Event Object
+   */
+  const handleRestaurantUpdate = (e) => {
+    e.preventDefault();
+    const url = `http://localhost:5000/restaurant/${id}`;
+    const data = { restaurantName, restaurantNumber, restaurantEmail };
+    axios
+      .patch(url, data)
+      .then(() => {
+        handleCloseRestaurantUpdate();
+      })
+      .catch((err) => console.log("Some error occured ", err));
+  };
   return (
     <>
       <div className="container" style={{ marginTop: "5rem" }}>
@@ -85,17 +140,24 @@ export default function EditRestaurant(props) {
         </p>
         <h4>Order</h4>
         <button onClick={handleOpenLogin}>
-          <span class="material-icons">add</span>
+          <span className="material-icons md-18">add</span>
+        </button>
+        <button onClick={handleOpenRestaurantUpdate}>
+          <span className="material-icons md-18">edit</span>
         </button>
         <div className="dishes">
           {restaurant.menus.map((dish) => {
             return (
-              <Dish
-                dish={dish}
-                key={dish._id}
-                handleFunction={() => handleDelete(id, dish._id)}
-                btnName="Delete"
-              />
+              <div>
+                <EditDish
+                  dish={dish}
+                  key={dish._id}
+                  btnName="Delete"
+                  handleFunction={() => handleDelete(id, dish._id)}
+                  updateFunction={(e) => handleUpdate(e, dish._id)}
+                />
+                {/* <button onClick={handleOpenUpdate}>Update</button> */}
+              </div>
             );
           })}
         </div>
@@ -117,6 +179,138 @@ export default function EditRestaurant(props) {
               {/* Make axios request instead of form action */}
               {/* Create Function to do this */}
               <form className={classes.form} onSubmit={handleSubmit}>
+                <Grid container spacing={1}>
+                  <Grid item xs={12}>
+                    <FormGroup>
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="menuName"
+                        placeholder="Menu Name"
+                        onChange={(e) => setMenuName(e.target.value)}
+                      />
+                    </FormGroup>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <FormGroup>
+                      <input
+                        type="number"
+                        className="form-control"
+                        name="menuPrice"
+                        placeholder="Menu Price"
+                        onChange={(e) => setMenuPrice(e.target.value)}
+                      />
+                    </FormGroup>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Button
+                      type="submit"
+                      fullWidth
+                      // onClick={handleSubmit}
+                      variant="contained"
+                      color="primary"
+                      className={classes.submit}
+                    >
+                      Submit
+                    </Button>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Divider spacing={1}></Divider>
+                  </Grid>
+                </Grid>
+              </form>
+            </div>
+          </div>
+        </Box>
+      </Modal>
+
+      <Modal
+        open={openRestaurantUpdate}
+        onClose={handleCloseRestaurantUpdate}
+        aria-labelledby="login-modal-title"
+        aria-describedby="login-modal-description"
+      >
+        <Box sx={style}>
+          <div className="paperLogin">
+            <h6>Edit Restaurant Details</h6>
+            <div
+              className="container"
+              style={{ overflow: "scroll", maxHeight: "300px" }}
+            >
+              {/* Make axios request instead of form action */}
+              {/* Create Function to do this */}
+              <form className={classes.form} onSubmit={handleRestaurantUpdate}>
+                <Grid container spacing={1}>
+                  <Grid item xs={12}>
+                    <FormGroup>
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="restaurantName"
+                        placeholder="Restaurant Name"
+                        onChange={(e) => setRestaurantName(e.target.value)}
+                      />
+                    </FormGroup>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <FormGroup>
+                      <input
+                        type="email"
+                        className="form-control"
+                        name="restaurantEmail"
+                        placeholder="Restaurant Email"
+                        onChange={(e) => setRestaurantEmail(e.target.value)}
+                      />
+                    </FormGroup>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <FormGroup>
+                      <input
+                        type="number"
+                        className="form-control"
+                        name="restaurantPhone"
+                        placeholder="Restaurant Phone Number"
+                        onChange={(e) => setRestaurantNumber(e.target.value)}
+                      />
+                    </FormGroup>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Button
+                      type="submit"
+                      fullWidth
+                      // onClick={handleSubmit}
+                      variant="contained"
+                      color="primary"
+                      className={classes.submit}
+                    >
+                      Submit
+                    </Button>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Divider spacing={1}></Divider>
+                  </Grid>
+                </Grid>
+              </form>
+            </div>
+          </div>
+        </Box>
+      </Modal>
+      <Modal
+        open={openUpdate}
+        onClose={handleCloseUpdate}
+        aria-labelledby="login-modal-title"
+        aria-describedby="login-modal-description"
+      >
+        <Box sx={style}>
+          <div className="paperLogin">
+            <h6>Update Menu Item</h6>
+            <div
+              className="container"
+              style={{ overflow: "scroll", maxHeight: "300px" }}
+            >
+              {/* Make axios request instead of form action */}
+              {/* Create Function to do this */}
+              <form className={classes.form} onSubmit={(e) => handleUpdate(e)}>
                 <Grid container spacing={1}>
                   <Grid item xs={12}>
                     <FormGroup>
