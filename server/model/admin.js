@@ -2,17 +2,16 @@ const mongoose = require("mongoose");
 
 const adminSchema = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
-  adminName: {
+  username: {
     type: String,
   },
-  adminEmail: {
+  passwordHash: {
     type: String,
-    lowercase: true,
-    trim: true,
-    unique: true,
-    required: true,
   },
-  adminPhone: {
+  salt: {
+    type: String,
+  },
+  phone: {
     type: Number,
   },
 });
