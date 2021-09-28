@@ -18,7 +18,7 @@ function NavBar() {
       setLoggedout(false);
     }
   });
-  console.log("logged out", loggedout);
+
   return (
     <div className="entry">
       <Navbar className="color-bg fixed-top" bg="dark" variant="dark">
@@ -39,6 +39,7 @@ function NavBar() {
               {!loggedout && (
                 <button
                   onClick={() => {
+                    sessionStorage.removeItem("custId");
                     logout();
                     setLoggedout(true);
                   }}
