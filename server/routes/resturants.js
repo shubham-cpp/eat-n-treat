@@ -140,7 +140,7 @@ router.patch("/:rID", (req, res) => {
 
 router.get("/:rID", (req, res) => {
   Restaurant.findById(req.params.rID)
-    .then((data) => res.json(data))
+    .then((restaurant) => res.json(restaurant))
     .catch((err) => res.json("Caught:", err.message));
 });
 
@@ -153,7 +153,7 @@ router.delete("/:rID", (req, res) => {
 // Get all items from menus
 router.get("/menu/:rid/", (req, res) => {
   Restaurant.findById(req.params.rid)
-    .then((data) => res.json({ menus: data.menus }))
+    .then((restaurant) => res.json({ menus: restaurant.menus }))
     .catch((err) => res.json({ "error while fetching menu": err.message }));
 });
 
