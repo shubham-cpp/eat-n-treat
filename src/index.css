@@ -80,11 +80,10 @@ code {
   justify-content: "space-between";
   max-height: 30rem;
   width: "20rem";
-  overflow: scroll;
+  /* overflow: scroll; */
   overflow-x: hidden;
   overflow-y: scroll;
 }
-
 .dishes::-webkit-scrollbar {
   display: none;
 }
