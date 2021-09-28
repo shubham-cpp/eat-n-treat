@@ -4,17 +4,10 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const Admins = require("../model/admin");
 
-const bcrypt = require("bcrypt");
-
 router.post("/", (req, res) => {
   const id = mongoose.Types.ObjectId();
   const salt = bcrypt.genSaltSync(10);
   const hash = bcrypt.hashSync(req.body.password, salt);
-
-  // Admins.findOne({ username: req.body.username })
-  //   .then((admin))
-  const salt = bcrypt.genSaltSync(10);
-  const hash = bcrypt.hashSync(req.body.password, salt)
 
   const newAdmin = new Admins({
     _id: id,
