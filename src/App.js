@@ -44,7 +44,7 @@ function App() {
         <Router>
           <AuthProvider>
             <Navbar email={name} change={navChange} />
-            <Chatbotcomp />
+            <Chatbotcomp disabled={navChange}/>
             <Switch>
               <Route path="/" exact>
                 <RestaurantList cbRestaurants={setRestaurants} />
@@ -84,3 +84,5 @@ function App() {
     </>
   );
 }
+
+export default App;
