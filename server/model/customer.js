@@ -26,15 +26,15 @@ const customerSchema = new mongoose.Schema({
   },
   address: {
     type: String,
-    required:true,
+    required: true,
     trim: true,
   },
   city: {
     type: String,
-    lowercase:true,
+    lowercase: true,
     trim: true,
-    required:true,
-  }
+    required: true,
+  },
 });
 
-module.exports = mongoose.model("customer", customerSchema);
+module.exports = mongoose.model("customers", customerSchema);

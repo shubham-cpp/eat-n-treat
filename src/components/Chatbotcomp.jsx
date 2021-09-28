@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+import ActionProvider from "./actionprovider";
+import config from "./config";
+import MessageParser from "./messageparser";
 import ChatBot from "react-simple-chatbot";
 import ChatBubble from "@material-ui/icons/ChatBubble";
 import OrderIns from "./OrderIns";
+import HotelLocation from "./HotelLocation";
 
 function Chatbotcomp() {
   let [showChat, setShowChat] = useState(false);

@@ -83,7 +83,6 @@ code {
   /* overflow: scroll; */
   overflow-x: hidden;
   overflow-y: scroll;
-  scrollbar-width: none;
 }
 .dishes::-webkit-scrollbar {
   display: none;
