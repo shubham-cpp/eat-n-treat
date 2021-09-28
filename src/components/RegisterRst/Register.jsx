@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import firebase from '../../firebase';
+
 import { Grid, InputLabel, Select, MenuItem, Button, FormControl} from '@mui/material';
 import { useHistory } from "react-router-dom";
 
@@ -18,7 +18,7 @@ export const Register = () => {
     const [email, setEmail] = React.useState("");
     const [phone, setPhone] = React.useState("");
     const [password, setPassword] = React.useState("");
-    const [cusines, setCusines] = useState([]);
+    const [cuisines, setCuisines] = useState([]);
     const [image, setImg] = React.useState(null);
 
     const inputLabel = React.useRef("");
@@ -31,6 +31,12 @@ export const Register = () => {
 
     const handleCityChange = (e) => setCity(e.target.value);
 
+    const handleCuisinesChange = (e) => {
+        // var cusine = cuisines.slice();
+        // cusine[index] = e.target.value;
+        setCuisines(e.target.value);
+    }
+
     const handleImageChange = (e) => {
       if (e.target.files && e.target.files[0]) {
         let image = e.target.files[0];
@@ -39,7 +45,81 @@ export const Register = () => {
       
     }
 
-    // const handleSubmit = (e1) = {};
+    const handleSubmit = (e1) => {
+      var regExpPhone = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+      var regExpPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
+      e1.preventDefault();
+      if(rname===""){
+        swal({
+          title: "Enter the restaurant name!",
+          icon: "error",
+          buttons: false,
+          timer: 3000,
+        });
+      }
+      else if(phone===""||!phone.match(regExpPhone)){
+        swal({
+          title: "Enter correct 10 digit phone number!",
+          icon: "error",
+          buttons: false,
+          timer: 3000,
+        });
+      }
+      else if(cuisines===""){
+        swal({
+          title: "Enter the Cusines separating with spaces!",
+          icon: "error",
+          buttons: false,
+          timer: 3000,
+        });
+      }
+      else if(password===""||!password.match(regExpPassword)){
+        swal({
+          title: "Wrong password syntax!",
+          text: "The password must contain at least 1 lowercase alphabet, at least 1 uppercase alphabet, at least 1 number and must be 6 characters or longer.",
+          icon: "error",
+          buttons: false,
+          timer: 12000,
+        })
+      }
+      else {
+        register(email, password)
+          .then(() => {
+          swal({
+            title: "Registration Request Send Successfully! Please wait till your request is accepted to continue.",
+            icon: "success",
+            buttons: false,
+            timer: 2000,
+          });
+          const data = {
+            rName: rname,
+            phone: phone,
+            eMail: email,
+            cuisines: cuisines,
+            city: city,
+            photo: image,
+          };
+          axios.post("http://localhost:5000/upload", data, { headers: {
+            "Content-Type": "application/json",
+            },})
+          .then(res => console.log(res))
+          .catch(err => console.log(err));
+          console.log("Register ");
+          
+          history.push("/login");
+        })
+        .catch((error) => {
+          var errorMessage = error.message;
+          swal({
+            title: "Error!",
+            text: errorMessage,
+            buttons: false,
+            timer: 2000,
+            icon: "error",
+          });
+        });
+      }
+    };
 
   const [err, setErr] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -61,7 +141,7 @@ export const Register = () => {
               type="text"
               name="restaurantname"
               placeholder="Restaurant Name"
-              // value={rname} onChange={handleInput}
+              value={rname} onChange={handleRnameChange}
             />
           </div>
           <div className="register__formGroup">
@@ -69,7 +149,7 @@ export const Register = () => {
               type="email"
               placeholder="Email Address"
               value={email}
-            //   onChange={handleInput}
+              onChange={handleEmailChange}
             />
           </div>
           <div className="register__formGroup">
@@ -77,17 +157,17 @@ export const Register = () => {
               type="text"
               name="phone"
               placeholder="Contact Number"
-              // value={phone}
-            //   onChange={handleInput}
+              value={phone}
+              onChange={handlePhoneChange}
             />
           </div>
           <div className="register__formGroup">
             <input
               type="text"
-              name="cusines"
-              placeholder="Cusines"
-              // value={phone}
-            //   onChange={handleInput}
+              name="cuisines"
+              placeholder="Cuisines"
+              value={cuisines}
+              onChange={handleCuisinesChange}
             />
           </div>
           <div className="register__formGroup">
@@ -96,8 +176,8 @@ export const Register = () => {
               type="password"
               name="password"
               placeholder="Password"
-              // value={password}
-            //   onChange={handleInput}
+              value={password}
+              onChange={handlePasswordChange}
             />
           </div>
           
@@ -111,7 +191,7 @@ export const Register = () => {
 
             {/* <label htmlFor="myImage">Select Image</label> */}
             
-            <input type="file" name="myImage" onChange={handleImageChange} />
+            <input type="file" accept=".jpg, .png, .jpeg, .svg|image/*" name="myImage" onChange={handleImageChange} />
            
         </div>
           
@@ -148,7 +228,7 @@ export const Register = () => {
           type="button"
           id="btn"
           className={loading ? 'loading' : ''}
-        //   onClick={handleSubmit}
+        // onClick={handleSubmit}
         >
           Register
         </Button>
