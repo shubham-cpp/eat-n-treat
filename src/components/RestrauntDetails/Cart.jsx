@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 import { Box, Modal } from "@mui/material";
 
 const style = {
@@ -32,10 +32,9 @@ export default function Cart({ cartItems, addToCart, removeFromCart, total }) {
         onClick={handleOpenLogin}
       >
         {" "}
-        Cart{" "}
-        <span>{cartItems.length>0 &&cartItems.length}</span>
+        Cart <span>{cartItems.length > 0 && cartItems.length}</span>
       </button>
-      
+
       <Modal
         open={openLogin}
         onClose={handleCloseLogin}
@@ -46,7 +45,10 @@ export default function Cart({ cartItems, addToCart, removeFromCart, total }) {
           <div id="login-modal-description" className="paperLogin">
             <aside className="col dishes">
               <h3>Cart Items</h3>
-              <div className="container" style={{overflow:"scroll",maxHeight:"300px"}}>
+              <div
+                className="container"
+                style={{ overflow: "scroll", maxHeight: "300px" }}
+              >
                 {cartItems.length === 0 && <p>Cart is empty</p>}
                 {cartItems.map((item) => (
                   <div key={item._id} className="row">
@@ -64,10 +66,13 @@ export default function Cart({ cartItems, addToCart, removeFromCart, total }) {
                 ))}
               </div>
             </aside>
-        
-            
-            <Link className="btn btn-primary" to="/checkout">
-                      Checkout
+
+            <Link
+              disabled={cartItems.length === 0}
+              className="btn btn-primary"
+              to="/checkout"
+            >
+              Checkout
               {
                 // TODO: Total is one behind actual value
               }
