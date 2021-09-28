@@ -16,12 +16,11 @@ import LogReg from "./components/RegisterRst";
 
 function App() {
   const [restaurants, setRestaurants] = useState([]);
-  let name = "";
   return (
     <>
       <Router>
         <AuthProvider>
-          <Navbar email={name} />
+          <Navbar />
           <Chatbotcomp />
           <Switch>
             <Route path="/" exact>
