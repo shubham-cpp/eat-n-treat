@@ -213,7 +213,7 @@ export const Register = () => {
                       <MenuItem value="Pune">Pune</MenuItem>
                       <MenuItem value="Mumbai">Mumbai</MenuItem>
                       <MenuItem value="Nagpur">Nagpur</MenuItem>
-                      <MenuItem value="Nagpur">Goa</MenuItem>
+                      <MenuItem value="Goa">Goa</MenuItem>
                       <MenuItem value="Kolhapur">Kolhapur</MenuItem>
                     </Select>
             </FormControl>
