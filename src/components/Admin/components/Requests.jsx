@@ -71,12 +71,14 @@ const Requests = () => {
   }
 
   function approveRequest(event, rID) {
-      event.preventDefault();
+    event.preventDefault();
 
-      axios.patch(`/restaurant/status/${rID}`)
-        .then(() => {
-            setTemp(!temp)
-        }).catch(err => console.log(err))
+    axios
+      .patch(`/restaurant/status/${rID}`)
+      .then(() => {
+        setTemp(!temp);
+      })
+      .catch((err) => console.log(err));
   }
 
   return (
@@ -104,7 +106,16 @@ const Requests = () => {
                     <Group />
                   </ListItemIcon>
                   <ListItemText primary={`${restaurant.restaurantName}`} />
-                  <Button onClick={(e) => approveRequest(e, restaurant._id)} style={{ backgroundColor: "green", color: "white", marginRight: "3%" }}>Approve</Button>
+                  <Button
+                    onClick={(e) => approveRequest(e, restaurant._id)}
+                    style={{
+                      backgroundColor: "green",
+                      color: "white",
+                      marginRight: "3%",
+                    }}
+                  >
+                    Approve
+                  </Button>
                   {open[index] ? <ExpandLess /> : <ExpandMore />}
                 </ListItem>
                 <Collapse in={open[index]} timeout="auto" unmountOnExit>
@@ -123,7 +134,7 @@ const Requests = () => {
                           />
                         ) : (
                           <ListItemText
-                            secondary={restaurant[key]}
+                            secondary={`${restaurant[key]}`}
                             style={{ float: "right", textAlign: "right" }}
                           />
                         )}

@@ -26,7 +26,7 @@ router.post(
     .isEmpty()
     .isEmail()
     .normalizeEmail(),
-  body("menuPrice").isNumeric(),
+  // body("menuPrice").isNumeric(),
   (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -36,14 +36,14 @@ router.post(
 
     const rName = req.body.restaurantName;
     const status = false;
-    const imgurl = req.file.path;
+    const imgurl = req.body.path;
     const rPhone = req.body.restaurantPhone;
     const rEmail = req.body.restaurantEmail;
     const rCity = req.body.rCity;
     const rating = req.body.rating || 0;
     const cuisine = req.body.cuisine;
     const newRestaurant = new Restaurant({
-      id: id,
+      _id: id,
       restaurantName: rName,
       restaurantRegistrationStatus: status,
       resturanturl: imgurl,
@@ -65,7 +65,9 @@ router.post(
 );
 
 router.get("/", (_, res) => {
-  Restaurant.find({}).then((data) => res.json(data)).catch(err => console.log(err));
+  Restaurant.find({})
+    .then((data) => res.json(data))
+    .catch((err) => console.log(err));
 });
 
 router.get("/reviews/:rID", (req, res) => {
