@@ -4,6 +4,10 @@ const { body, validationResult } = require("express-validator");
 
 const Orders = require("../model/order");
 
+router.get("/", (_, res) => {
+  Orders.find({}).then((data) => res.json(data)).catch(err => console.log(err));
+});
+
 router.post(
   "/",
   body("cartList").isArray(),
