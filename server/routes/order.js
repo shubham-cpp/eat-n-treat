@@ -6,16 +6,16 @@ const Orders = require("../model/order");
 
 router.post(
   "/",
-  body("cartList").isArray(),
-  body("totalAmount").isNumeric(),
+  // body("cartList").isArray(),
+  // body("totalAmount").isNumeric(),
   (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
+    // const errors = validationResult(req);
+    // if (!errors.isEmpty()) {
+    //   return res.status(400).json({ errors: errors.array() });
+    // }
     const cartList = req.body.cartList;
-    const customerID = req.body.customerID;
-    const restrauntID = req.body.restrauntID;
+    const customerID = mongoose.Types.ObjectId(req.body.customerID);
+    const restrauntID = mongoose.Types.ObjectId(req.body.restrauntID);
     const totalAmount = req.body.totalAmount;
     const orderStatus = "Pending";
 
@@ -31,9 +31,7 @@ router.post(
     newOrder
       .save()
       .then((savedOrder) => res.json(savedOrder))
-      .catch((err) =>
-        res.status(400).json({ "unable to save to database": err.message })
-      );
+      .catch((err) => res.json({ "unable to save to database": err.message }));
   }
 );
 
