@@ -65,7 +65,7 @@ router.post(
 );
 
 router.get("/", (_, res) => {
-  Restaurant.find({}).then((data) => res.json(data));
+  Restaurant.find({}).then((data) => res.json(data)).catch(err => console.log(err));
 });
 
 router.get("/reviews/:rID", (req, res) => {
@@ -116,6 +116,19 @@ router.patch("/:rID", (req, res) => {
       restaurantName: req.body.restaurantName,
       restaurantPhone: req.body.restaurantPhone,
       restaurantEmail: req.body.restaurantEmail,
+    },
+    { new: true, upsert: false }
+  )
+    .then((data) => res.json(data))
+    .catch((err) => res.json("Caught:", err.message));
+});
+
+router.patch("/status/:rID", (req, res) => {
+  const id = req.params.rID;
+  Restaurant.findByIdAndUpdate(
+    { _id: id },
+    {
+      restaurantRegistrationStatus: true,
     },
     { new: true, upsert: false }
   )
