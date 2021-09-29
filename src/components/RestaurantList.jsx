@@ -5,14 +5,10 @@ import axios from "axios";
 
 export default function RestaurantList({ cbRestaurants }) {
   const [res, setRes] = useState([]);
-  // NOTE: First start express server
-  // Then start react server
   const url = "http://localhost:5000/restaurant";
 
   const [Restaurants, setRestaurants] = useState([]);
 
-  // TODO: Solve warning react-hooks/exhaustive-deps
-  // Look into useCallback
   useEffect(() => {
     axios.get(url).then((restaurants) => {
       setRestaurants(restaurants.data);
@@ -22,7 +18,9 @@ export default function RestaurantList({ cbRestaurants }) {
 
   const filterdata = Restaurants.filter((item) => {
     return res !== ""
-      ? item.restaurantName.toLowerCase().includes(res)  || item.rCity.toLowerCase().includes(res)
+      ? (item.restaurantName.toLowerCase().includes(res) ||
+          item.rCity.toLowerCase().includes(res)) &&
+          item.restaurantRegistrationStatus
       : item;
   });
 
@@ -54,11 +52,6 @@ export default function RestaurantList({ cbRestaurants }) {
           );
         })}
       </div>
-      {/* <Switch>
-        <Route path="/restaurant/:id" >
-          <RestDetails data={ Restaurants }/>
-        </Route>
-      </Switch> */}
     </div>
   );
 }

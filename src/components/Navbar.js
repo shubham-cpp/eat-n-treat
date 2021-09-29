@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import firebase from "../firebase";
 import Signup from "./Signup";
 import Login from "./Login";
@@ -10,6 +10,7 @@ import { useAuth } from "../auth";
 
 function NavBar(props) {
   const { logout } = useAuth();
+  const history = useHistory();
   const [email, setEmail] = useState("");
   const [loggedout, setLoggedout] = useState(true);
   firebase.auth().onAuthStateChanged(function(user) {
@@ -20,9 +21,10 @@ function NavBar(props) {
   });
 
   const handleCheckout = () => {
-    sessionStorage.removeItem("custID");
+    sessionStorage.removeItem("custId");
     logout();
     setLoggedout(true);
+    history.push("/");
   };
 
   return (
@@ -52,6 +54,7 @@ function NavBar(props) {
                 {!loggedout && (
                   <button onClick={handleCheckout}>Log out</button>
                 )}
+                {!loggedout && <Link to="/customers/orders">Orders</Link>}
               </Nav.Link>
             </Nav>
           ) : (

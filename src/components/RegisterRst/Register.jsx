@@ -23,7 +23,7 @@ export const Register = () => {
   const [email, setEmail] = React.useState("");
   const [phone, setPhone] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [cuisines, setCuisines] = useState([]);
+  const [cuisines, setCuisines] = useState("");
   const [image, setImg] = React.useState(null);
 
   const inputLabel = React.useRef("");
@@ -111,15 +111,17 @@ export const Register = () => {
             timer: 5000,
           });
           const data = {
-            rName: rname,
-            phone: phone,
-            eMail: email,
-            cuisines: cuisines,
-            city: city,
-            photo: downloadURL,
+            restaurantName: rname,
+            restaurantPhone: phone,
+            restaurantEmail: email,
+            cuisine: cuisines.trim().split(","),
+            rCity: city,
+            path: image,
           };
+          //console.log(data.cuisines);
+
           axios
-            .post("http://localhost:5000/upload", data, {
+            .post("http://localhost:5000/restaurant", data, {
               headers: {
                 "Content-Type": "application/json",
               },
@@ -128,7 +130,7 @@ export const Register = () => {
             .catch((err) => console.log(err));
           console.log("Register ");
 
-          history.push("/login");
+          history.push("/");
         })
         .catch((error) => {
           var errorMessage = error.message;
@@ -250,7 +252,7 @@ export const Register = () => {
           type="button"
           id="btn"
           className={loading ? "loading" : ""}
-           onClick={handleSubmit}
+          onClick={handleSubmit}
         >
           Register
         </Button>

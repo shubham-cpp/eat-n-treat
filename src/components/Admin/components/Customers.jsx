@@ -6,7 +6,6 @@ import {
   CardContent,
   makeStyles,
   createStyles,
-  Typography,
   CardHeader,
   ListItem,
   ListItemIcon,
@@ -20,7 +19,7 @@ import {
   ExpandMore,
   ExpandLess,
   SubdirectoryArrowRightTwoTone,
-  Group
+  Group,
 } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) =>
@@ -44,7 +43,7 @@ const useStyles = makeStyles((theme) =>
 const Customers = () => {
   const [open, setOpen] = useState([]);
   const [customers, setCustomers] = useState([]);
-  const [temp, setTemp] = useState(false);
+  // const [temp, setTemp] = useState(false);
 
   const classes = useStyles();
 
@@ -62,10 +61,10 @@ const Customers = () => {
   }, []);
 
   function handleClick(index) {
-    console.log(index)
+    console.log(index);
     let tempOpen = open;
-    tempOpen[index] = !tempOpen[index]
-    console.log(tempOpen)
+    tempOpen[index] = !tempOpen[index];
+    console.log(tempOpen);
     setOpen([...tempOpen]);
     //setTemp(!temp);
   }
@@ -93,19 +92,31 @@ const Customers = () => {
                 <ListItemIcon className={classes.menuItemIcon}>
                   <Group />
                 </ListItemIcon>
-                <ListItemText primary={`${customer.customerFName} ${customer.customerLName}`} />
+                <ListItemText
+                  primary={`${customer.customerFName} ${customer.customerLName}`}
+                />
                 {open[index] ? <ExpandLess /> : <ExpandMore />}
               </ListItem>
               <Collapse in={open[index]} timeout="auto" unmountOnExit>
                 <Divider />
                 <List component="div" disablePadding>
                   {Object.keys(customer).map((key) => (
-                      <ListItem className={classes.menuSubItem}>
+                    <ListItem className={classes.menuSubItem}>
                       <ListItemIcon>
                         <SubdirectoryArrowRightTwoTone />
                       </ListItemIcon>
-                      <ListItemText secondary={ key } />
-                      <ListItemText secondary={ customer[key] } style={{ float: "right", textAlign: "right" }} />
+                      <ListItemText secondary={key} />
+                      {Array.isArray(customer[key]) ? (
+                        <ListItemText
+                          secondary={`Array (${customer[key].length})`}
+                          style={{ float: "right", textAlign: "right" }}
+                        />
+                      ) : (
+                        <ListItemText
+                          secondary={customer[key]}
+                          style={{ float: "right", textAlign: "right" }}
+                        />
+                      )}
                     </ListItem>
                   ))}
                 </List>

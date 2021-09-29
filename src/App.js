@@ -18,6 +18,7 @@ import LogReg from "./components/RegisterRst";
 import AdminLogin from "./components/Admin/AdminLogin";
 import ProtectedRoute from "./components/Admin/ProtectedRoute";
 import AdminDash from "./components/Admin/AdminDash";
+import Orders from "./components/Orders";
 
 const NoMatch = () => {
   return (
@@ -55,6 +56,7 @@ function App() {
             <Route path="/restaurant/edit/:id">
               <EditRestaurant data={restaurants} />
             </Route>
+            <Route path="/customers/orders" component={Orders} />
             <Route path="/login" component={LogReg} />
             <Route path="/register" component={LogReg} />
             <Route path="/admin">
