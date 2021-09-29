@@ -1,32 +1,41 @@
 import React from "react";
 import axios from "axios";
+import swal from "sweetalert";
 import { useHistory } from "react-router";
 
 function Checkout() {
   const history = useHistory();
-  const restID = localStorage.getItem("rID");
-  const custId = sessionStorage.getItem("custID");
-  const cartItems = JSON.parse(localStorage.getItem("cart"));
-  const totalAmount = cartItems.reduce(
+  const restrauntID = localStorage.getItem("rID");
+  const customerID = sessionStorage.getItem("custId");
+  const cartList = JSON.parse(localStorage.getItem("cart"));
+  const totalAmount = cartList.reduce(
     (tot, current) => tot + current.menuPrice * current.qty,
     0
   );
   const handleOrder = () => {
+    const data = {
+      cartList,
+      restrauntID,
+      customerID,
+      totalAmount,
+    };
     axios
-      .post("http://localhost:5000/order/", {
-        customerID: custId,
-        cartList: cartItems,
-        restrauntID: restID,
-        totalAmount: totalAmount,
-      })
+      .post("http://localhost:5000/order/", data)
       .then(() => {
+        swal({
+          title: "Order Placed Successfully !",
+          icon: "success",
+          buttons: false,
+          timer: 2000,
+        });
+        localStorage.removeItem("cart");
+        localStorage.removeItem("rID");
         history.push("/");
       })
       .catch((err) => {
         console.log("error while placing order", err);
       });
   };
-  // console.log(cartItems);
   return (
     <div className="container" style={{ marginTop: "4rem" }}>
       <h1>Order Details</h1>
@@ -40,7 +49,7 @@ function Checkout() {
           </tr>
         </thead>
         <tbody>
-          {cartItems.map((item, index) => (
+          {cartList.map((item, index) => (
             <tr key={index}>
               <td>{item.menuName}</td>
               <td>{item.qty}</td>
