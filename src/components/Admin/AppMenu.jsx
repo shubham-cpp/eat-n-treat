@@ -93,14 +93,14 @@ const AppMenu = (props) => {
       </ListItem>
       </div>
 
-      <div onClick={() => props.setComponent(<Reports />)}>
+      {/* <div onClick={() => props.setComponent(<Reports />)}>
       <ListItem button className={classes.menuItem}>
         <ListItemIcon className={classes.menuItemIcon}>
           <IconBarChart />
         </ListItemIcon>
         <ListItemText primary="Reports" />
       </ListItem>
-      </div>
+      </div> */}
       
     </List>
   );
