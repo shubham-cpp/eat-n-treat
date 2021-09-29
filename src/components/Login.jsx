@@ -7,8 +7,17 @@ import { useAuth } from "../auth";
 
 import "./loginStyle.css";
 import { useHistory, Link } from "react-router-dom";
+import axios from "axios";
 
 export var user = null;
+
+function getSessionStorageOrDefault(key, defaultValue) {
+  const stored = sessionStorage.getItem(key);
+  if (!stored) {
+    return defaultValue;
+  }
+  return JSON.parse(stored);
+}
 
 const style = {
   position: "absolute",
@@ -54,7 +63,7 @@ export default function BootLogin() {
   function handleSubmit(e) {
     e.preventDefault();
     login(email, password)
-      .then(function() {
+      .then(function(d) {
         swal({
           title: "Logged In Successfully !",
           icon: "success",
@@ -62,7 +71,12 @@ export default function BootLogin() {
           timer: 2000,
         });
 
-        console.log("login ");
+        // console.log(" login", d.user.email);
+        const email = d.user.email;
+        axios.get("http://localhost:5000/customer/" + email).then((res) => {
+          sessionStorage.setItem("custId", JSON.stringify(res.data._id));
+        });
+
         handleCloseLogin();
         history.push("/");
       })
