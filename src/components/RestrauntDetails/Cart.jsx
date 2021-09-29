@@ -67,16 +67,17 @@ export default function Cart({ cartItems, addToCart, removeFromCart, total }) {
               </div>
             </aside>
 
-            <Link
-              disabled={cartItems.length === 0}
-              className="btn btn-primary"
-              to="/checkout"
-            >
-              Checkout
-              {
-                // TODO: Total is one behind actual value
-              }
-            </Link>
+            {sessionStorage.getItem("custId") === null ? (
+              <h5>Login to continue</h5>
+            ) : (
+              <Link
+                disabled={cartItems.length === 0}
+                className="btn btn-primary"
+                to="/checkout"
+              >
+                Checkout
+              </Link>
+            )}
           </div>
         </Box>
       </Modal>

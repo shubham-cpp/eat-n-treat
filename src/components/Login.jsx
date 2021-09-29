@@ -78,7 +78,7 @@ export default function BootLogin() {
         });
 
         handleCloseLogin();
-        history.push("/");
+        // history.push("/");
       })
 
       .catch(function(error) {
