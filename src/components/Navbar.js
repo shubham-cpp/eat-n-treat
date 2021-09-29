@@ -52,6 +52,7 @@ function NavBar(props) {
                 {!loggedout && (
                   <button onClick={handleCheckout}>Log out</button>
                 )}
+                {!loggedout && <Link to="/customers/orders">Orders</Link>}
               </Nav.Link>
             </Nav>
           ) : (
