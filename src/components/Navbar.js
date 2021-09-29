@@ -8,7 +8,7 @@ import Signup from "./Signup";
 import Login from "./Login";
 import { useAuth } from "../auth";
 
-function NavBar() {
+function NavBar(props) {
   const { logout } = useAuth();
   const [email, setEmail] = useState("");
   const [loggedout, setLoggedout] = useState(true);
@@ -19,36 +19,44 @@ function NavBar() {
     }
   });
 
+  const handleCheckout = () => {
+    sessionStorage.removeItem("custID");
+    logout();
+    setLoggedout(true);
+  };
+
   return (
     <div className="entry">
       <Navbar className="color-bg fixed-top" bg="dark" variant="dark">
         <Container>
           <Navbar.Brand>
-            <Link to="/" style={{ textDecoration: "none" }}>
-              Eat and Treat
-            </Link>
+            {!props.change ? (
+              <Link to="/" style={{ textDecoration: "none" }}>
+                Eat and Treat
+              </Link>
+            ) : (
+              <Link to="/admin" style={{ textDecoration: "none" }}>
+                Admin Panel
+              </Link>
+            )}
           </Navbar.Brand>
-          <Nav className="items">
-            <Nav.Link>
-              {/* Login */}
-              {loggedout && <Login />}
-            </Nav.Link>
-            <Nav.Link>
-              {/* Sign up */}
-              {loggedout && <Signup />}
-              {!loggedout && (
-                <button
-                  onClick={() => {
-                    sessionStorage.removeItem("custId");
-                    logout();
-                    setLoggedout(true);
-                  }}
-                >
-                  Log out
-                </button>
-              )}
-            </Nav.Link>
-          </Nav>
+          {!props.change ? (
+            <Nav className="items">
+              <Nav.Link>
+                {/* Login */}
+                {loggedout && <Login />}
+              </Nav.Link>
+              <Nav.Link>
+                {/* Sign up */}
+                {loggedout && <Signup />}
+                {!loggedout && (
+                  <button onClick={handleCheckout}>Log out</button>
+                )}
+              </Nav.Link>
+            </Nav>
+          ) : (
+            <></>
+          )}
         </Container>
       </Navbar>
     </div>
