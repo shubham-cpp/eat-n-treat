@@ -7,12 +7,10 @@ import firebase from "../firebase";
 import Signup from "./Signup";
 import Login from "./Login";
 import { useAuth } from "../auth";
-import { useHistory } from "react-router-dom";
 
 function NavBar(props) {
   const history = useHistory();
   const { logout } = useAuth();
-  const history = useHistory();
   const [email, setEmail] = useState("");
   const [loggedout, setLoggedout] = useState(true);
   firebase.auth().onAuthStateChanged(function(user) {
