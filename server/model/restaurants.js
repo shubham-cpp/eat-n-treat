@@ -37,7 +37,8 @@ const restaurantSchema = new mongoose.Schema({
     of: new mongoose.Schema({
       _id: mongoose.Schema.Types.ObjectId,
       reviewText: String,
-      user: { type: mongoose.Schema.Types.ObjectId, ref: "customer" },
+      rating: Number,
+      userID: { type: mongoose.Schema.Types.ObjectId, ref: "customers" },
     }),
   },
   menus: {
