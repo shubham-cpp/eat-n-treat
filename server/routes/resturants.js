@@ -133,12 +133,12 @@ router.post(
       _id: mongoose.Types.ObjectId(),
       rating: req.body.rating,
       reviewText: req.body.reviewText,
-      user: req.body.user,
+      userID: req.body.user,
     };
 
     Restaurant.findById({ _id: id })
       .then((restaurant) => {
-        let avgRating = restaurant.rating;
+        let avgRating = restaurant.rating * restaurant.reviews.length;
         avgRating =
           (avgRating + req.body.rating) / (restaurant.reviews.length + 1);
 
