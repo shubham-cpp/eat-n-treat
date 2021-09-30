@@ -3,7 +3,7 @@ const orderSchema = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
   customerID: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "customer",
+    ref: "customers",
     required: true,
   },
   cart: {
@@ -16,7 +16,7 @@ const orderSchema = new mongoose.Schema({
   },
   restrauntID: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "restaurants",
+    ref: "restaurant",
     required: true,
   },
   totalAmount: { type: Number },
