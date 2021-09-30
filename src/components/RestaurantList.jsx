@@ -15,6 +15,7 @@ export default function RestaurantList({ cbRestaurants }) {
       cbRestaurants(restaurants.data);
     });
   }, [cbRestaurants]);
+  console.log(Restaurants);
 
   const filterdata = Restaurants.filter((item) => {
     return res !== ""

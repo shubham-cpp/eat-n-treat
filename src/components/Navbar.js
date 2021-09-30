@@ -22,7 +22,7 @@ function NavBar(props) {
   });
 
   const handleCheckout = () => {
-    sessionStorage.removeItem("custID");
+    sessionStorage.removeItem("custId");
     logout();
     setLoggedout(true);
     history.push("/");
