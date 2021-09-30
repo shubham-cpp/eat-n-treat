@@ -4,6 +4,7 @@ import { useLocalStorage } from "../useLocalStorage";
 import { Link } from "react-router-dom";
 import Cart from "./Cart";
 import Details from "./Details";
+import ReviewsList from "./ReviewsList";
 
 export function Main(props) {
   const data = props.data;
@@ -75,6 +76,10 @@ export function Main(props) {
           Edit Restaurant
         </Link>
       </button>
+
+      <div>
+        <ReviewsList id={id} />
+      </div>
     </div>
   );
 }

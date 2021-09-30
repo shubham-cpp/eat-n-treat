@@ -73,7 +73,7 @@ router.get("/", (_, res) => {
 router.get("/reviews/:rID", (req, res) => {
   Restaurant.findById(req.params.rID)
     .select("reviews")
-    .then((reviews) => res.json({ "All reviews": reviews }))
+    .then((reviews) => res.json(reviews))
     .catch((err) =>
       res.json({ "Error while fetching reviews for restaurant": err.message })
     );
