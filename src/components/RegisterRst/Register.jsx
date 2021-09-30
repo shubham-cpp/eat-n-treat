@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import firebase from "firebase";
 import {
   InputLabel,
   Select,
@@ -14,7 +14,7 @@ import { useAuth } from "../../auth";
 import axios from "axios";
 
 export const Register = () => {
-  const { register } = useAuth();
+  const { signup } = useAuth();
   const history = useHistory();
 
   const [city, setCity] = React.useState("");
@@ -23,12 +23,14 @@ export const Register = () => {
   const [email, setEmail] = React.useState("");
   const [phone, setPhone] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [cuisines, setCuisines] = useState([]);
+  const [cuisines, setCuisines] = useState("");
   const [image, setImg] = React.useState(null);
 
   const inputLabel = React.useRef("");
+  const storageRef = firebase.storage().ref();
+  var downloadURL = "";
 
-  const handleChange = (e) => setCity(e.target.value);
+
   const handleRnameChange = (e) => setRname(e.target.value);
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePhoneChange = (e) => setPhone(e.target.value);
@@ -45,7 +47,7 @@ export const Register = () => {
   const handleImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       let image = e.target.files[0];
-      setImg(URL.createObjectURL(image));
+      //setImg(URL.createObjectURL(image));
     }
   };
 
@@ -84,25 +86,42 @@ export const Register = () => {
         timer: 12000,
       });
     } else {
-      register(email, password)
+      console.log("Endpoint");
+      var file = document.getElementById("files").files[0];
+      var uploadTask = storageRef.child('restaurants/' + file.name).put(file);
+      uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+        (snapshot) =>{
+          //var progress = Math.round((snapshot.bytesTransferred/snapshot.totalBytes))*100;
+          //this.setState({progress});
+        },(error) =>{
+          throw error;
+        },() =>{    
+          uploadTask.snapshot.ref.getDownloadURL().then((url) => {
+              downloadURL = url;
+          })
+        })
+        
+      signup(email, password)
         .then(() => {
           swal({
             title:
               "Registration Request Send Successfully! Please wait till your request is accepted to continue.",
             icon: "success",
             buttons: false,
-            timer: 2000,
+            timer: 5000,
           });
           const data = {
-            rName: rname,
-            phone: phone,
-            eMail: email,
-            cuisines: cuisines,
-            city: city,
-            photo: image,
+            restaurantName: rname,
+            restaurantPhone: phone,
+            restaurantEmail: email,
+            cuisine: cuisines.trim().split(","),
+            rCity: city,
+            path: image,
           };
+          //console.log(data.cuisines);
+
           axios
-            .post("http://localhost:5000/upload", data, {
+            .post("http://localhost:5000/restaurant", data, {
               headers: {
                 "Content-Type": "application/json",
               },
@@ -111,7 +130,7 @@ export const Register = () => {
             .catch((err) => console.log(err));
           console.log("Register ");
 
-          history.push("/login");
+          history.push("/");
         })
         .catch((error) => {
           var errorMessage = error.message;
@@ -124,7 +143,7 @@ export const Register = () => {
           });
         });
     }
-  };
+  }
 
   const [err, setErr] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -198,7 +217,8 @@ export const Register = () => {
             <input
               type="file"
               accept=".jpg, .png, .jpeg, .svg|image/*"
-              name="myImage"
+              id="files"
+              name="files[]"
               onChange={handleImageChange}
             />
           </div>
@@ -232,7 +252,7 @@ export const Register = () => {
           type="button"
           id="btn"
           className={loading ? "loading" : ""}
-          // onClick={handleSubmit}
+          onClick={handleSubmit}
         >
           Register
         </Button>

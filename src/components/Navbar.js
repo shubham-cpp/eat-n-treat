@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import firebase from "../firebase";
 import Signup from "./Signup";
 import Login from "./Login";
@@ -12,6 +12,7 @@ import { useHistory } from "react-router-dom";
 function NavBar(props) {
   const history = useHistory();
   const { logout } = useAuth();
+  const history = useHistory();
   const [email, setEmail] = useState("");
   const [loggedout, setLoggedout] = useState(true);
   firebase.auth().onAuthStateChanged(function(user) {

@@ -112,7 +112,7 @@ const Restaurants = () => {
                           />
                         ) : (
                           <ListItemText
-                            secondary={restaurant[key]}
+                            secondary={`${restaurant[key]}`}
                             style={{ float: "right", textAlign: "right" }}
                           />
                         )}
