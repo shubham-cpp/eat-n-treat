@@ -9,7 +9,7 @@ import Navbar from "./components/Navbar";
 import { AuthProvider } from "./auth";
 import Chatbotcomp from "./components/Chatbotcomp";
 import Checkout from "./components/Checkout";
-
+import Chart from "./components/Chart";
 import RestaurantList from "./components/RestaurantList";
 import { Main as RestDetails } from "./components/RestrauntDetails/Main";
 import EditRestaurant from "./components/RestaurantEdit/EditRestaurant";
@@ -59,6 +59,7 @@ function App() {
             <Route path="/customers/orders" component={Orders} />
             <Route path="/login" component={LogReg} />
             <Route path="/register" component={LogReg} />
+            <Route path="/chart" component={Chart} />
             <Route path="/admin">
               <AdminLogin
                 setAdmin={setAdmin}
