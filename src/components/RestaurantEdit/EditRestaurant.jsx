@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { makeStyles } from "@mui/styles";
 import { Box, Grid, Button, Divider, Modal } from "@mui/material";
@@ -38,9 +38,13 @@ export default function EditRestaurant({ data }) {
   const { id } = useParams();
   const classes = useStyles();
 
-  const [restaurant, setRestaurant] = useState(
-    data.find((r) => r._id === String(id))
-  );
+  const [restaurant, setRestaurant] = useState();
+  useEffect(() => {
+    axios
+      .get(`/restaurant/${id}`)
+      .then((res) => setRestaurant(res.data))
+      .catch((err) => console.log("Error in edit restaurant ", err));
+  }, []);
   const [openLogin, setOpenLogin] = React.useState(false);
   const [openRestaurantUpdate, setOpenRestaurantUpdate] = useState(false);
   const [menuName, setMenuName] = useState("");
@@ -137,45 +141,47 @@ export default function EditRestaurant({ data }) {
   };
   return (
     <>
-      <div className="container" style={{ marginTop: "5rem" }}>
-        <h3 className="text-center">{restaurant.restaurantName}</h3>
-        <p>Location: {restaurant.rCity}</p>
-        <p>Rating: {restaurant.rating}</p>
-        <p>
-          Cuisines :{" "}
-          {restaurant.cuisine.map((item) => (
-            <span>{item};</span>
-          ))}
-        </p>
-        <h4>Order</h4>
-        <button onClick={handleOpenLogin}>
-          <span className="material-icons md-18">add</span>
-        </button>
-        <button onClick={handleOpenRestaurantUpdate}>
-          <span className="material-icons md-18">edit</span>
-        </button>
-        <div className="dishes">
-          {restaurant.menus.map((dish) => {
-            return (
-              <div>
-                <EditDish
-                  dish={dish}
-                  key={dish._id}
-                  btnName="Delete"
-                  handleFunction={() => handleDelete(id, dish._id)}
-                  updateFunction={handleUpdate}
-                  // updateFunction={(e) => handleUpdate(e, dish._id)}
-                  setMenuName={setMenuName}
-                  setMenuPrice={setMenuPrice}
-                  openPopup={openPopup}
-                  handleOpenPopup={handleOpenPopup}
-                  handleClosePopup={handleClosePopup}
-                />
-              </div>
-            );
-          })}
+      {restaurant && (
+        <div className="container" style={{ marginTop: "5rem" }}>
+          <h3 className="text-center">{restaurant.restaurantName}</h3>
+          <p>Location: {restaurant.rCity}</p>
+          <p>Rating: {restaurant.rating}</p>
+          <p>
+            Cuisines :{" "}
+            {restaurant.cuisine.map((item) => (
+              <span>{item};</span>
+            ))}
+          </p>
+          <h4>Order</h4>
+          <button onClick={handleOpenLogin}>
+            <span className="material-icons md-18">add</span>
+          </button>
+          <button onClick={handleOpenRestaurantUpdate}>
+            <span className="material-icons md-18">edit</span>
+          </button>
+          <div className="dishes">
+            {restaurant.menus.map((dish) => {
+              return (
+                <div>
+                  <EditDish
+                    dish={dish}
+                    key={dish._id}
+                    btnName="Delete"
+                    handleFunction={() => handleDelete(id, dish._id)}
+                    updateFunction={handleUpdate}
+                    // updateFunction={(e) => handleUpdate(e, dish._id)}
+                    setMenuName={setMenuName}
+                    setMenuPrice={setMenuPrice}
+                    openPopup={openPopup}
+                    handleOpenPopup={handleOpenPopup}
+                    handleClosePopup={handleClosePopup}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
-      </div>
+      )}
 
       <Modal
         open={openLogin}

@@ -1,20 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import RestaurantCard from "./RestaurantCard";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
-import axios from "axios";
 
-export default function RestaurantList({ cbRestaurants }) {
+export default function RestaurantList({ Restaurants }) {
   const [res, setRes] = useState([]);
-  const url = "http://localhost:5000/restaurant";
-
-  const [Restaurants, setRestaurants] = useState([]);
-
-  useEffect(() => {
-    axios.get(url).then((restaurants) => {
-      setRestaurants(restaurants.data);
-      cbRestaurants(restaurants.data);
-    });
-  }, [cbRestaurants]);
 
   const filterdata = Restaurants.filter((item) => {
     return res !== ""

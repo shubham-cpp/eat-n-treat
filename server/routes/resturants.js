@@ -70,6 +70,41 @@ router.get("/", (_, res) => {
     .catch((err) => console.log(err));
 });
 
+router.get("/:rID", (req, res) => {
+  Restaurant.findById(req.params.rID)
+    .then((restaurant) => res.json(restaurant))
+    .catch((err) => res.json({ Caught: err.message }));
+});
+
+router.delete("/:rID", (req, res) => {
+  Restaurant.findByIdAndRemove(req.params.rID)
+    .then(res.json({ msg: "delete success!" }))
+    .catch((err) => res.json({ "delete err!": err.message }));
+});
+
+router.patch("/:rID", (req, res) => {
+  const id = req.params.rID;
+  Restaurant.findByIdAndUpdate(
+    { _id: id },
+    {
+      restaurantName: req.body.restaurantName,
+      restaurantPhone: req.body.restaurantPhone,
+      restaurantEmail: req.body.restaurantEmail,
+    },
+    { new: true, upsert: false }
+  )
+    .then((data) => res.json(data))
+    .catch((err) => res.json("Caught:", err.message));
+});
+
+router.get("/email/:email", (req, res) => {
+  Restaurant.findOne({ restaurantEmail: req.params.email })
+    .then((data) => res.json(data))
+    .catch((err) =>
+      res.status(404).json({ "Email not found this restaurant": err.message })
+    );
+});
+
 router.get("/reviews/:rID", (req, res) => {
   console.log(req.params.rID);
   Restaurant.findById(req.params.rID)
@@ -121,21 +156,6 @@ router.post(
   }
 );
 
-router.patch("/:rID", (req, res) => {
-  const id = req.params.rID;
-  Restaurant.findByIdAndUpdate(
-    { _id: id },
-    {
-      restaurantName: req.body.restaurantName,
-      restaurantPhone: req.body.restaurantPhone,
-      restaurantEmail: req.body.restaurantEmail,
-    },
-    { new: true, upsert: false }
-  )
-    .then((data) => res.json(data))
-    .catch((err) => res.json("Caught:", err.message));
-});
-
 router.patch("/status/:rID", (req, res) => {
   const id = req.params.rID;
   Restaurant.findByIdAndUpdate(
@@ -147,18 +167,6 @@ router.patch("/status/:rID", (req, res) => {
   )
     .then((data) => res.json(data))
     .catch((err) => res.json("Caught:", err.message));
-});
-
-router.get("/:rID", (req, res) => {
-  Restaurant.findById(req.params.rID)
-    .then((restaurant) => res.json(restaurant))
-    .catch((err) => res.json("Caught:", err.message));
-});
-
-router.delete("/:rID", (req, res) => {
-  Restaurant.findByIdAndRemove(req.params.rID)
-    .then(res.json({ msg: "delete success!" }))
-    .catch((err) => res.json({ "delete err!": err.message }));
 });
 
 // Get all items from menus
