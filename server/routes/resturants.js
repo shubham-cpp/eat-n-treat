@@ -120,28 +120,42 @@ router.post(
     .isLength({ min: 6 })
     .not()
     .isEmpty(),
+  body("rating").isNumeric(),
   (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.json({ errors: errors.array() });
     }
+
     const id = req.params.rID;
+    const rating = Number(req.body.rating);
+    const reviewText = req.body.reviewText;
+    const userID = req.body.userID;
 
     let reviewObj = {
-      menuID: mongoose.Types.ObjectId(),
-      reviewText: req.body.reviewText,
-      user: req.body.user,
+      reviewText,
+      rating,
+      userID,
     };
 
-    Restaurant.findOneAndUpdate(
-      { _id: id },
-      { $push: { reviews: reviewObj } },
-      { new: true, upsert: false }
-    )
-      .then((doc) => res.json(doc))
-      .catch((err) =>
-        res.json({ "Some error occured while appending to reviews": err })
-      );
+    Restaurant.findById({ _id: id })
+      .then((restaurant) => {
+        let totalReviews = restaurant.reviews.length;
+        let totalRating = restaurant.rating * totalReviews;
+        avgRating = (totalRating + rating) / (totalReviews + 1);
+        console.log("Avg Rating ", avgRating);
+        console.log("Total Reviews ", restaurant.reviews.length);
+        Restaurant.findOneAndUpdate(
+          { _id: id },
+          { $set: { rating: avgRating }, $push: { reviews: reviewObj } },
+          { new: true, upsert: false }
+        )
+          .then((doc) => res.json(doc))
+          .catch((err) =>
+            res.json({ "Some error occured while appending to reviews": err })
+          );
+      })
+      .catch((err) => res.json(err));
   }
 );
 
