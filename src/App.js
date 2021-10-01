@@ -41,7 +41,6 @@ function App() {
   useEffect(() => {
     const url = "http://localhost:5000/restaurant";
     axios.get(url).then((restaurants) => {
-      // console.log(restaurants);
       setRestaurants(restaurants.data);
     });
   }, []);
@@ -64,7 +63,9 @@ function App() {
             <Route path="/restaurant/edit/:id" exact>
               <EditRestaurant data={restaurants} />
             </Route>
-            <Route path="/customers/orders" component={Orders} />
+            <Route path="/customers/orders">
+              <Orders restaurants={restaurants} />
+            </Route>
             <Route path="/r/login" component={LogReg} exact />
             <Route path="/r/register" component={LogReg} exact />
             <Route path="/admin">

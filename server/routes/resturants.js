@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const mongoose = require("mongoose");
-const { body, validationResult } = require("express-validator");
+const { body, validationResult, check } = require("express-validator");
 
 const Restaurant = require("../model/restaurants");
 
@@ -22,8 +22,7 @@ router.post(
   body("restaurantName").isLength({ min: 4 }),
   body("restaurantPhone").isNumeric(),
   body("restaurantEmail")
-    .not()
-    .isEmpty()
+    .notEmpty()
     .isEmail()
     .normalizeEmail(),
   // body("menuPrice").isNumeric(),
@@ -40,7 +39,7 @@ router.post(
     const rPhone = req.body.restaurantPhone;
     const rEmail = req.body.restaurantEmail;
     const rCity = req.body.rCity;
-    const rating = req.body.rating || 0;
+    const rating = 0;
     const cuisine = req.body.cuisine;
     const newRestaurant = new Restaurant({
       _id: id,
@@ -120,31 +119,35 @@ router.post(
   body("rating").isNumeric(),
   body("reviewText")
     .isLength({ min: 6 })
-    .not()
-    .isEmpty(),
+    .notEmpty(),
+  check("rating").isInt({ min: 0, max: 5 }),
   (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.json({ errors: errors.array() });
     }
+
     const id = req.params.rID;
+    const rating = Number(req.body.rating);
+    const reviewText = req.body.reviewText;
+    const userID = req.body.userID;
 
     let reviewObj = {
-      _id: mongoose.Types.ObjectId(),
-      rating: req.body.rating,
-      reviewText: req.body.reviewText,
-      userID: req.body.user,
+      reviewText,
+      rating,
+      userID,
     };
 
     Restaurant.findById({ _id: id })
       .then((restaurant) => {
-        let avgRating = restaurant.rating * restaurant.reviews.length;
-        avgRating =
-          (avgRating + req.body.rating) / (restaurant.reviews.length + 1);
-
+        let totalReviews = restaurant.reviews.length;
+        let totalRating = restaurant.rating * totalReviews;
+        avgRating = (totalRating + rating) / (totalReviews + 1);
+        console.log("Avg Rating ", avgRating);
+        console.log("Total Reviews ", restaurant.reviews.length);
         Restaurant.findOneAndUpdate(
           { _id: id },
-          { $push: { reviews: reviewObj }, $set: { rating: avgRating } },
+          { $set: { rating: avgRating }, $push: { reviews: reviewObj } },
           { new: true, upsert: false }
         )
           .then((doc) => res.json(doc))
