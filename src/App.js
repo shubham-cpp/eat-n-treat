@@ -3,7 +3,8 @@ import "materialize-css/dist/css/materialize.min.css";
 import "materialize-css/dist/js/materialize.min.js";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 import Navbar from "./components/Navbar";
 import { AuthProvider } from "./auth";
@@ -37,6 +38,13 @@ function App() {
   const [admin, setAdmin] = useState({});
   const [auth, setAuth] = useState(false);
 
+  useEffect(() => {
+    const url = "http://localhost:5000/restaurant";
+    axios.get(url).then((restaurants) => {
+      // console.log(restaurants);
+      setRestaurants(restaurants.data);
+    });
+  }, []);
   return (
     <>
       <Router>
@@ -45,7 +53,7 @@ function App() {
           <Chatbotcomp disabled={navChange} />
           <Switch>
             <Route path="/" exact>
-              <RestaurantList cbRestaurants={setRestaurants} />
+              <RestaurantList Restaurants={restaurants} />
             </Route>
             <Route path="/restaurant/:id" exact>
               <RestDetails data={restaurants} />
@@ -53,13 +61,12 @@ function App() {
             <Route path="/checkout">
               <Checkout />
             </Route>
-            <Route path="/restaurant/edit/:id">
+            <Route path="/restaurant/edit/:id" exact>
               <EditRestaurant data={restaurants} />
             </Route>
             <Route path="/customers/orders" component={Orders} />
-            <Route path="/login" component={LogReg} />
-            <Route path="/register" component={LogReg} />
-            <Route path="/chart" component={Chart} />
+            <Route path="/r/login" component={LogReg} exact />
+            <Route path="/r/register" component={LogReg} exact />
             <Route path="/admin">
               <AdminLogin
                 setAdmin={setAdmin}

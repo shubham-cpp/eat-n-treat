@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import './registerStyles.css';
+import React, { useState } from "react";
+import "./registerStyles.css";
 import swal from "sweetalert";
 import { useAuth } from "../../auth";
 import { useHistory, Link } from "react-router-dom";
+import axios from "axios";
 export var user = null;
 
 export const Login = ({ containerRef }) => {
-  const {login} = useAuth();
+  const { login } = useAuth();
   const history = useHistory();
 
   const [email, setEmail] = useState("");
@@ -26,8 +27,18 @@ export const Login = ({ containerRef }) => {
           timer: 2000,
         });
 
-        console.log("login ");
-        history.push("/");
+        // console.log("login ");
+        axios
+          .get("http://localhost:5000/restaurant/email/" + email)
+          .then((res) => {
+            // if (res.status === 200) {
+            sessionStorage.setItem("rID", res.data._id);
+            // setRestaurantLoggedIn(true);
+            history.push("/restaurant/edit/" + res.data._id);
+            // }
+          })
+          .catch((err) => console.log("error in login register ", err));
+        // history.push("/");
       })
 
       .catch(function(error) {
@@ -47,7 +58,10 @@ export const Login = ({ containerRef }) => {
       <div className="login__header">Restraunt Login</div>
       <div className="login__contents">
         <div className="img">
-          <img src="https://tse3.mm.bing.net/th?id=OIP.JS985O5Qa72tf9p1FucX-QHaE7&pid=1.7&w=306&h=205&c=8&dpr=1.5" alt="" />
+          <img
+            src="https://tse3.mm.bing.net/th?id=OIP.JS985O5Qa72tf9p1FucX-QHaE7&pid=1.7&w=306&h=205&c=8&dpr=1.5"
+            alt=""
+          />
         </div>
         <div className="login__form">
           <div className="login__formGroup">

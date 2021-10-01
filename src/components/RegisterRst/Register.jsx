@@ -14,7 +14,7 @@ import { useAuth } from "../../auth";
 import axios from "axios";
 
 export const Register = () => {
-  const { signup } = useAuth();
+  const { signup, logout } = useAuth();
   const history = useHistory();
 
   const [city, setCity] = React.useState("");
@@ -24,12 +24,11 @@ export const Register = () => {
   const [phone, setPhone] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [cuisines, setCuisines] = useState("");
-  const [image, setImg] = React.useState(null);
+  const [image, setImage] = React.useState(null);
 
   const inputLabel = React.useRef("");
   const storageRef = firebase.storage().ref();
   var downloadURL = "";
-
 
   const handleRnameChange = (e) => setRname(e.target.value);
   const handleEmailChange = (e) => setEmail(e.target.value);
@@ -88,19 +87,24 @@ export const Register = () => {
     } else {
       console.log("Endpoint");
       var file = document.getElementById("files").files[0];
-      var uploadTask = storageRef.child('restaurants/' + file.name).put(file);
-      uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
-        (snapshot) =>{
+      var uploadTask = storageRef.child("restaurants/" + file.name).put(file);
+      uploadTask.on(
+        firebase.storage.TaskEvent.STATE_CHANGED,
+        (snapshot) => {
           //var progress = Math.round((snapshot.bytesTransferred/snapshot.totalBytes))*100;
           //this.setState({progress});
-        },(error) =>{
+        },
+        (error) => {
           throw error;
-        },() =>{    
+        },
+        () => {
           uploadTask.snapshot.ref.getDownloadURL().then((url) => {
-              downloadURL = url;
-          })
-        })
-        
+            // downloadURL = url;
+            setImage(url);
+          });
+        }
+      );
+
       signup(email, password)
         .then(() => {
           swal({
@@ -110,6 +114,7 @@ export const Register = () => {
             buttons: false,
             timer: 5000,
           });
+          console.log(image);
           const data = {
             restaurantName: rname,
             restaurantPhone: phone,
@@ -118,19 +123,18 @@ export const Register = () => {
             rCity: city,
             path: image,
           };
-          //console.log(data.cuisines);
-
           axios
             .post("http://localhost:5000/restaurant", data, {
               headers: {
                 "Content-Type": "application/json",
               },
             })
-            .then((res) => console.log(res))
+            .then((res) => {
+              sessionStorage.setItem("rID", res.data._id);
+              history.push("/restaurant/edit/" + res.data._id);
+            })
             .catch((err) => console.log(err));
-          console.log("Register ");
-
-          history.push("/");
+          // logout();
         })
         .catch((error) => {
           var errorMessage = error.message;
@@ -143,7 +147,7 @@ export const Register = () => {
           });
         });
     }
-  }
+  };
 
   const [err, setErr] = useState([]);
   const [loading, setLoading] = useState(false);

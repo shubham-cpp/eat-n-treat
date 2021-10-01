@@ -51,12 +51,7 @@ export function Main(props) {
   return (
     <div className="container">
       <div className="col">
-        <Details
-          addToCart={addToCart}
-          id={id}
-          data={data}
-          total={cartItems.length}
-        />
+        <Details addToCart={addToCart} />
       </div>
       <div className="col">
         <Cart
@@ -67,14 +62,14 @@ export function Main(props) {
         />
       </div>
 
-      <button className="btn btn-outline-primary">
+      {/* <button className="btn btn-outline-primary">
         <Link
           to={`/restaurant/edit/${id}`}
           style={{ textDecoration: "none", color: "whitesmoke" }}
         >
           Edit Restaurant
         </Link>
-      </button>
+      </button> */}
     </div>
   );
 }

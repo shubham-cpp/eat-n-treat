@@ -1,24 +1,23 @@
-import React, { useState } from 'react';
-import { Login } from './Login';
-import { Register } from './Register';
-import './style.css';
-import { useHistory } from 'react-router-dom';
+import React, { useState } from "react";
+import { Login } from "./Login";
+import { Register } from "./Register";
+import "./style.css";
+import { useHistory } from "react-router-dom";
 
 const LogReg = () => {
   const [isLoginActive, setLoginActive] = useState(true);
   const history = useHistory();
-  const current = isLoginActive ? 'Register' : 'Login';
-  const currentActive = isLoginActive ? 'login' : 'register';
-  const [classList, setClassList] = useState('right');
+  const current = isLoginActive ? "Register" : "Login";
+  const currentActive = isLoginActive ? "login" : "register";
+  const [classList, setClassList] = useState("right");
 
   const click = () => {
-
     if (isLoginActive) {
-      setClassList('left');
-      history.push('/register');
+      setClassList("left");
+      history.push("/r/register");
     } else {
-      setClassList('right');
-      history.push('/login');
+      setClassList("right");
+      history.push("/login");
     }
     setLoginActive(!isLoginActive);
   };
