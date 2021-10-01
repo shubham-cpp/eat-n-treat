@@ -21,8 +21,8 @@ router.post("/", async (req, res) => {
   });
   newCustomer
     .save()
-    .then(() => {
-      res.json("Data Enter");
+    .then((doc) => {
+      res.json(doc);
     })
     .catch((err) => {
       console.log(err);

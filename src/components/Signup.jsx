@@ -54,9 +54,9 @@ export default function Signup() {
   const handleCloseSignup = () => setOpenSignup(false);
 
   const handleFnameChange = (e) => setFname(e.target.value);
-  const handleLnameChange = (e) =>setLname(e.target.value);
-  const handlePhoneChange = (e) =>setPhone(e.target.value);
-  const handleAddressChange = (e) =>setAddress(e.target.value);
+  const handleLnameChange = (e) => setLname(e.target.value);
+  const handlePhoneChange = (e) => setPhone(e.target.value);
+  const handleAddressChange = (e) => setAddress(e.target.value);
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handleCityChange = (e) => setCity(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
@@ -65,83 +65,85 @@ export default function Signup() {
     var regExpPhone = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
     var regExpPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
     e1.preventDefault();
-    if(fname===""){
+    if (fname === "") {
       swal({
         title: "Enter the first name!",
         icon: "error",
         buttons: false,
         timer: 3000,
       });
-    }
-    else if(lname===""){
+    } else if (lname === "") {
       swal({
         title: "Enter the last name!",
         icon: "error",
         buttons: false,
         timer: 3000,
       });
-    }
-    else if(phone===""||!phone.match(regExpPhone)){
+    } else if (phone === "" || !phone.match(regExpPhone)) {
       swal({
         title: "Enter correct 10 digit phone number!",
         icon: "error",
         buttons: false,
         timer: 3000,
       });
-    }
-    else if(address===""){
+    } else if (address === "") {
       swal({
         title: "Enter the address!",
         icon: "error",
         buttons: false,
         timer: 3000,
       });
-    }
-    else if(password===""||!password.match(regExpPassword)){
+    } else if (password === "" || !password.match(regExpPassword)) {
       swal({
         title: "Wrong password syntax!",
-        text: "The password must contain at least 1 lowercase alphabet, at least 1 uppercase alphabet, at least 1 number and must be 6 characters or longer.",
+        text:
+          "The password must contain at least 1 lowercase alphabet, at least 1 uppercase alphabet, at least 1 number and must be 6 characters or longer.",
         icon: "error",
         buttons: false,
         timer: 12000,
-      })
-    }
-    else {
+      });
+    } else {
       signup(email, password)
         .then(() => {
-        swal({
-          title: "Signed Up Successfully! Please Login to continue.",
-          icon: "success",
-          buttons: false,
-          timer: 2000,
+          swal({
+            title: "Signed Up Successfully! Please Login to continue.",
+            icon: "success",
+            buttons: false,
+            timer: 2000,
+          });
+          const data = {
+            fName: fname,
+            lName: lname,
+            phone: phone,
+            eMail: email,
+            address: address,
+            city: city,
+          };
+          axios
+            .post("http://localhost:5000/customer", data, {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            })
+            .then((res) => {
+              console.log(res);
+              sessionStorage.setItem("custId", res.data._id);
+            })
+            .catch((err) => console.log(err));
+          console.log("Signup ");
+          handleCloseSignup();
+          history.push("/");
+        })
+        .catch((error) => {
+          var errorMessage = error.message;
+          swal({
+            title: "Error!",
+            text: errorMessage,
+            buttons: false,
+            timer: 2000,
+            icon: "error",
+          });
         });
-        const data = {
-          fName: fname,
-          lName: lname,
-          phone: phone,
-          eMail: email,
-          address: address,
-          city: city,
-        };
-        axios.post("http://localhost:5000/customer",data, {headers: {
-          "Content-Type": "application/json",
-          },})
-        .then(res => console.log(res))
-        .catch(err => console.log(err));
-        console.log("Signup ");
-        handleCloseSignup();
-        history.push("/");
-      })
-      .catch((error) => {
-        var errorMessage = error.message;
-        swal({
-          title: "Error!",
-          text: errorMessage,
-          buttons: false,
-          timer: 2000,
-          icon: "error",
-        });
-      });
     }
   };
 
@@ -166,7 +168,6 @@ export default function Signup() {
           </Typography>
 
           <div id="signup-modal-description" className="paper">
-
             <Form name="Signup">
               <Grid container spacing={1}>
                 <Grid item xs={12} sm={6}>
@@ -175,7 +176,7 @@ export default function Signup() {
                       //value={firstName}
                       className="form-control"
                       name="firstname"
-                      onChange = {handleFnameChange}
+                      onChange={handleFnameChange}
                       placeholder="First Name  *"
                     />
                   </FormGroup>
@@ -183,7 +184,7 @@ export default function Signup() {
                 <Grid item xs={12} sm={6}>
                   <FormGroup>
                     <input
-                      // value={lastName} 
+                      // value={lastName}
                       className="form-control"
                       name="lastname"
                       onChange={handleLnameChange}
@@ -194,7 +195,7 @@ export default function Signup() {
                 <Grid item xs={12}>
                   <FormGroup>
                     <input
-                      // value={email} 
+                      // value={email}
                       className="form-control"
                       onChange={handlePhoneChange}
                       name="phone"
