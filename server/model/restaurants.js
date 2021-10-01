@@ -38,10 +38,6 @@ const restaurantSchema = new mongoose.Schema({
       _id: mongoose.Schema.Types.ObjectId,
       rating: Number,
       reviewText: String,
-<<<<<<< HEAD
-      rating: Number,
-=======
->>>>>>> 8cccdaccc19e3cbc2fee379441773d6af9bfc958
       userID: { type: mongoose.Schema.Types.ObjectId, ref: "customers" },
     }),
   },

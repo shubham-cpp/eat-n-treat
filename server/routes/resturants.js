@@ -130,7 +130,7 @@ router.post(
     const id = req.params.rID;
     const rating = Number(req.body.rating);
     const reviewText = req.body.reviewText;
-    const userID = req.body.userID;
+    const userID = req.body.user;
 
     let reviewObj = {
       reviewText,
@@ -288,6 +288,24 @@ router.delete("/menu/:rid/:menuId", (req, res) => {
       $pull: {
         menus: {
           _id: id,
+        },
+      },
+    },
+    { new: true, upsert: false }
+  )
+    .then((result) => res.json(result))
+    .catch((err) => res.json({ "delete err!": err.message }));
+});
+
+router.delete("/reviews/:rid/:userID", (req, res) => {
+  const id = req.params.userID;
+  const rid = req.params.rid;
+  Restaurant.findByIdAndUpdate(
+    rid,
+    {
+      $pull: {
+        reviews: {
+          userID: id,
         },
       },
     },
