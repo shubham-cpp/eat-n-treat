@@ -24,7 +24,15 @@ export default function Orders({ restaurants }) {
         <fieldset
           style={{ border: "0.1rem solid black", marginBottom: "0.5rem" }}
         >
-          <legend>Hotel Name here</legend>
+          {restaurants.map((restaurant) => {
+            if (restaurant._id === order.restrauntID)
+              return (
+                <legend key={restaurant._id}>
+                  {" "}
+                  Hotel: {restaurant.restaurantName}
+                </legend>
+              );
+          })}
           <table className="table">
             <thead>
               <tr>
