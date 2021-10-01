@@ -186,7 +186,8 @@ const Reports = () => {
                     <SubdirectoryArrowRightTwoTone />
                   </ListItemIcon>
                   {restaurant.reviews.map((ele) => {
-                    <h2>`${ele.reviewText}`</h2>;
+                    console.log(ele);
+                    <ListItemText primary={`${ele.rating}`} />;
                   })}
                 </Collapse>
               </div>
