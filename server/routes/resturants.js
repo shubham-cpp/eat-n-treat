@@ -119,7 +119,7 @@ router.post(
   "/reviews/:rID",
   body("rating").isNumeric(),
   body("reviewText")
-    .isLength({ min: 6 })
+    .isLength({ min: 1 })
     .not()
     .isEmpty(),
   (req, res) => {
@@ -148,6 +148,68 @@ router.post(
           { new: true, upsert: false }
         )
           .then((doc) => res.json(doc))
+          .catch((err) =>
+            res.json({ "Some error occured while appending to reviews": err })
+          );
+      })
+      .catch((err) => res.json(err));
+  }
+);
+
+router.patch(
+  "/reviews/:rID",
+  body("rating").isNumeric(),
+  body("reviewText")
+    .isLength({ min: 1 })
+    .not()
+    .isEmpty(),
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.json({ errors: errors.array() });
+    }
+    const id = req.params.rID;
+
+    // let reviewObj = {
+    //   _id: mongoose.Types.ObjectId(),
+    //   rating: req.body.rating,
+    //   reviewText: req.body.reviewText,
+    //   userID: req.body.user,
+    // };
+
+    Restaurant.findById({ _id: id })
+      .then((restaurant) => {
+        console.log("Here");
+        let totalRating = restaurant.rating * restaurant.reviews.length;
+
+        let reviews = restaurant.reviews;
+        let reviewObj = reviews.find((r) => {
+          return r.userID.toString() === req.body.user;
+        });
+        totalRating -= reviewObj.rating;
+        let avgRating =
+          (totalRating + req.body.rating) / restaurant.reviews.length;
+        //console.log(reviewObj);
+        let reviewIndex = reviews.findIndex(
+          (r) => r.userID.toString() === req.body.user
+        );
+        reviewObj.rating = req.body.rating;
+        reviewObj.reviewText = req.body.reviewText;
+        console.log(reviewObj);
+
+        reviews.splice(reviewIndex, 1);
+
+        reviews.push(reviewObj);
+
+        Restaurant.findOneAndUpdate(
+          { _id: id },
+          { $set: { rating: avgRating, reviews: reviews } },
+          { new: true, upsert: false }
+        )
+          .then((doc) => {
+            console.log(doc);
+            return res.json(doc);
+          })
           .catch((err) =>
             res.json({ "Some error occured while appending to reviews": err })
           );
