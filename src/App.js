@@ -20,10 +20,11 @@ import AdminLogin from "./components/Admin/AdminLogin";
 import ProtectedRoute from "./components/Admin/ProtectedRoute";
 import AdminDash from "./components/Admin/AdminDash";
 import Orders from "./components/Orders";
+import OrdersRestaurant from "./components/OrdersRestaurant";
 
 const NoMatch = () => {
   return (
-    <div>
+    <div style={{ marginTop: "5rem" }}>
       <h3>
         404 - No match found <code>{window.location.pathname}</code>
       </h3>
@@ -65,6 +66,9 @@ function App() {
             </Route>
             <Route path="/customers/orders">
               <Orders restaurants={restaurants} />
+            </Route>
+            <Route path="/order/:id">
+              <OrdersRestaurant />
             </Route>
             <Route path="/r/login" component={LogReg} exact />
             <Route path="/r/register" component={LogReg} exact />
