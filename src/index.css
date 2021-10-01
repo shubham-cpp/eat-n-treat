@@ -156,3 +156,9 @@ code {
   width: 4rem;
   max-width: 4rem;
 }
+.ratingStar {
+  float: right;
+  overflow-wrap: unset;
+  padding: 0;
+  margin: 0;
+}

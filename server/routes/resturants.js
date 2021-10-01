@@ -105,9 +105,10 @@ router.get("/email/:email", (req, res) => {
 });
 
 router.get("/reviews/:rID", (req, res) => {
+  console.log(req.params.rID);
   Restaurant.findById(req.params.rID)
     .select("reviews")
-    .then((reviews) => res.json({ "All reviews": reviews }))
+    .then((reviews) => res.json(reviews))
     .catch((err) =>
       res.json({ "Error while fetching reviews for restaurant": err.message })
     );
@@ -115,6 +116,7 @@ router.get("/reviews/:rID", (req, res) => {
 
 router.post(
   "/reviews/:rID",
+  body("rating").isNumeric(),
   body("reviewText")
     .isLength({ min: 6 })
     .notEmpty(),

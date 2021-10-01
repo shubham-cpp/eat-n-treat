@@ -56,7 +56,7 @@ export default function RestaurantCard(props) {
             fullIcon={<i className="fa fa-star"></i>}
             activeColor="#ffd700"
           />
-          {restaurant.rating}/5
+          {restaurant.rating.toFixed(1)}/5
         </div>
         <Link to={`/restaurant/${restaurant._id}`} className="btn btn-primary">
           VIEW MORE
