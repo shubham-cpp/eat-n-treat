@@ -41,7 +41,7 @@ const ReviewsList = (props) => {
   const [reviewText, setReviewText] = useState("");
   const [rating, setRating] = useState(0);
   const [editing, setEditing] = useState(false);
-  const [currentReview, setCurrentReview] = useState("");
+  // const [currentReview, setCurrentReview] = useState("");
   const [currentCustomer, setCurrentCustomer] = useState("");
 
   const userId = sessionStorage.getItem("custId");

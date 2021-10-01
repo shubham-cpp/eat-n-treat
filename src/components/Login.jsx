@@ -6,18 +6,8 @@ import swal from "sweetalert";
 import { useAuth } from "../auth";
 
 import "./loginStyle.css";
-import { useHistory, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
-
-// export var user = null;
-
-// function getSessionStorageOrDefault(key, defaultValue) {
-//   const stored = sessionStorage.getItem(key);
-//   if (!stored) {
-//     return defaultValue;
-//   }
-//   return JSON.parse(stored);
-// }
 
 const style = {
   position: "absolute",
@@ -47,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function BootLogin() {
   const { login } = useAuth();
-  const history = useHistory();
   const classes = useStyles();
 
   const [openLogin, setOpenLogin] = React.useState(false);

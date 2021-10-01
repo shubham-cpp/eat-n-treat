@@ -14,7 +14,7 @@ import { useAuth } from "../../auth";
 import axios from "axios";
 
 export const Register = () => {
-  const { signup, logout } = useAuth();
+  const { signup } = useAuth();
   const history = useHistory();
 
   const [city, setCity] = React.useState("");
@@ -28,7 +28,6 @@ export const Register = () => {
 
   const inputLabel = React.useRef("");
   const storageRef = firebase.storage().ref();
-  var downloadURL = "";
 
   const handleRnameChange = (e) => setRname(e.target.value);
   const handleEmailChange = (e) => setEmail(e.target.value);
@@ -37,16 +36,11 @@ export const Register = () => {
 
   const handleCityChange = (e) => setCity(e.target.value);
 
-  const handleCuisinesChange = (e) => {
-    // var cusine = cuisines.slice();
-    // cusine[index] = e.target.value;
-    setCuisines(e.target.value);
-  };
+  const handleCuisinesChange = (e) => setCuisines(e.target.value);
 
   const handleImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
-      let image = e.target.files[0];
-      //setImg(URL.createObjectURL(image));
+      setImage(e.target.files[0]);
     }
   };
 
@@ -108,7 +102,7 @@ export const Register = () => {
               restaurantEmail: email,
               cuisine: cuisines.trim().split(","),
               rCity: city,
-              path: image,
+              path: url,
             };
 
             axios

@@ -1,13 +1,11 @@
 import React from "react";
 import { useParams } from "react-router";
 import { useLocalStorage } from "../useLocalStorage";
-import { Link } from "react-router-dom";
 import Cart from "./Cart";
 import Details from "./Details";
 import ReviewsList from "./ReviewsList";
 
-export function Main(props) {
-  const data = props.data;
+export function Main() {
   const { id } = useParams();
   const [cartItems, setCartItems] = useLocalStorage("cart", []);
 
