@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const mongoose = require("mongoose");
-const { body, validationResult } = require("express-validator");
+const { body, validationResult, check } = require("express-validator");
 
 const Restaurant = require("../model/restaurants");
 
@@ -22,8 +22,7 @@ router.post(
   body("restaurantName").isLength({ min: 4 }),
   body("restaurantPhone").isNumeric(),
   body("restaurantEmail")
-    .not()
-    .isEmpty()
+    .notEmpty()
     .isEmail()
     .normalizeEmail(),
   // body("menuPrice").isNumeric(),
@@ -40,7 +39,7 @@ router.post(
     const rPhone = req.body.restaurantPhone;
     const rEmail = req.body.restaurantEmail;
     const rCity = req.body.rCity;
-    const rating = req.body.rating || 0;
+    const rating = 0;
     const cuisine = req.body.cuisine;
     const newRestaurant = new Restaurant({
       _id: id,
@@ -118,9 +117,8 @@ router.post(
   "/reviews/:rID",
   body("reviewText")
     .isLength({ min: 6 })
-    .not()
-    .isEmpty(),
-  body("rating").isNumeric(),
+    .notEmpty(),
+  check("rating").isInt({ min: 0, max: 5 }),
   (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
