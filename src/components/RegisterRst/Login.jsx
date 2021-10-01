@@ -3,7 +3,6 @@ import "./registerStyles.css";
 import swal from "sweetalert";
 import { useAuth } from "../../auth";
 import { useHistory, Link } from "react-router-dom";
-import axios from "axios";
 export var user = null;
 
 export const Login = ({ containerRef }) => {
@@ -27,18 +26,8 @@ export const Login = ({ containerRef }) => {
           timer: 2000,
         });
 
-        // console.log("login ");
-        axios
-          .get("http://localhost:5000/restaurant/email/" + email)
-          .then((res) => {
-            // if (res.status === 200) {
-            sessionStorage.setItem("rID", res.data._id);
-            // setRestaurantLoggedIn(true);
-            history.push("/restaurant/edit/" + res.data._id);
-            // }
-          })
-          .catch((err) => console.log("error in login register ", err));
-        // history.push("/");
+        console.log("login ");
+        history.push("/");
       })
 
       .catch(function(error) {
