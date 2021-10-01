@@ -69,7 +69,6 @@ const Reports = () => {
       .then((res) => setRest(res.data))
       .catch((err) => console.log("Error in axios request for order ", err));
   }, []);
-  // console.log(rest);
 
   let arr1 = [];
   orders.map((item) => {
@@ -93,8 +92,6 @@ const Reports = () => {
     kk[item._id] = item.restaurantName;
   });
 
-  console.log(Residarr);
-  console.log(kk);
   // var RestName = [];
   // for (var i in Residarr) {
   //   for(var j in kk){
@@ -109,6 +106,12 @@ const Reports = () => {
   Residarr.map((ele) => {
     RestName.push(kk[ele]);
   });
+
+  // rest.map((ele) => {
+  //   ele.reviews.map((item) => {
+  //     console.log(item);
+  //   });
+  // });
 
   return (
     <div>
@@ -179,27 +182,12 @@ const Reports = () => {
                 </ListItem>
                 <Collapse in={open[index]} timeout="auto" unmountOnExit>
                   <Divider />
-                  <List component="div" disablePadding>
-                    {Object.keys(restaurant).map((key) => (
-                      <ListItem className={classes.menuSubItem}>
-                        <ListItemIcon>
-                          <SubdirectoryArrowRightTwoTone />
-                        </ListItemIcon>
-                        <ListItemText secondary={key} />
-                        {Array.isArray(restaurant[key]) ? (
-                          <ListItemText
-                            secondary={`Array (${restaurant[key].length})`}
-                            style={{ float: "right", textAlign: "right" }}
-                          />
-                        ) : (
-                          <ListItemText
-                            secondary={`${restaurant[key]}`}
-                            style={{ float: "right", textAlign: "right" }}
-                          />
-                        )}
-                      </ListItem>
-                    ))}
-                  </List>
+                  <ListItemIcon>
+                    <SubdirectoryArrowRightTwoTone />
+                  </ListItemIcon>
+                  {restaurant.reviews.map((ele) => {
+                    <h2>`${ele.reviewText}`</h2>;
+                  })}
                 </Collapse>
               </div>
             ) : (
