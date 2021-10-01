@@ -2,24 +2,52 @@
   "name": "eat-n-treat",
   "version": "0.1.0",
   "private": true,
+  "jest": {
+    "verbose": true
+  },
+  "proxy": "http://localhost:5000",
   "dependencies": {
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
+    "@material-ui/core": "^4.12.3",
+    "@material-ui/icons": "^4.11.2",
     "@mui/icons-material": "^5.0.0",
+    "@mui/material": "^5.0.0",
+    "@mui/styles": "^5.0.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
-    "bootstrap": "^5.1.1",
+    "axios": "^0.21.4",
+    "bcrypt": "^5.0.1",
+    "bootstrap": "^5.1.0",
+    "clsx": "^1.1.1",
     "express": "^4.17.1",
-    "express-validator": "^6.12.1",
+    "express-validator": "^6.12.2",
+    "firebase": "^7.20.0",
+    "materialize-css": "^1.0.0-rc.2",
+    "mdbootstrap": "^4.20.0",
     "mongoose": "^6.0.6",
+    "multer": "^1.4.3",
     "react": "^17.0.2",
+    "react-bootstrap": "^2.0.0-beta.6",
+    "react-chatbot-kit": "^1.1.20",
     "react-dom": "^17.0.2",
+    "react-google-login": "^5.2.2",
+    "react-rating-stars-component": "^2.2.0",
+    "react-router": "^5.2.1",
+    "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
+    "react-simple-chatbot": "^0.6.1",
+    "react-test-renderer": "^17.0.2",
+    "sweetalert": "^2.1.2",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "server": "cd server && nodemon index.js",
+    "dev": "concurrently --raw \"npm start\" \"npm run server\"",
+    "test": "jest --verbose ./src/tests",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -42,6 +70,18 @@
   },
   "devDependencies": {
     "chai": "^4.3.4",
-    "mocha": "^9.1.1"
+    "concurrently": "^6.2.1",
+    "mocha": "^9.1.1",
+    "nodemon": "^2.0.13"
+  },
+  "babel": {
+    "presets": [
+      "@babel/react",
+      "@babel/env"
+    ],
+    "plugins": [
+      "@babel/proposal-class-properties",
+      "@babel/plugin-transform-runtime"
+    ]
   }
 }
