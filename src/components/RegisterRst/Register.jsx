@@ -101,50 +101,52 @@ export const Register = () => {
           uploadTask.snapshot.ref.getDownloadURL().then((url) => {
             // downloadURL = url;
             setImage(url);
+            console.log(url);
+            const data = {
+              restaurantName: rname,
+              restaurantPhone: phone,
+              restaurantEmail: email,
+              cuisine: cuisines.trim().split(","),
+              rCity: city,
+              path: image,
+            };
+
+            axios
+              .post("http://localhost:5000/restaurant", data, {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              })
+              .then((res) => {
+                signup(email, password)
+                  .then(() => {
+                    swal({
+                      title:
+                        "Registration Request Send Successfully! Please wait till your request is accepted to continue.",
+                      icon: "success",
+                      buttons: false,
+                      timer: 5000,
+                    });
+
+                    sessionStorage.setItem("rID", res.data._id);
+                    history.push("/restaurant/edit/" + res.data._id);
+                  })
+                  .catch((error) => {
+                    var errorMessage = error.message;
+                    swal({
+                      title: "Error!",
+                      text: errorMessage,
+                      buttons: false,
+                      timer: 2000,
+                      icon: "error",
+                    });
+                  });
+              })
+              .catch((err) => console.log(err));
+            // logout();
           });
         }
       );
-
-      signup(email, password)
-        .then(() => {
-          swal({
-            title:
-              "Registration Request Send Successfully! Please wait till your request is accepted to continue.",
-            icon: "success",
-            buttons: false,
-            timer: 5000,
-          });
-          const data = {
-            restaurantName: rname,
-            restaurantPhone: phone,
-            restaurantEmail: email,
-            cuisine: cuisines.trim().split(","),
-            rCity: city,
-            path: image,
-          };
-          axios
-            .post("http://localhost:5000/restaurant", data, {
-              headers: {
-                "Content-Type": "application/json",
-              },
-            })
-            .then((res) => {
-              sessionStorage.setItem("rID", res.data._id);
-              history.push("/restaurant/edit/" + res.data._id);
-            })
-            .catch((err) => console.log(err));
-          // logout();
-        })
-        .catch((error) => {
-          var errorMessage = error.message;
-          swal({
-            title: "Error!",
-            text: errorMessage,
-            buttons: false,
-            timer: 2000,
-            icon: "error",
-          });
-        });
     }
   };
 
