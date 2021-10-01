@@ -1,49 +1,45 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { makeStyles, Drawer, CssBaseline, Container } from "@material-ui/core";
 
-import {
-  Card,
-  CardContent,
-  makeStyles,
-  createStyles,
-  CardHeader,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Collapse,
-  Divider,
-  List,
-} from "@material-ui/core";
+import clsx from "clsx";
+import OrderAppMenu from "./OrdersAppMenu";
 
-import {
-  ExpandMore,
-  ExpandLess,
-  SubdirectoryArrowRightTwoTone,
-  Group,
-} from "@material-ui/icons";
+const drawerWidth = 240;
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    menuItem: {
-      width: "65vw",
-      color: "#555555",
-    },
-    menuSubItem: {
-      width: "60vw",
-      color: "#555555",
-      marginLeft: "7%",
-      height: "fit-content",
-    },
-    menuItemIcon: {
-      color: "#555555",
-    },
-  })
-);
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+  },
+  drawerPaper: {
+    position: "relative",
+    whiteSpace: "nowrap",
+    width: drawerWidth,
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
+    background: "#eeeeee",
+    color: "#666666",
+  },
+  content: {
+    flexGrow: 1,
+    height: "100vh",
+    width: "85vw",
+    marginRight: "5%",
+    overflow: "auto",
+  },
+  container: {
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
+  },
+}));
 
 export default function OrdersRestaurant() {
   const rID = sessionStorage.getItem("rID");
   const [orders, setOrders] = useState([]);
   const [fetchAgain, setFetchAgain] = useState(false);
+  const classes = useStyles();
+
+  const [component, setComponent] = useState(null);
 
   useEffect(() => {
     const url = `http://localhost:5000/order/${rID}`;
@@ -66,59 +62,34 @@ export default function OrdersRestaurant() {
       .catch((err) => console.log("Error While changing order status ", err));
   };
 
-  const sumTotal = orders.reduce(
-    (total, order) => total + order.totalAmount,
-    0
-  );
   return (
-    <div className="container" style={{ marginTop: "5rem" }}>
-      <h1>Welcome to orders page</h1>
-      {orders.map((order) => (
-        <fieldset
-          style={{ border: "0.1rem solid black", marginBottom: "0.5rem" }}
-          key={order._id}
+    <div
+      className={clsx("App", classes.root)}
+      style={{ marginTop: "5%", position: "fixed" }}
+    >
+      <CssBaseline />
+      <Drawer
+        variant="permanent"
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
+        {orders && (
+          <OrderAppMenu
+            setComponent={setComponent}
+            orders={orders}
+            handleOrderStatus={handleOrderStatus}
+          />
+        )}
+      </Drawer>
+      <main className={classes.content}>
+        <Container
+          style={{ width: "100%", height: "100%" }}
+          className={classes.container}
         >
-          <table className="table">
-            <thead>
-              <tr>
-                <th className="order-item" scope="col">
-                  #
-                </th>
-                <th className="order-item" scope="col">
-                  Item Name
-                </th>
-                <th className="order-item" scope="col">
-                  Price
-                </th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {order.cart.map((item, index) => (
-                <tr>
-                  <th className="order-item" scope="row">
-                    {index + 1}
-                  </th>
-                  <td className="order-item">{item.menuName}</td>
-                  <td className="order-item">{item.menuPrice}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <h6>Status: {order.orderStatus}</h6>
-          {order.orderStatus === "Pending" && (
-            <button
-              className="btn btn-outline-success"
-              onClick={(e) => handleOrderStatus(e, order._id)}
-            >
-              Accept Order
-            </button>
-          )}
-          <h6>Total : {order.totalAmount}</h6>
-        </fieldset>
-      ))}
-
-      <h3>Total Amount Sold: {sumTotal}</h3>
+          {component}
+        </Container>
+      </main>
     </div>
   );
 }

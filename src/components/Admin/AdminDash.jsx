@@ -1,10 +1,9 @@
 import { makeStyles, Drawer, CssBaseline, Container } from "@material-ui/core";
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 import clsx from "clsx";
 import AppMenu from "./AppMenu";
 import Customers from "./components/Customers";
-
 
 const drawerWidth = 240;
 
@@ -34,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AdminDash = (props) => {
+const AdminDash = () => {
   const classes = useStyles();
 
   const [component, setComponent] = useState(<Customers />);
@@ -51,10 +50,13 @@ const AdminDash = (props) => {
           paper: classes.drawerPaper,
         }}
       >
-        <AppMenu setComponent={setComponent}/>
+        <AppMenu setComponent={setComponent} />
       </Drawer>
       <main className={classes.content}>
-        <Container style={{ width: "100%", height: "100%" }} className={classes.container}>
+        <Container
+          style={{ width: "100%", height: "100%" }}
+          className={classes.container}
+        >
           {component}
         </Container>
       </main>
