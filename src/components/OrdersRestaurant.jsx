@@ -47,7 +47,7 @@ export default function OrdersRestaurant() {
       .get(url)
       .then((res) => setOrders(res.data))
       .catch((err) => console.log("Error in axios request for order ", err));
-  }, [fetchAgain]);
+  }, [fetchAgain, rID]);
 
   /**
    * Code to Change the order status to delivered
