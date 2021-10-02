@@ -36,15 +36,28 @@ function App() {
   const [restaurants, setRestaurants] = useState([]);
   const [navChange, setNavChange] = useState(false);
 
+  const [callRest, setCallRest] = useState(false);
+
   const [admin, setAdmin] = useState({});
   const [auth, setAuth] = useState(false);
 
+  const cbCallRest = () => {
+    setCallRest(!callRest).then(() => {
+      console.log("CallRest " + callRest);
+    });
+  };
+
+  const getCallRest = () => {
+    return callRest;
+  };
+
   useEffect(() => {
+    console.log("Ran this");
     const url = "http://localhost:5000/restaurant";
     axios.get(url).then((restaurants) => {
       setRestaurants(restaurants.data);
     });
-  }, []);
+  }, [callRest]);
   return (
     <>
       <Router>
@@ -56,7 +69,11 @@ function App() {
               <RestaurantList Restaurants={restaurants} />
             </Route>
             <Route path="/restaurant/:id" exact>
-              <RestDetails data={restaurants} />
+              <RestDetails
+                data={restaurants}
+                cbCallRest={cbCallRest}
+                getCallRest={getCallRest}
+              />
             </Route>
             <Route path="/checkout">
               <Checkout />

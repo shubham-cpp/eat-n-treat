@@ -67,6 +67,7 @@ const ReviewsList = (props) => {
           );
         }
         setReviews(res.data.reviews);
+        props.cbCallRest();
       })
       .catch((err) => console.log(err));
   };
@@ -94,6 +95,7 @@ const ReviewsList = (props) => {
         }
         setReviews(res.data.reviews);
         setEditing(false);
+        props.cbCallRest();
       })
       .catch((err) => console.log(err));
   };
@@ -115,18 +117,23 @@ const ReviewsList = (props) => {
     axios
       .get(`/restaurant/reviews/${props.id}`)
       .then((res) => {
-        console.log(res.data);
+        if (typeof res.data.reviews[0].userID === undefined) {
+          console.log("undefined handling");
+          setReviews([]);
+        } else {
+          let revIndex = res.data.reviews.findIndex((r) => {
+            return userId === r.userID;
+          });
+          if (revIndex !== null) {
+            console.log(
+              res.data.reviews.unshift(res.data.reviews.splice(revIndex, 1)[0])
+            );
+          }
 
-        let revIndex = res.data.reviews.findIndex((r) => {
-          return userId === r.userID;
-        });
-        if (revIndex !== null) {
-          console.log(
-            res.data.reviews.unshift(res.data.reviews.splice(revIndex, 1)[0])
-          );
+          console.log(typeof res.data.reviews[0]);
+
+          setReviews(res.data.reviews);
         }
-
-        setReviews(res.data.reviews);
       })
       .catch((err) => console.log(err));
 
@@ -245,6 +252,7 @@ const ReviewsList = (props) => {
             paddingBottom: "1%",
           }}
         >
+          {/* {reviews.length > 0 ? ( */}
           <List component="div">
             {userId &&
             reviews.find((r) => userId === r.userID) === undefined ? (
@@ -263,7 +271,7 @@ const ReviewsList = (props) => {
                     style={{
                       marginLeft: "3%",
                       marginRight: "4%",
-                      maxWidth: "40.2rem",
+                      maxWidth: "38.2rem",
                     }}
                     required
                     title="Review should not be empty"
@@ -377,6 +385,9 @@ const ReviewsList = (props) => {
               });
             })}
           </List>
+          {/* ) : (
+            <></>
+          )} */}
         </CardContent>
       </Card>
     </>

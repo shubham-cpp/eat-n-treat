@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ChatBot from "react-simple-chatbot";
 import ChatBubble from "@material-ui/icons/ChatBubble";
 import OrderIns from "./OrderIns";
-import HotelLocation from "./HotelLocation";
+// import HotelLocation from "./HotelLocation";
 
 function Chatbotcomp(props) {
   let [showChat, setShowChat] = useState(false);
