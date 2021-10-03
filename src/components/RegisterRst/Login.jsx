@@ -17,6 +17,7 @@ export const Login = ({ containerRef, setRID }) => {
 
   function handleSubmit(e) {
     e.preventDefault();
+    sessionStorage.clear();
     axios
       .get("http://localhost:5000/restaurant/email/" + email)
       .then((res) => {
