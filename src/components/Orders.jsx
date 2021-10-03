@@ -45,7 +45,7 @@ export default function Orders({ restaurants }) {
       .get(url)
       .then((res) => setOrders(res.data))
       .catch((err) => console.log("Error in axios request for order ", err));
-  }, []);
+  }, [custId]);
 
   return (
     <div

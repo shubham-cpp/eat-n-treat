@@ -5,7 +5,7 @@ import Cart from "./Cart";
 import Details from "./Details";
 import ReviewsList from "./ReviewsList";
 
-export function Main() {
+export function Main(props) {
   const { id } = useParams();
   const [cartItems, setCartItems] = useLocalStorage("cart", []);
 
@@ -50,7 +50,7 @@ export function Main() {
   return (
     <div className="container">
       <div className="col">
-        <Details addToCart={addToCart} />
+        <Details addToCart={addToCart} getCallRest={props.getCallRest} />
       </div>
       <div className="col">
         <Cart
@@ -71,7 +71,7 @@ export function Main() {
   </button> */}
 
       <div>
-        <ReviewsList id={id} />
+        <ReviewsList id={id} cbCallRest={props.cbCallRest} />
       </div>
     </div>
   );
