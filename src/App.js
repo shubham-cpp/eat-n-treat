@@ -38,6 +38,9 @@ function App() {
 
   const [callRest, setCallRest] = useState(false);
 
+  const [rID, setRID] = useState(sessionStorage.getItem("rID"));
+  const [custId, setCustId] = useState(sessionStorage.getItem("custId"));
+
   const [admin, setAdmin] = useState({});
   const [auth, setAuth] = useState(false);
 
@@ -62,33 +65,91 @@ function App() {
     <>
       <Router>
         <AuthProvider>
-          <Navbar change={navChange} />
+          <Navbar change={navChange} setRID={setRID} setCustId={setCustId} />
           <Chatbotcomp disabled={navChange} />
           <Switch>
-            <Route path="/" exact>
+            {/* <Route path="/" exact>
               <RestaurantList Restaurants={restaurants} />
-            </Route>
-            <Route path="/restaurant/:id" exact>
+            </Route> */}
+            <ProtectedRoute
+              path="/"
+              component={RestaurantList}
+              auth={rID === null}
+              pathname={`/restaurant/edit/${rID}`}
+              Restaurants={restaurants}
+              exact={true}
+            />
+            {/* <Route path="/restaurant/:id" exact>
               <RestDetails
                 data={restaurants}
                 cbCallRest={cbCallRest}
                 getCallRest={getCallRest}
               />
-            </Route>
-            <Route path="/checkout">
+            </Route> */}
+            <ProtectedRoute
+              path="/restaurant/:id"
+              component={RestDetails}
+              auth={rID === null}
+              pathname={`/restaurant/edit/${rID}`}
+              data={restaurants}
+              cbCallRest={cbCallRest}
+              getCallRest={getCallRest}
+              exact={true}
+            />
+            {/* <Route path="/checkout">
               <Checkout />
-            </Route>
-            <Route path="/restaurant/edit/:id" exact>
+            </Route> */}
+            <ProtectedRoute
+              path="/checkout"
+              component={Checkout}
+              auth={custId !== null}
+              pathname="/"
+              exact={true}
+            />
+            {/* <Route path="/restaurant/edit/:id" exact>
               <EditRestaurant data={restaurants} />
+            </Route> */}
+            <Route path="/restaurant/edit/:id" exact>
+              <ProtectedRoute
+                path="/restaurant/edit/:id"
+                component={EditRestaurant}
+                auth={rID !== null}
+                pathname="/"
+                data={restaurants}
+                matchID={rID}
+                exact={true}
+              />
             </Route>
-            <Route path="/customers/orders">
+            {/* <Route path="/customers/orders">
               <Orders restaurants={restaurants} />
-            </Route>
-            <Route path="/order/:id">
+            </Route> */}
+            <ProtectedRoute
+              path="/customers/orders"
+              component={Orders}
+              auth={custId !== null}
+              pathname="/"
+              restaurants={restaurants}
+              exact={false}
+            />
+            {/* <Route path="/order/:id">
               <OrdersRestaurant />
+            </Route> */}
+            <Route path="/order/:id" exact>
+              <ProtectedRoute
+                path="/order/:id"
+                component={OrdersRestaurant}
+                auth={rID !== null}
+                matchID={rID}
+                pathname="/"
+                exact={true}
+              />
             </Route>
-            <Route path="/r/login" component={LogReg} exact />
-            <Route path="/r/register" component={LogReg} exact />
+            <Route path="/r/login" exact>
+              <LogReg setRID={setRID} />
+            </Route>
+            <Route path="/r/register" exact>
+              <LogReg setRID={setRID} />
+            </Route>
             <Route path="/admin">
               <AdminLogin
                 setAdmin={setAdmin}
@@ -100,8 +161,10 @@ function App() {
               path="/adminDashboard"
               component={AdminDash}
               auth={auth}
+              pathname="/admin"
               admin={admin}
               disableNavbar={setNavChange}
+              exact={false}
             />
             <Route>
               <NoMatch />
