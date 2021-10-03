@@ -19,6 +19,8 @@ function NavBar(props) {
     sessionStorage.removeItem("rID");
     logout();
     setLoggedout(true);
+    props.setRID(null);
+    props.setCustId(null);
     history.push("/");
   };
 
@@ -62,7 +64,7 @@ function NavBar(props) {
                     onClick={() => {
                       if (sessionStorage.getItem("rID"))
                         history.push("/order/" + sessionStorage.getItem("rID"));
-                      else history.push("/customers/orders");
+                      else history.push("/customer/order");
                     }}
                   >
                     Orders

@@ -21,47 +21,36 @@ router.post("/", async (req, res) => {
   });
   newCustomer
     .save()
-    .then((doc) => {
-      res.json(doc);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(400).send("Failed!");
-    });
+    .then((saveCustomer) => res.json(saveCustomer))
+    .catch((err) =>
+      res.status(400).json({ "Error while adding new customer!": err.message })
+    );
 });
 
-router.get("/", (req, res) => {
+router.get("/", (_, res) => {
   Customer.find({})
-    .then((allCustomer) => {
-      res.json(allCustomer);
-    })
-    .catch((err) => {
-      console.log("Caught:", err.message);
-    });
+    .then((allCustomer) => res.json(allCustomer))
+    .catch((err) => res.status(404).json({ "Caught:": err.message }));
 });
 
 router.get("/:email", (req, res) => {
   Customer.findOne({ email: req.params.email })
-    .then((customer) => {
-      res.json(customer);
-    })
-    .catch((err) => {
-      console.log("Caught:", err.message);
-    });
+    .then((customer) => res.json(customer))
+    .catch((err) => res.status(404).json({ "Caught:": err.message }));
 });
 
 router.get("/:custid", (req, res) => {
-  const _id = req.params.custid;
-  Customer.findById(_id)
-    .then((oCustomer) => {
-      res.json(oCustomer);
-    })
-    .catch((err) => console.log("Caught:", err.message));
+  const id = req.params.custid;
+  Customer.findById(id)
+    .then((customer) => res.json(customer))
+    .catch((err) =>
+      res.status(404).json({ "Error while gettting customer:": err.message })
+    );
 });
 
 router.patch("/:custid", (req, res) => {
-  const _id = req.params.custid;
-  Customer.findByIdAndUpdate(_id, {
+  const id = req.params.custid;
+  Customer.findByIdAndUpdate(id, {
     $set: {
       customerFName: req.body.customerFName,
       customerLName: req.body.customerLName,
@@ -70,14 +59,20 @@ router.patch("/:custid", (req, res) => {
       address: req.body.address,
       city: req.body.city,
     },
-  }).then(() => res.json({ status: "Data Update Successfully" }));
+  })
+    .then(() => res.json({ status: "Data Update Successfully" }))
+    .catch((err) =>
+      res.status(404).json({ "Error while updating customer": err.message })
+    );
 });
 
 router.delete("/:custid", (req, res) => {
   const _id = req.params.custid;
   Customer.remove({ _id: _id })
-    .then(res.json({ msg: "delete success!" }))
-    .catch(res.json({ msg: "delete err!" }));
+    .then(() => res.json({ msg: "delete success!" }))
+    .catch((err) =>
+      res.status(404).json({ "Error while deleting": err.message })
+    );
 });
 
 module.exports = router;

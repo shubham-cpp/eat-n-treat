@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { makeStyles, Drawer, CssBaseline, Container } from "@material-ui/core";
 
 import clsx from "clsx";
-import OrderAppMenu from "./OrdersAppMenu";
+import OrderAppMenu, { AllOrders } from "./OrdersAppMenu";
 
 const drawerWidth = 240;
 
@@ -39,15 +39,20 @@ export default function OrdersRestaurant() {
   const [fetchAgain, setFetchAgain] = useState(false);
   const classes = useStyles();
 
-  const [component, setComponent] = useState(null);
+  const [component, setComponent] = useState();
 
   useEffect(() => {
     const url = `http://localhost:5000/order/${rID}`;
     axios
       .get(url)
-      .then((res) => setOrders(res.data))
+      .then((res) => {
+        setOrders(res.data);
+        // setComponent(
+        //   <AllOrders orders={res.data} handleOrderStatus={handleOrderStatus} />
+        // );
+      })
       .catch((err) => console.log("Error in axios request for order ", err));
-  }, [fetchAgain]);
+  }, [fetchAgain, rID]);
 
   /**
    * Code to Change the order status to delivered
@@ -58,7 +63,7 @@ export default function OrdersRestaurant() {
     e.preventDefault();
     axios
       .patch("http://localhost:5000/order/" + oid)
-      .then((res) => setFetchAgain((prev) => !prev))
+      .then(() => setFetchAgain((prev) => !prev))
       .catch((err) => console.log("Error While changing order status ", err));
   };
 
@@ -87,7 +92,9 @@ export default function OrdersRestaurant() {
           style={{ width: "100%", height: "100%" }}
           className={classes.container}
         >
-          {component}
+          {orders.length > 0 && (
+            <AllOrders orders={orders} handleOrderStatus={handleOrderStatus} />
+          )}
         </Container>
       </main>
     </div>

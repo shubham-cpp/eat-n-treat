@@ -65,6 +65,7 @@ export default function Signup() {
     var regExpPhone = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
     var regExpPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
     e1.preventDefault();
+    sessionStorage.clear();
     if (fname === "") {
       swal({
         title: "Enter the first name!",
@@ -103,47 +104,47 @@ export default function Signup() {
         timer: 12000,
       });
     } else {
-      signup(email, password)
-        .then(() => {
-          swal({
-            title: "Signed Up Successfully! Please Login to continue.",
-            icon: "success",
-            buttons: false,
-            timer: 2000,
-          });
-          const data = {
-            fName: fname,
-            lName: lname,
-            phone: phone,
-            eMail: email,
-            address: address,
-            city: city,
-          };
-          axios
-            .post("http://localhost:5000/customer", data, {
-              headers: {
-                "Content-Type": "application/json",
-              },
-            })
-            .then((res) => {
-              console.log(res);
-              sessionStorage.setItem("custId", res.data._id);
-            })
-            .catch((err) => console.log(err));
-          console.log("Signup ");
-          handleCloseSignup();
-          history.push("/");
+      const data = {
+        fName: fname,
+        lName: lname,
+        phone: phone,
+        eMail: email,
+        address: address,
+        city: city,
+      };
+      axios
+        .post("http://localhost:5000/customer", data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
         })
-        .catch((error) => {
-          var errorMessage = error.message;
-          swal({
-            title: "Error!",
-            text: errorMessage,
-            buttons: false,
-            timer: 2000,
-            icon: "error",
-          });
-        });
+        .then((res) => {
+          console.log(res);
+          sessionStorage.setItem("custId", res.data._id);
+
+          signup(email, password)
+            .then(() => {
+              swal({
+                title: "Signed Up Successfully! Please Login to continue.",
+                icon: "success",
+                buttons: false,
+                timer: 2000,
+              });
+              handleCloseSignup();
+              history.push("/");
+            })
+            .catch((error) => {
+              let errorMessage = error.message;
+              swal({
+                title: "Error!",
+                text: errorMessage,
+                buttons: false,
+                timer: 2000,
+                icon: "error",
+              });
+            });
+        })
+        .catch((err) => console.log(err));
     }
   };
 

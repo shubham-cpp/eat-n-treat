@@ -51,35 +51,31 @@ export default function BootLogin() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    login(email, password)
-      .then(function(d) {
-        swal({
-          title: "Logged In Successfully !",
-          icon: "success",
-          buttons: false,
-          timer: 2000,
+    sessionStorage.clear();
+    // const email = email;
+    axios.get("http://localhost:5000/customer/" + email).then((res) => {
+      sessionStorage.setItem("custId", res.data._id);
+      login(email, password)
+        .then(() => {
+          swal({
+            title: "Logged In Successfully !",
+            icon: "success",
+            buttons: false,
+            timer: 2000,
+          });
+          handleCloseLogin();
+        })
+        .catch(function(error) {
+          let errorMessage = error.message;
+          swal({
+            title: "Error!",
+            text: errorMessage,
+            buttons: false,
+            timer: 2000,
+            icon: "error",
+          });
         });
-
-        // console.log(" login", d.user.email);
-        const email = d.user.email;
-        axios.get("http://localhost:5000/customer/" + email).then((res) => {
-          sessionStorage.setItem("custId", res.data._id);
-        });
-
-        handleCloseLogin();
-        // history.push("/");
-      })
-
-      .catch(function(error) {
-        var errorMessage = error.message;
-        swal({
-          title: "Error!",
-          text: errorMessage,
-          buttons: false,
-          timer: 2000,
-          icon: "error",
-        });
-      });
+    });
   }
 
   return (

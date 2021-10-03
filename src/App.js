@@ -36,42 +36,120 @@ function App() {
   const [restaurants, setRestaurants] = useState([]);
   const [navChange, setNavChange] = useState(false);
 
+  const [callRest, setCallRest] = useState(false);
+
+  const [rID, setRID] = useState(sessionStorage.getItem("rID"));
+  const [custId, setCustId] = useState(sessionStorage.getItem("custId"));
+
   const [admin, setAdmin] = useState({});
   const [auth, setAuth] = useState(false);
 
+  const cbCallRest = () => {
+    setCallRest(!callRest).then(() => {
+      console.log("CallRest " + callRest);
+    });
+  };
+
+  const getCallRest = () => {
+    return callRest;
+  };
+
   useEffect(() => {
+    console.log("Ran this");
     const url = "http://localhost:5000/restaurant";
     axios.get(url).then((restaurants) => {
       setRestaurants(restaurants.data);
     });
-  }, []);
+  }, [callRest]);
   return (
     <>
       <Router>
         <AuthProvider>
-          <Navbar change={navChange} />
+          <Navbar change={navChange} setRID={setRID} setCustId={setCustId} />
           <Chatbotcomp disabled={navChange} />
           <Switch>
-            <Route path="/" exact>
+            {/* <Route path="/" exact>
               <RestaurantList Restaurants={restaurants} />
-            </Route>
-            <Route path="/restaurant/:id" exact>
-              <RestDetails data={restaurants} />
-            </Route>
-            <Route path="/checkout">
+            </Route> */}
+            <ProtectedRoute
+              path="/"
+              component={RestaurantList}
+              auth={sessionStorage.getItem("rID") === null}
+              pathname={`/restaurant/edit/${sessionStorage.getItem("rID")}`}
+              Restaurants={restaurants}
+              exact
+            />
+            {/* <Route path="/restaurant/:id" exact>
+              <RestDetails
+                data={restaurants}
+                cbCallRest={cbCallRest}
+                getCallRest={getCallRest}
+              />
+            </Route> */}
+            <ProtectedRoute
+              path="/restaurant/:id"
+              component={RestDetails}
+              auth={sessionStorage.getItem("rID") === null}
+              pathname={`/restaurant/edit/${sessionStorage.getItem("rID")}`}
+              data={restaurants}
+              cbCallRest={cbCallRest}
+              getCallRest={getCallRest}
+              exact
+            />
+            {/* <Route path="/checkout">
               <Checkout />
-            </Route>
-            <Route path="/restaurant/edit/:id" exact>
+            </Route> */}
+            <ProtectedRoute
+              path="/checkout"
+              component={Checkout}
+              auth={sessionStorage.getItem("custId") !== null}
+              pathname="/"
+              exact
+            />
+            {/* <Route path="/restaurant/edit/:id" exact>
               <EditRestaurant data={restaurants} />
+            </Route> */}
+            <Route path="/restaurant/edit/:id" exact>
+              <ProtectedRoute
+                path="/restaurant/edit/:id"
+                component={EditRestaurant}
+                auth={sessionStorage.getItem("rID") !== null}
+                pathname="/"
+                data={restaurants}
+                matchID={sessionStorage.getItem("rID")}
+                exact
+              />
             </Route>
-            <Route path="/customers/orders">
+            {/* <Route path="/customers/orders">
               <Orders restaurants={restaurants} />
-            </Route>
-            <Route path="/order/:id">
+            </Route> */}
+            <ProtectedRoute
+              path="/customer/order"
+              component={Orders}
+              auth={sessionStorage.getItem("custId") !== null}
+              pathname="/"
+              restaurants={restaurants}
+              exact={false}
+            />
+            {/* <Route path="/order/:id">
               <OrdersRestaurant />
+            </Route> */}
+            <Route path="/order/:id" exact>
+              <ProtectedRoute
+                path="/order/:id"
+                component={OrdersRestaurant}
+                auth={sessionStorage.getItem("rID") !== null}
+                matchID={sessionStorage.getItem("rID")}
+                pathname="/"
+                exact
+              />
             </Route>
-            <Route path="/r/login" component={LogReg} exact />
-            <Route path="/r/register" component={LogReg} exact />
+            <Route path="/r/login" exact>
+              <LogReg setRID={setRID} />
+            </Route>
+            <Route path="/r/register" exact>
+              <LogReg setRID={setRID} />
+            </Route>
             <Route path="/admin">
               <AdminLogin
                 setAdmin={setAdmin}
@@ -83,8 +161,10 @@ function App() {
               path="/adminDashboard"
               component={AdminDash}
               auth={auth}
+              pathname="/admin"
               admin={admin}
               disableNavbar={setNavChange}
+              exact={false}
             />
             <Route>
               <NoMatch />

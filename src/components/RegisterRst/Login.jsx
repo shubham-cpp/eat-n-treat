@@ -5,7 +5,7 @@ import { useAuth } from "../../auth";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 
-export const Login = ({ containerRef }) => {
+export const Login = ({ containerRef, setRID }) => {
   const { login } = useAuth();
   const history = useHistory();
 
@@ -17,6 +17,7 @@ export const Login = ({ containerRef }) => {
 
   function handleSubmit(e) {
     e.preventDefault();
+    sessionStorage.clear();
     axios
       .get("http://localhost:5000/restaurant/email/" + email)
       .then((res) => {
@@ -30,8 +31,9 @@ export const Login = ({ containerRef }) => {
                 buttons: false,
                 timer: 2000,
               });
-
+              sessionStorage.removeItem("custId");
               sessionStorage.setItem("rID", res.data._id);
+              setRID(res.data._id);
               history.push("/restaurant/edit/" + res.data._id);
             })
             .catch(function(error) {
