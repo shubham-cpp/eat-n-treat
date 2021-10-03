@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import IconShoppingCart from "@material-ui/icons/ShoppingCart";
 import IconRestaurant from "@material-ui/icons/Restaurant";
 import IconAdd from "@material-ui/icons/Add";
@@ -126,7 +126,7 @@ const Orders = ({ orders, handleOrderStatus }) => {
   );
 };
 
-const AllOrders = ({ orders, handleOrderStatus }) => {
+export const AllOrders = ({ orders, handleOrderStatus }) => {
   return <Orders orders={orders} handleOrderStatus={handleOrderStatus} />;
 };
 
@@ -149,6 +149,13 @@ const DeliveredOrders = ({ orders, handleOrderStatus }) => {
 };
 
 const OrderAppMenu = ({ orders, setComponent, handleOrderStatus }) => {
+  // TODO: Why doesn't this work though
+  // useEffect(() => {
+  //   orders.length &&
+  //     setComponent(
+  //       <AllOrders orders={orders} handleOrderStatus={handleOrderStatus} />
+  //     );
+  // }, []);
   const classes = useStyles();
   return (
     <List component="nav" className={classes.appMenu} disablePadding>
