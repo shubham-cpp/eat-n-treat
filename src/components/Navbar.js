@@ -19,6 +19,8 @@ function NavBar(props) {
     sessionStorage.removeItem("rID");
     logout();
     setLoggedout(true);
+    props.setRID(null);
+    props.setCustId(null);
     history.push("/");
   };
 
