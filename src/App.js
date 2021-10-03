@@ -74,10 +74,10 @@ function App() {
             <ProtectedRoute
               path="/"
               component={RestaurantList}
-              auth={rID === null}
-              pathname={`/restaurant/edit/${rID}`}
+              auth={sessionStorage.getItem("rID") === null}
+              pathname={`/restaurant/edit/${sessionStorage.getItem("rID")}`}
               Restaurants={restaurants}
-              exact={true}
+              exact
             />
             {/* <Route path="/restaurant/:id" exact>
               <RestDetails
@@ -89,12 +89,12 @@ function App() {
             <ProtectedRoute
               path="/restaurant/:id"
               component={RestDetails}
-              auth={rID === null}
-              pathname={`/restaurant/edit/${rID}`}
+              auth={sessionStorage.getItem("rID") === null}
+              pathname={`/restaurant/edit/${sessionStorage.getItem("rID")}`}
               data={restaurants}
               cbCallRest={cbCallRest}
               getCallRest={getCallRest}
-              exact={true}
+              exact
             />
             {/* <Route path="/checkout">
               <Checkout />
@@ -102,9 +102,9 @@ function App() {
             <ProtectedRoute
               path="/checkout"
               component={Checkout}
-              auth={custId !== null}
+              auth={sessionStorage.getItem("custId") !== null}
               pathname="/"
-              exact={true}
+              exact
             />
             {/* <Route path="/restaurant/edit/:id" exact>
               <EditRestaurant data={restaurants} />
@@ -113,20 +113,20 @@ function App() {
               <ProtectedRoute
                 path="/restaurant/edit/:id"
                 component={EditRestaurant}
-                auth={rID !== null}
+                auth={sessionStorage.getItem("rID") !== null}
                 pathname="/"
                 data={restaurants}
-                matchID={rID}
-                exact={true}
+                matchID={sessionStorage.getItem("rID")}
+                exact
               />
             </Route>
             {/* <Route path="/customers/orders">
               <Orders restaurants={restaurants} />
             </Route> */}
             <ProtectedRoute
-              path="/customers/orders"
+              path="/customer/order"
               component={Orders}
-              auth={custId !== null}
+              auth={sessionStorage.getItem("custId") !== null}
               pathname="/"
               restaurants={restaurants}
               exact={false}
@@ -138,10 +138,10 @@ function App() {
               <ProtectedRoute
                 path="/order/:id"
                 component={OrdersRestaurant}
-                auth={rID !== null}
-                matchID={rID}
+                auth={sessionStorage.getItem("rID") !== null}
+                matchID={sessionStorage.getItem("rID")}
                 pathname="/"
-                exact={true}
+                exact
               />
             </Route>
             <Route path="/r/login" exact>

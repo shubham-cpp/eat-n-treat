@@ -64,7 +64,7 @@ function NavBar(props) {
                     onClick={() => {
                       if (sessionStorage.getItem("rID"))
                         history.push("/order/" + sessionStorage.getItem("rID"));
-                      else history.push("/customers/orders");
+                      else history.push("/customer/order");
                     }}
                   >
                     Orders
