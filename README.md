@@ -2,7 +2,8 @@
 
 A mini react clone using MERN stack.
 We also use firebase for authentication and hosting our website
-Contributors:
+
+# Contributors:
 
 - [Chinmay Ghungurde](https://github.com/azrael3199) (chinmay_ghungurde@persistent.com)
 - [Omkar Jadhav](https://github.com/oj1001) (omkar_jadhav@persistent.com)
