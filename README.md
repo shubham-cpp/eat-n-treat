@@ -3,6 +3,11 @@
 A mini react clone using MERN stack.
 We also use firebase for authentication and hosting our website
 
+# Links:
+
+- Client: https://eat-n-treat-client.web.app
+- Server: https://eat-n-treat-serv.herokuapp.com
+
 # Contributors:
 
 - [Chinmay Ghungurde](https://github.com/azrael3199) (chinmay_ghungurde@persistent.com)
