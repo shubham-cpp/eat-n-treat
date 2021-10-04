@@ -9,8 +9,8 @@ import Login from "./Login";
 import { useAuth } from "../auth";
 
 function NavBar(props) {
-  const { logout } = useAuth();
   const history = useHistory();
+  const { logout } = useAuth();
   const [email, setEmail] = useState("");
   const [loggedout, setLoggedout] = useState(true);
 
@@ -52,14 +52,19 @@ function NavBar(props) {
             <Nav className="items">
               <Nav.Link>
                 {/* Login */}
-                {loggedout && <Login />}
+                {loggedout && <Login setCustId={props.setCustId} />}
               </Nav.Link>
               <Nav.Link>
                 {/* Sign up */}
-                {loggedout && <Signup />}
-                {!loggedout && <button onClick={handleLogout}>Log out</button>}
+                {loggedout && <Signup setCustId={props.setCustId} />}
+                {!loggedout && (
+                  <button className="btn" onClick={handleLogout}>
+                    Log out
+                  </button>
+                )}
                 {!loggedout && (
                   <button
+                    className="btn"
                     style={{ marginLeft: "2rem" }}
                     onClick={() => {
                       if (sessionStorage.getItem("rID"))

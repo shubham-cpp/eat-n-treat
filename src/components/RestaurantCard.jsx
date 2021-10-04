@@ -26,7 +26,7 @@ export default function RestaurantCard(props) {
         className="card-img-top"
         alt="..."
       />
-      <div className="card-body">
+      <div className="card-body1">
         <h5 className="card-title">{restaurant.restaurantName}</h5>
         <div className="card-text">
           <div className="flex-nowrap scrollableDiv" ref={scrollRef}>

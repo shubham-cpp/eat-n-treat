@@ -34,7 +34,7 @@ const style = {
   p: 4,
 };
 
-export default function Signup() {
+export default function Signup(props) {
   const { signup } = useAuth();
   const history = useHistory();
 
@@ -120,7 +120,7 @@ export default function Signup() {
         })
         .then((res) => {
           console.log(res);
-          sessionStorage.setItem("custId", res.data._id);
+          // sessionStorage.setItem("custId", res.data._id);
 
           signup(email, password)
             .then(() => {
@@ -130,6 +130,8 @@ export default function Signup() {
                 buttons: false,
                 timer: 2000,
               });
+              sessionStorage.setItem("custId", res.data._id);
+              props.setCustId(sessionStorage.getItem("custId"));
               handleCloseSignup();
               history.push("/");
             })
