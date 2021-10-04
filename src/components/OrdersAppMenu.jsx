@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) =>
 );
 
 const Orders = ({ orders, handleOrderStatus }) => {
-  const rID = localStorage.getItem("rID");
+  const rID = sessionStorage.getItem("rID");
 
   const classes = useStyles();
 
@@ -120,7 +120,7 @@ const Orders = ({ orders, handleOrderStatus }) => {
         ))}
       </Container>
       <h4>
-        Total Amount {typeof rID != undefined ? "Sold" : "Spent"} : {sumTotal}
+        Total Amount {rID != null ? "Sold" : "Spent"} : {sumTotal}
       </h4>
     </main>
   );
@@ -156,6 +156,7 @@ const OrderAppMenu = ({ orders, setComponent, handleOrderStatus }) => {
   //       <AllOrders orders={orders} handleOrderStatus={handleOrderStatus} />
   //     );
   // }, []);
+  console.log(handleOrderStatus);
   const classes = useStyles();
   return (
     <List component="nav" className={classes.appMenu} disablePadding>
