@@ -2,6 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotEnv = require("dotenv");
 
+const PORT = process.env.PORT || 8080;
+
 dotEnv.config();
 const app = express();
 
@@ -23,7 +25,7 @@ mongoose
   .then(() => {
     console.log("Connected to db");
 
-    app.listen(process.env.PORT, () => {
+    app.listen(PORT, () => {
       console.log("Server is running");
     });
   })
