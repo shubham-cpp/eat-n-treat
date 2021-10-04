@@ -1,5 +1,1 @@
 runtime: nodejs16
-
-env_variables:
-  DATABASE_URL=mongodb+srv://eatandtreat:eatandtreat@eatandtreat.32ovs.mongodb.net/eatandtreat?retryWrites=true&w=majority
-  PORT= 5000

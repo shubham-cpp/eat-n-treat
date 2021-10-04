@@ -45,7 +45,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "server": "cd server && nodemon index.js",
+    "server": "cd server && node server.js",
     "dev": "concurrently --raw \"npm start\" \"npm run server\"",
     "test": "jest --verbose ./src/tests",
     "eject": "react-scripts eject"
