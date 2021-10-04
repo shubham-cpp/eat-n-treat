@@ -59,7 +59,7 @@ function Chatbotcomp(props) {
                     {
                       value: 2,
                       label: "Contact Delivery patter",
-                      trigger: "4",
+                      trigger: "delPart",
                     },
                     { value: 3, label: "Track the order", trigger: "4" },
                   ],
@@ -67,6 +67,7 @@ function Chatbotcomp(props) {
                 {
                   id: "5",
                   component: <OrderIns />,
+                  trigger: "2",
                   end: false,
                 },
                 {
@@ -95,25 +96,36 @@ function Chatbotcomp(props) {
                   id: "food",
                   message:
                     "Apologise for your inconvinience,you can mail images to EatNTreat@gmail.com our Agent will contact you as soon as possible",
+                  trigger: "2",
                   end: false,
                 },
                 {
                   id: "different",
                   message:
                     "Apologise for your inconvinience,you can mail images to EatNTreat@gmail.com our Agent will contact you as soon as possible",
+                  trigger: "2",
                   end: false,
                 },
                 {
                   id: "lateDelivery",
                   message:
-                    "We uderstand your concern,you can rate your delivery service next we will take care of delivery on time",
+                    "We uderstand your concern,you can rate your delivery service, next time we will take care of delivery on time",
+                  trigger: "2",
                   end: false,
                 },
 
                 {
                   id: "4",
-                  message: "Kindly wait or contact our delivery partner",
-                  end: true,
+                  message: "Kindly wait our delivery partners are on the way",
+                  trigger: "2",
+                  end: false,
+                },
+                {
+                  id: "delPart",
+                  message:
+                    "We understand your concern kindly wait once order is dispatached we wil let you know details of delivery partner",
+                  trigger: "2",
+                  end: false,
                 },
               ]}
             />
