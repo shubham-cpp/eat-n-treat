@@ -40,7 +40,7 @@ export default function Orders({ restaurants }) {
   const [component, setComponent] = useState(null);
 
   useEffect(() => {
-    const url = `http://localhost:5000/order/customer/${custId}`;
+    const url = `/order/customer/${custId}`;
     axios
       .get(url)
       .then((res) => setOrders(res.data))

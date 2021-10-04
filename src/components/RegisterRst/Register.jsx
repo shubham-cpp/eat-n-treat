@@ -110,7 +110,7 @@ export const Register = (props) => {
             };
 
             axios
-              .post("http://localhost:5000/restaurant", data, {
+              .post("/restaurant", data, {
                 headers: {
                   "Content-Type": "application/json",
                 },
@@ -165,7 +165,7 @@ export const Register = (props) => {
             path: image,
           };
           axios
-            .post("http://localhost:5000/restaurant", data, {
+            .post("/restaurant", data, {
               headers: {
                 "Content-Type": "application/json",
               },

@@ -6,7 +6,7 @@ function HotelLocation(props) {
   const [Restaurants, setRestaurants] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/restaurant").then((restaurants) => {
+    axios.get("/restaurant").then((restaurants) => {
       setRestaurants(restaurants.data);
       props.cbRestaurants(restaurants.data);
     });

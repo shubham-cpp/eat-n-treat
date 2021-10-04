@@ -6,7 +6,7 @@ function Chart() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    const url = "http://localhost:5000/order/";
+    const url = "/order/";
     axios
       .get(url)
       .then((res) => setOrders(res.data))

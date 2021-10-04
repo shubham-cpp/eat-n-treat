@@ -113,7 +113,7 @@ export default function Signup(props) {
         city: city,
       };
       axios
-        .post("http://localhost:5000/customer", data, {
+        .post("/customer", data, {
           headers: {
             "Content-Type": "application/json",
           },
