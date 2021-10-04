@@ -74,7 +74,7 @@ export default function EditRestaurant({ data }) {
    * @param {string} mid Menu id
    */
   const handleDelete = (rid, mid) => {
-    const url = `http://localhost:5000/restaurant/menu/${rid}/${mid}`;
+    const url = `http://eat-n-treat-serv.herokuapp.com/restaurant/menu/${rid}/${mid}`;
 
     axios
       .delete(url)
@@ -90,7 +90,7 @@ export default function EditRestaurant({ data }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const url = `http://localhost:5000/restaurant/menu/${id}`;
+    const url = `http://eat-n-treat-serv.herokuapp.com/restaurant/menu/${id}`;
     const data = { menuName, menuPrice };
 
     axios
@@ -109,7 +109,7 @@ export default function EditRestaurant({ data }) {
    */
   const handleUpdate = (e, mid) => {
     e.preventDefault();
-    const url = `http://localhost:5000/restaurant/menu/${mid}`;
+    const url = `http://eat-n-treat-serv.herokuapp.com/restaurant/menu/${mid}`;
     const data = { menuName, menuPrice };
 
     // console.log(data);
@@ -129,7 +129,7 @@ export default function EditRestaurant({ data }) {
    */
   const handleRestaurantUpdate = (e) => {
     e.preventDefault();
-    const url = `http://localhost:5000/restaurant/${id}`;
+    const url = `http://eat-n-treat-serv.herokuapp.com/restaurant/${id}`;
     const data = { restaurantName, restaurantNumber, restaurantEmail };
     axios
       .patch(url, data)

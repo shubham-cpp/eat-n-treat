@@ -42,7 +42,7 @@ export default function OrdersRestaurant() {
   const [component, setComponent] = useState();
 
   useEffect(() => {
-    const url = `http://localhost:5000/order/${rID}`;
+    const url = `http://eat-n-treat-serv.herokuapp.com/order/${rID}`;
     axios
       .get(url)
       .then((res) => {
@@ -64,7 +64,7 @@ export default function OrdersRestaurant() {
     e.preventDefault();
     console.log(oid);
     axios
-      .patch("http://localhost:5000/order/" + oid)
+      .patch("http://eat-n-treat-serv.herokuapp.com/order/" + oid)
       .then(() => setFetchAgain((prev) => !prev))
       .catch((err) => console.log("Error While changing order status ", err));
   };

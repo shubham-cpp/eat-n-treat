@@ -53,7 +53,7 @@ export default function BootLogin(props) {
     e.preventDefault();
     sessionStorage.clear();
     // const email = email;
-    axios.get("http://localhost:5000/customer/" + email).then((res) => {
+    axios.get("http://eat-n-treat-serv.herokuapp.com/customer/" + email).then((res) => {
       // sessionStorage.setItem("custId", res.data._id);
       login(email, password)
         .then(() => {

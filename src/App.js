@@ -56,7 +56,7 @@ function App() {
 
   useEffect(() => {
     console.log("Ran this");
-    const url = "http://localhost:5000/restaurant";
+    const url = "http://eat-n-treat-serv.herokuapp.com/restaurant";
     axios.get(url).then((restaurants) => {
       setRestaurants(restaurants.data);
     });

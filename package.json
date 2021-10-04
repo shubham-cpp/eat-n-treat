@@ -5,7 +5,7 @@
   "jest": {
     "verbose": true
   },
-
+ 
   "dependencies": {
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
@@ -58,9 +58,6 @@
       "react-app/jest"
     ]
   },
-  "engines": {
-    "node": "16.x"
-},
   "browserslist": {
     "production": [
       ">0.2%",

@@ -18,13 +18,13 @@ app.use(function (req, res, next) {
   next();
 });
 
-// mongoose
-//   .connect(process.env.DATABASE_URL, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//   })
-//   .then(() => {
-//     console.log("Connected to db");
+ mongoose
+   .connect(process.env.DATABASE_URL, {
+     useNewUrlParser: true,
+     useUnifiedTopology: true,
+   })
+   .then(() => {
+     console.log("Connected to db");
 
  app.get("/", (req,res) => {
    res.send("Connected baackend").end();
@@ -32,10 +32,10 @@ app.use(function (req, res, next) {
    app.listen(PORT, () => {
        console.log("Server is running",PORT);
    });
-//   })
-//   .catch((err) => console.log(err));
+   })
+   .catch((err) => console.log(err));
 
-// app.use("/customer", require("./routes/customer"));
-// app.use("/restaurant", require("./routes/resturants"));
-// app.use("/admin", require("./routes/admin"));
-// app.use("/order", require("./routes/order"));
+ app.use("/customer", require("./routes/customer"));
+ app.use("/restaurant", require("./routes/resturants"));
+ app.use("/admin", require("./routes/admin"));
+ app.use("/order", require("./routes/order"));

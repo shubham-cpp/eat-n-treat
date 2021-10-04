@@ -56,14 +56,14 @@ const Reports = () => {
   }
 
   useEffect(() => {
-    const url = "http://localhost:5000/order/";
+    const url = "http://eat-n-treat-serv.herokuapp.com/order/";
     axios
       .get(url)
       .then((res) => setOrders(res.data))
       .catch((err) => console.log("Error in axios request for order ", err));
   }, []);
   useEffect(() => {
-    const url = "http://localhost:5000/restaurant/";
+    const url = "http://eat-n-treat-serv.herokuapp.com/restaurant/";
     axios
       .get(url)
       .then((res) => setRest(res.data))

@@ -20,7 +20,7 @@ function Checkout() {
       totalAmount,
     };
     axios
-      .post("http://localhost:5000/order/", data)
+      .post("http://eat-n-treat-serv.herokuapp.com/order/", data)
       .then(() => {
         swal({
           title: "Order Placed Successfully !",
