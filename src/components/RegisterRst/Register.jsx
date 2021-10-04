@@ -144,6 +144,48 @@ export const Register = () => {
           });
         }
       );
+
+      signup(email, password)
+        .then(() => {
+          swal({
+            title:
+              "Registration Request Send Successfully! Please wait till your request is accepted to continue.",
+            icon: "success",
+            buttons: false,
+            timer: 5000,
+          });
+          console.log(image);
+          const data = {
+            restaurantName: rname,
+            restaurantPhone: phone,
+            restaurantEmail: email,
+            cuisine: cuisines.trim().split(","),
+            rCity: city,
+            path: image,
+          };
+          axios
+            .post("http://localhost:5000/restaurant", data, {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            })
+            .then((res) => {
+              sessionStorage.setItem("rID", res.data._id);
+              history.push("/restaurant/edit/" + res.data._id);
+            })
+            .catch((err) => console.log(err));
+          // logout();
+        })
+        .catch((error) => {
+          var errorMessage = error.message;
+          swal({
+            title: "Error!",
+            text: errorMessage,
+            buttons: false,
+            timer: 2000,
+            icon: "error",
+          });
+        });
     }
   };
 

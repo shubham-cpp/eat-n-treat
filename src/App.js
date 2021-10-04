@@ -10,7 +10,7 @@ import Navbar from "./components/Navbar";
 import { AuthProvider } from "./auth";
 import Chatbotcomp from "./components/Chatbotcomp";
 import Checkout from "./components/Checkout";
-
+import Chart from "./components/Chart";
 import RestaurantList from "./components/RestaurantList";
 import { Main as RestDetails } from "./components/RestrauntDetails/Main";
 import EditRestaurant from "./components/RestaurantEdit/EditRestaurant";

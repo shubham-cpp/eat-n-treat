@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Oswald&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Oswald&display=swap");
 
 body {
   background-color: #6bffc671;
@@ -11,7 +11,7 @@ body {
   align-items: center;
   width: 100%;
   height: 100%;
-  margin-top: 20px;
+  margin-top: 50px;
 }
 
 .log__app {
@@ -20,7 +20,7 @@ body {
   justify-content: center;
   align-items: center;
   width: 40rem;
-  font-family: 'Comfortaa', cursive;
+  font-family: "Comfortaa", cursive;
   margin: 2rem auto;
 }
 
@@ -39,58 +39,57 @@ body {
 
 /* .log__login  */
 .login_container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #fff;
-    box-shadow: 0px 0px 12px 2px rgba(15, 15, 15, 0.2);
-    border-radius: 13px;
-    position: relative;
-    z-index: 99;
-    width: 100%;
-    height: 100%;
-    z-index: 99;
-    padding: 15px 8px;
-    transition: transform 250ms ease-in-out;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  box-shadow: 0px 0px 12px 2px rgba(15, 15, 15, 0.2);
+  border-radius: 13px;
+  position: relative;
+  z-index: 99;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  padding: 15px 8px;
+  transition: transform 250ms ease-in-out;
+}
 /* .log__login   */
 .right-side {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 78%;
-    background-color: #3498db;
-    width: 100%;
-    position: absolute;
-    right: -35%;
-    border-radius: 16px;
-    z-index: 1;
-    transition: all 400ms ease-in-out;
-    cursor: pointer;
-    box-shadow: 0px 0px 12px 2px rgba(15, 15, 15, 0.281);
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 78%;
+  background-color: #3498db;
+  width: 100%;
+  position: absolute;
+  right: -35%;
+  border-radius: 16px;
+  z-index: 1;
+  transition: all 400ms ease-in-out;
+  cursor: pointer;
+  box-shadow: 0px 0px 12px 2px rgba(15, 15, 15, 0.281);
 }
 
 .right {
-      right: -50%;
-      align-items: flex-end;
+  right: -50%;
+  align-items: flex-end;
 }
 .right:hover {
-    right: -45%;
+  right: -45%;
 }
 .left {
-      right: 50%;
-      align-items: flex-start;
+  right: 50%;
+  align-items: flex-start;
 }
 .left:hover {
-    right: 45%;
+  right: 45%;
 }
 .text {
-      font-size: 21px;
-      font-weight: 500;
-      color: #fff;
-      margin-right: 3em;
-      margin-left: 3em;
+  font-size: 21px;
+  font-weight: 500;
+  color: #fff;
+  margin-right: 3em;
+  margin-left: 3em;
 }
 
 /* //Button */
@@ -103,7 +102,6 @@ body {
   border-radius: 3px;
   transition: all 260ms ease-in-out;
   cursor: pointer;
-
 }
 #btn:hover {
   background-color: #2386c8;
@@ -121,9 +119,8 @@ body {
   bottom: -3.5rem;
   background-color: #a81b1b;
   color: white;
-
 }
 
-.error  h3 {
+.error h3 {
   margin-bottom: 2px;
 }
