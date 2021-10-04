@@ -10,7 +10,7 @@ import Navbar from "./components/Navbar";
 import { AuthProvider } from "./auth";
 import Chatbotcomp from "./components/Chatbotcomp";
 import Checkout from "./components/Checkout";
-
+import Chart from "./components/Chart";
 import RestaurantList from "./components/RestaurantList";
 import { Main as RestDetails } from "./components/RestrauntDetails/Main";
 import EditRestaurant from "./components/RestaurantEdit/EditRestaurant";
@@ -74,10 +74,10 @@ function App() {
             <ProtectedRoute
               path="/"
               component={RestaurantList}
-              auth={sessionStorage.getItem("rID") === null}
-              pathname={`/restaurant/edit/${sessionStorage.getItem("rID")}`}
+              auth={rID === null}
+              pathname={`/restaurant/edit/${rID}`}
               Restaurants={restaurants}
-              exact
+              exact={true}
             />
             {/* <Route path="/restaurant/:id" exact>
               <RestDetails
@@ -89,12 +89,12 @@ function App() {
             <ProtectedRoute
               path="/restaurant/:id"
               component={RestDetails}
-              auth={sessionStorage.getItem("rID") === null}
-              pathname={`/restaurant/edit/${sessionStorage.getItem("rID")}`}
+              auth={rID === null}
+              pathname={`/restaurant/edit/${rID}`}
               data={restaurants}
               cbCallRest={cbCallRest}
               getCallRest={getCallRest}
-              exact
+              exact={true}
             />
             {/* <Route path="/checkout">
               <Checkout />
@@ -102,9 +102,9 @@ function App() {
             <ProtectedRoute
               path="/checkout"
               component={Checkout}
-              auth={sessionStorage.getItem("custId") !== null}
+              auth={custId !== null}
               pathname="/"
-              exact
+              exact={true}
             />
             {/* <Route path="/restaurant/edit/:id" exact>
               <EditRestaurant data={restaurants} />
@@ -113,11 +113,11 @@ function App() {
               <ProtectedRoute
                 path="/restaurant/edit/:id"
                 component={EditRestaurant}
-                auth={sessionStorage.getItem("rID") !== null}
+                auth={rID !== null}
                 pathname="/"
                 data={restaurants}
-                matchID={sessionStorage.getItem("rID")}
-                exact
+                matchID={rID}
+                exact={true}
               />
             </Route>
             {/* <Route path="/customers/orders">
@@ -126,7 +126,7 @@ function App() {
             <ProtectedRoute
               path="/customer/order"
               component={Orders}
-              auth={sessionStorage.getItem("custId") !== null}
+              auth={custId !== null}
               pathname="/"
               restaurants={restaurants}
               exact={false}
@@ -138,10 +138,10 @@ function App() {
               <ProtectedRoute
                 path="/order/:id"
                 component={OrdersRestaurant}
-                auth={sessionStorage.getItem("rID") !== null}
-                matchID={sessionStorage.getItem("rID")}
+                auth={rID !== null}
+                matchID={rID}
                 pathname="/"
-                exact
+                exact={true}
               />
             </Route>
             <Route path="/r/login" exact>

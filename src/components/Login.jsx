@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   submit: {},
 }));
 
-export default function BootLogin() {
+export default function BootLogin(props) {
   const { login } = useAuth();
   const classes = useStyles();
 
@@ -54,7 +54,7 @@ export default function BootLogin() {
     sessionStorage.clear();
     // const email = email;
     axios.get("http://localhost:5000/customer/" + email).then((res) => {
-      sessionStorage.setItem("custId", res.data._id);
+      // sessionStorage.setItem("custId", res.data._id);
       login(email, password)
         .then(() => {
           swal({
@@ -63,6 +63,8 @@ export default function BootLogin() {
             buttons: false,
             timer: 2000,
           });
+          sessionStorage.setItem("custId", res.data._id);
+          props.setCustId(sessionStorage.getItem("custId"));
           handleCloseLogin();
         })
         .catch(function(error) {

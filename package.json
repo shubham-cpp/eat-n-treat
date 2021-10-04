@@ -20,6 +20,7 @@
     "axios": "^0.21.4",
     "bcrypt": "^5.0.1",
     "bootstrap": "^5.1.0",
+    "chart.js": "^3.5.1",
     "clsx": "^1.1.1",
     "express": "^4.17.1",
     "express-validator": "^6.12.2",
@@ -30,6 +31,7 @@
     "multer": "^1.4.3",
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.0-beta.6",
+    "react-chartjs-2": "^3.0.5",
     "react-chatbot-kit": "^1.1.20",
     "react-dom": "^17.0.2",
     "react-google-login": "^5.2.2",
@@ -45,7 +47,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "server": "cd server && nodemon index.js",
+    "server": "cd server && node server.js",
     "dev": "concurrently --raw \"npm start\" \"npm run server\"",
     "test": "jest --verbose ./src/tests",
     "eject": "react-scripts eject"

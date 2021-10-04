@@ -7,7 +7,77 @@ body {
   -webkit-font-smoothing: antialiased;
   /* background-image: url("https://images.pexels.com/photos/1435895/pexels-photo-1435895.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"); */
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(202, 216, 9);
+  background: -webkit-linear-gradient(left, #25c481, #25b7c4);
+  background: linear-gradient(to right, #25c481, #25b7c4);
+}
+
+.container {
+  width: 80%;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  border-radius: 10px;
+  box-shadow: -1rem 0 3rem rgba(0, 0, 0, 0.5);
+  transition: 0.2s;
+  scroll-snap-align: start;
+  border: none;
+  padding: 5px 10px;
+}
+
+.card img {
+  min-height: 100px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding-bottom: 5px;
+}
+
+.card-body1 {
+  border: 1px solid #eee;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+
+  margin: 0;
+}
+
+.card:hover {
+  border: 2px solid #444;
+  border-radius: 15px;
+  transform: scale(1.03);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: coral;
+  border-radius: 30px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-file-upload-button {
+  /* background-color: snow; */
+
+  padding: 5px;
+
+  margin-top: 2px;
+
+  border-radius: 5px;
+
+  border: none;
 }
 
 .container-fluid {
@@ -31,10 +101,12 @@ code {
 
 .search {
   margin-top: 5%;
-  width: 100%;
+  width: 80%;
   background-color: white;
-  border: 2px solid black;
-  border-radius: 1.5rem;
+  border-radius: 2rem;
+  outline: none;
+  align-items: center;
+  margin-left: 6rem;
 }
 
 .searchInputs {
@@ -42,23 +114,36 @@ code {
   display: flex;
   margin-left: auto;
   margin-right: auto;
-  width: 60%;
+  width: 90%;
+  padding-left: 1rem;
 }
 
-.searchInputs input {
-  border-radius: 50px;
+.add-btn {
   outline: none;
+  border: none;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
 }
 
+.cart-desc {
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  padding: 10px 0px;
+  border-radius: 6px;
+  font-size: 16px;
+  text-transform: none;
+}
 .search input {
   background-color: white;
   border-radius: 2px;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
   font-size: 18px;
-  padding: 15px;
+  padding: 0;
   height: 60px;
-  width: 300px;
+  width: 100%;
 }
 
 .searchIcon .MuiSvgIcon-root {
@@ -96,23 +181,8 @@ code {
   padding: 10px;
 }
 
-.botavatar {
-  width: 35px;
-  height: 35px;
-  border-radius: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 0.9rem;
-  margin-right: 10px;
-  background-color: purple;
-  font-weight: bold;
-}
-
 .open-button {
-  background-color: teal;
-  color: white;
-  padding: 16px 20px;
+  background-color: #1d3d56;
   border: none;
   border-radius: 50%;
   cursor: pointer;
@@ -125,9 +195,7 @@ code {
 }
 
 .close-button {
-  background-color: teal;
-  color: white;
-  padding: 16px 20px;
+  background-color: #1d3d56;
   border: none;
   border-radius: 50%;
   cursor: pointer;
