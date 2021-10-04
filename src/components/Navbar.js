@@ -52,11 +52,11 @@ function NavBar(props) {
             <Nav className="items">
               <Nav.Link>
                 {/* Login */}
-                {loggedout && <Login />}
+                {loggedout && <Login setCustId={props.setCustId} />}
               </Nav.Link>
               <Nav.Link>
                 {/* Sign up */}
-                {loggedout && <Signup />}
+                {loggedout && <Signup setCustId={props.setCustId} />}
                 {!loggedout && <button onClick={handleLogout}>Log out</button>}
                 {!loggedout && (
                   <button

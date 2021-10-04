@@ -13,7 +13,7 @@ import swal from "sweetalert";
 import { useAuth } from "../../auth";
 import axios from "axios";
 
-export const Register = () => {
+export const Register = (props) => {
   const { signup } = useAuth();
   const history = useHistory();
 
@@ -127,6 +127,7 @@ export const Register = () => {
                     });
 
                     sessionStorage.setItem("rID", res.data._id);
+                    props.setRID(res.data._id);
                     history.push("/restaurant/edit/" + res.data._id);
                   })
                   .catch((error) => {
