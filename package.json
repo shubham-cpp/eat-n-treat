@@ -5,7 +5,7 @@
   "jest": {
     "verbose": true
   },
-  "proxy": "http://localhost:5000",
+  "proxy": "https://eat-n-treat-serv.herokuapp.com/",
   "dependencies": {
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
