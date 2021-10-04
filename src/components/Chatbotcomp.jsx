@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import ChatBot from "react-simple-chatbot";
-import ChatBubble from "@material-ui/icons/ChatBubble";
+
 import OrderIns from "./OrderIns";
-import HotelLocation from "./HotelLocation";
 
 function Chatbotcomp(props) {
   let [showChat, setShowChat] = useState(false);
@@ -122,31 +121,26 @@ function Chatbotcomp(props) {
           <div style={{ position: "fixed", zIndex: 10, float: "right" }}>
             {!showChat ? (
               <button
-                id="123"
                 className="open-button"
                 onClick={() => {
                   startChat();
                 }}
               >
-                <ChatBubble
-                  style={{ height: "30px", width: "30px", display: "block" }}
+                <img
+                  src="https://img.icons8.com/ios/50/000000/bot.png"
+                  style={{ zIndex: 10 }}
                 />
               </button>
             ) : (
               <button
-                id="123"
                 className="close-button"
                 onClick={() => {
                   hideChat();
                 }}
               >
-                <ChatBubble
-                  style={{
-                    height: "30px",
-                    width: "30px",
-                    display: "block",
-                    zIindex: 1000,
-                  }}
+                <img
+                  src="https://img.icons8.com/ios/50/000000/bot.png"
+                  style={{ zIndex: 10 }}
                 />
               </button>
             )}

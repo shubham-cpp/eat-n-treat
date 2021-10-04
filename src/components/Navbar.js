@@ -55,9 +55,14 @@ function NavBar(props) {
               <Nav.Link>
                 {/* Sign up */}
                 {loggedout && <Signup />}
-                {!loggedout && <button onClick={handleLogout}>Log out</button>}
+                {!loggedout && (
+                  <button className="btn" onClick={handleLogout}>
+                    Log out
+                  </button>
+                )}
                 {!loggedout && (
                   <button
+                    className="btn"
                     style={{ marginLeft: "2rem" }}
                     onClick={() => {
                       if (sessionStorage.getItem("rID"))
