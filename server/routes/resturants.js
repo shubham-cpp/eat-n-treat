@@ -159,6 +159,25 @@ router.post(
   }
 );
 
+router.delete("/reviews/:rid/:userID", (req, res) => {
+  const id = req.params.userID;
+  const rid = req.params.rid;
+
+  Restaurant.findByIdAndUpdate(
+    rid,
+    {
+      $pull: {
+        reviews: {
+          userID: id,
+        },
+      },
+    },
+    { new: true, upsert: false }
+  )
+    .then((result) => res.json(result))
+    .catch((err) => res.json({ "delete err!": err.message }));
+});
+
 router.patch("/status/:rID", (req, res) => {
   const id = req.params.rID;
   Restaurant.findByIdAndUpdate(
