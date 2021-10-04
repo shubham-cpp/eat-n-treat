@@ -126,7 +126,14 @@ const Reports = () => {
             paddingBottom: "1%",
           }}
         >
-          <div style={{ width: "45rem", right: "28px" }}>
+          <div
+            style={{
+              width: "50rem",
+              right: "28px",
+              marginBottom: "5rem",
+              marginLeft: "5rem",
+            }}
+          >
             <Bar
               data={{
                 labels: RestName,
@@ -162,40 +169,6 @@ const Reports = () => {
             />
           </div>
         </CardContent>
-      </Card>
-      <Card style={{ width: "100%", height: "100%", overflow: "scroll" }}>
-        <CardHeader title="Reports by hotel" />
-        <List component="div" disablePadding>
-          {rest.map((restaurant, index) =>
-            restaurant.restaurantRegistrationStatus ? (
-              <div key={restaurant._id}>
-                <ListItem
-                  button
-                  onClick={() => handleClick(index)}
-                  className={classes.menuItem}
-                >
-                  <ListItemIcon className={classes.menuItemIcon}>
-                    <Group />
-                  </ListItemIcon>
-                  <ListItemText primary={`${restaurant.restaurantName}`} />
-                  {open[index] ? <ExpandLess /> : <ExpandMore />}
-                </ListItem>
-                <Collapse in={open[index]} timeout="auto" unmountOnExit>
-                  <Divider />
-                  <ListItemIcon>
-                    <SubdirectoryArrowRightTwoTone />
-                  </ListItemIcon>
-                  {restaurant.reviews.map((ele) => {
-                    console.log(ele);
-                    <ListItemText primary={`${ele.rating}`} />;
-                  })}
-                </Collapse>
-              </div>
-            ) : (
-              <></>
-            )
-          )}
-        </List>
       </Card>
     </div>
   );
