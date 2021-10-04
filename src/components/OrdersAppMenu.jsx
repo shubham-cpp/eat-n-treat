@@ -74,50 +74,52 @@ const Orders = ({ orders, handleOrderStatus }) => {
         className={classes.container}
         style={{ overflow: "scroll", height: "72%" }}
       >
-        {orders.map((order) => (
-          <fieldset
-            style={{ border: "0.1rem solid black", marginBottom: "0.5rem" }}
-            key={order._id}
-          >
-            <table className="table">
-              <thead>
-                <tr>
-                  <th className="order-item" scope="col">
-                    #
-                  </th>
-                  <th className="order-item" scope="col">
-                    Item Name
-                  </th>
-                  <th className="order-item" scope="col">
-                    Price
-                  </th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {order.cart.map((item, index) => (
+        {orders &&
+          orders.map((order) => (
+            <fieldset
+              style={{ border: "0.1rem solid black", marginBottom: "0.5rem" }}
+              key={order._id}
+            >
+              <table className="table">
+                <thead>
                   <tr>
-                    <th className="order-item" scope="row">
-                      {index + 1}
+                    <th className="order-item" scope="col">
+                      #
                     </th>
-                    <td className="order-item">{item.menuName}</td>
-                    <td className="order-item">{item.menuPrice}</td>
+                    <th className="order-item" scope="col">
+                      Item Name
+                    </th>
+                    <th className="order-item" scope="col">
+                      Price
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-            <h6>Status: {order.orderStatus}</h6>
-            {sessionStorage.getItem("rID") && order.orderStatus === "Pending" && (
-              <button
-                className="btn btn-outline-success"
-                onClick={(e) => handleOrderStatus(e, order._id)}
-              >
-                Accept Order
-              </button>
-            )}
-            <h6>Total : {order.totalAmount}</h6>
-          </fieldset>
-        ))}
+                </thead>
+
+                <tbody>
+                  {order.cart.map((item, index) => (
+                    <tr>
+                      <th className="order-item" scope="row">
+                        {index + 1}
+                      </th>
+                      <td className="order-item">{item.menuName}</td>
+                      <td className="order-item">{item.menuPrice}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <h6>Status: {order.orderStatus}</h6>
+              {sessionStorage.getItem("rID") &&
+                order.orderStatus === "Pending" && (
+                  <button
+                    className="btn btn-outline-success"
+                    onClick={(e) => handleOrderStatus(e, order._id)}
+                  >
+                    Accept Order
+                  </button>
+                )}
+              <h6>Total : {order.totalAmount}</h6>
+            </fieldset>
+          ))}
       </Container>
       <h4>
         Total Amount {rID != null ? "Sold" : "Spent"} : {sumTotal}
