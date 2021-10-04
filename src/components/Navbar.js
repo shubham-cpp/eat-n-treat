@@ -7,6 +7,7 @@ import firebase from "../firebase";
 import Signup from "./Signup";
 import Login from "./Login";
 import { useAuth } from "../auth";
+import { getNativeSelectUtilityClasses } from "@mui/material";
 
 function NavBar(props) {
   const history = useHistory();
@@ -15,19 +16,29 @@ function NavBar(props) {
   const [loggedout, setLoggedout] = useState(true);
 
   const handleLogout = () => {
+    if (sessionStorage.getItem("custId") !== null) {
+      props.setCustId(null);
+      logout();
+      setLoggedout(true);
+    } else if (sessionStorage.getItem("rID") !== null) {
+      props.setRID(null);
+      logout();
+      setLoggedout(true);
+    }
     sessionStorage.removeItem("custId");
     sessionStorage.removeItem("rID");
-    logout();
-    setLoggedout(true);
-    props.setRID(null);
-    props.setCustId(null);
     history.push("/");
   };
 
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
-      setEmail(user.email);
-      setLoggedout(false);
+      if (
+        sessionStorage.getItem("custId") !== null ||
+        sessionStorage.getItem("rID") !== null
+      ) {
+        setEmail(user.email);
+        setLoggedout(false);
+      }
     } else {
       setLoggedout(true);
     }
