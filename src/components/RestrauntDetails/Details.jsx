@@ -24,7 +24,7 @@ export default function Details({ addToCart, getCallRest }) {
           style={{
             marginTop: "5rem",
             backgroundColor: "white",
-            padding: "0 15px",
+            padding: "2px 15px",
           }}
         >
           <h3 className="text-center">{restaurant.restaurantName}</h3>

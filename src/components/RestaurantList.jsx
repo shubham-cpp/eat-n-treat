@@ -21,7 +21,7 @@ export default function RestaurantList({ Restaurants }) {
       ? (item.restaurantName.toLowerCase().includes(res) ||
           item.rCity.toLowerCase().includes(res)) &&
           item.restaurantRegistrationStatus
-      : item;
+      : item.restaurantRegistrationStatus;
   });
 
   return (

@@ -1,6 +1,6 @@
+import { Avatar } from "@mui/material";
 import React, { useState } from "react";
 import ChatBot from "react-simple-chatbot";
-
 import OrderIns from "./OrderIns";
 
 function Chatbotcomp(props) {
@@ -138,9 +138,14 @@ function Chatbotcomp(props) {
                   startChat();
                 }}
               >
-                <img
+                <Avatar
                   src="https://img.icons8.com/ios/50/000000/bot.png"
-                  style={{ zIndex: 10 }}
+                  sx={{
+                    filter: "invert(100%)",
+                    zIndex: 10,
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                  }}
                 />
               </button>
             ) : (
@@ -150,9 +155,15 @@ function Chatbotcomp(props) {
                   hideChat();
                 }}
               >
-                <img
+                <Avatar
                   src="https://img.icons8.com/ios/50/000000/bot.png"
-                  style={{ zIndex: 10 }}
+                  color="white"
+                  sx={{
+                    zIndex: 10,
+                    filter: "invert(100%)",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                  }}
                 />
               </button>
             )}
