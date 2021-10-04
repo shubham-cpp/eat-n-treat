@@ -37,7 +37,14 @@ function Checkout() {
       });
   };
   return (
-    <div className="container" style={{ marginTop: "4rem" }}>
+    <div
+      className="container"
+      style={{
+        marginTop: "5rem",
+        backgroundColor: "white",
+        padding: "10px 15px",
+      }}
+    >
       <h1>Order Details</h1>
       <table>
         <thead>
@@ -60,7 +67,13 @@ function Checkout() {
         </tbody>
       </table>
       <h4>Total : {totalAmount}</h4>
-      <button onClick={handleOrder}>Place order</button>
+      <button
+        style={{ marginBottom: "10px" }}
+        className="btn btn-primary"
+        onClick={handleOrder}
+      >
+        Place order
+      </button>
     </div>
   );
 }

@@ -20,7 +20,6 @@ body {
   height: 100%;
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
   flex-direction: column;
   border-radius: 10px;
   box-shadow: -1rem 0 3rem rgba(0, 0, 0, 0.5);
@@ -38,11 +37,13 @@ body {
 }
 
 .card-body1 {
-  border: 1px solid #eee;
+  border: 1px solid lightgray;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-
-  margin: 0;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 5px;
+  padding-bottom: 10px;
 }
 
 .card:hover {
@@ -168,6 +169,7 @@ code {
   /* overflow: scroll; */
   overflow-x: hidden;
   overflow-y: scroll;
+  background-color: "#deeaee";
 }
 .dishes::-webkit-scrollbar {
   display: none;
@@ -192,6 +194,7 @@ code {
   right: 28px;
   width: 70px;
   height: 70px;
+  transition: 10ms;
 }
 
 .close-button {
