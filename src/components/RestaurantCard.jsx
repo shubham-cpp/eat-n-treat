@@ -35,7 +35,7 @@ export default function RestaurantCard(props) {
                 <div
                   key={index}
                   className="chip"
-                  style={{ width: "fit-content", display: "inline-block" }}
+                  style={{ width: "fit-content" }}
                 >
                   {cuis}
                 </div>
