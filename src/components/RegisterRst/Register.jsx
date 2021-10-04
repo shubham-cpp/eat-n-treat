@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import firebase from "firebase";
 import {
   InputLabel,
@@ -14,21 +14,22 @@ import { useAuth } from "../../auth";
 import axios from "axios";
 
 export const Register = () => {
-  const { signup, logout } = useAuth();
+  const { signup } = useAuth();
   const history = useHistory();
 
-  const [city, setCity] = React.useState("");
-  const [labelWidth] = React.useState(0);
-  const [rname, setRname] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [phone, setPhone] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [city, setCity] = useState("");
+  const [labelWidth] = useState(0);
+  const [rname, setRname] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
   const [cuisines, setCuisines] = useState("");
-  const [image, setImage] = React.useState(null);
+  const [image, setImage] = useState(null);
+  const [err, setErr] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const inputLabel = React.useRef("");
+  const inputLabel = useRef("");
   const storageRef = firebase.storage().ref();
-  var downloadURL = "";
 
   const handleRnameChange = (e) => setRname(e.target.value);
   const handleEmailChange = (e) => setEmail(e.target.value);
@@ -37,23 +38,22 @@ export const Register = () => {
 
   const handleCityChange = (e) => setCity(e.target.value);
 
-  const handleCuisinesChange = (e) => {
-    // var cusine = cuisines.slice();
-    // cusine[index] = e.target.value;
-    setCuisines(e.target.value);
-  };
+  const handleCuisinesChange = (e) => setCuisines(e.target.value);
 
   const handleImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
-      let image = e.target.files[0];
-      //setImg(URL.createObjectURL(image));
+      setImage(e.target.files[0]);
     }
   };
 
   const handleSubmit = (e1) => {
+    e1.preventDefault();
+
     var regExpPhone = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
     var regExpPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
-    e1.preventDefault();
+
+    sessionStorage.clear();
+
     if (rname === "") {
       swal({
         title: "Enter the restaurant name!",
@@ -86,8 +86,8 @@ export const Register = () => {
       });
     } else {
       console.log("Endpoint");
-      var file = document.getElementById("files").files[0];
-      var uploadTask = storageRef.child("restaurants/" + file.name).put(file);
+      let file = document.getElementById("files").files[0];
+      let uploadTask = storageRef.child("restaurants/" + file.name).put(file);
       uploadTask.on(
         firebase.storage.TaskEvent.STATE_CHANGED,
         (snapshot) => {
@@ -99,16 +99,14 @@ export const Register = () => {
         },
         () => {
           uploadTask.snapshot.ref.getDownloadURL().then((url) => {
-            // downloadURL = url;
             setImage(url);
-            console.log(url);
             const data = {
               restaurantName: rname,
               restaurantPhone: phone,
               restaurantEmail: email,
               cuisine: cuisines.trim().split(","),
               rCity: city,
-              path: image,
+              path: url,
             };
 
             axios
@@ -132,7 +130,7 @@ export const Register = () => {
                     history.push("/restaurant/edit/" + res.data._id);
                   })
                   .catch((error) => {
-                    var errorMessage = error.message;
+                    let errorMessage = error.message;
                     swal({
                       title: "Error!",
                       text: errorMessage,
@@ -143,7 +141,6 @@ export const Register = () => {
                   });
               })
               .catch((err) => console.log(err));
-            // logout();
           });
         }
       );
@@ -191,11 +188,6 @@ export const Register = () => {
         });
     }
   };
-
-  const [err, setErr] = useState([]);
-  const [loading, setLoading] = useState(false);
-  // const DisplayErrors = () =>
-  // err.map((error, i) => <p key={i}>{error?.message}</p>);
 
   return (
     <div className="register">

@@ -1,9 +1,43 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { makeStyles, Drawer, CssBaseline, Container } from "@material-ui/core";
+
+import clsx from "clsx";
+import OrderAppMenu from "./OrdersAppMenu";
+
+const drawerWidth = 240;
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+  },
+  drawerPaper: {
+    position: "relative",
+    whiteSpace: "nowrap",
+    width: drawerWidth,
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
+    background: "#eeeeee",
+    color: "#666666",
+  },
+  content: {
+    flexGrow: 1,
+    height: "100vh",
+    width: "85vw",
+    marginRight: "5%",
+    overflow: "auto",
+  },
+  container: {
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
+  },
+}));
 
 export default function Orders({ restaurants }) {
+  const classes = useStyles();
   const custId = sessionStorage.getItem("custId");
   const [orders, setOrders] = useState([]);
+  const [component, setComponent] = useState(null);
 
   useEffect(() => {
     const url = `http://localhost:5000/order/customer/${custId}`;
@@ -11,61 +45,36 @@ export default function Orders({ restaurants }) {
       .get(url)
       .then((res) => setOrders(res.data))
       .catch((err) => console.log("Error in axios request for order ", err));
-  }, []);
+  }, [custId]);
 
-  const sumTotal = orders.reduce(
-    (total, order) => total + order.totalAmount,
-    0
-  );
   return (
-    <div className="container" style={{ marginTop: "5rem" }}>
-      <h1>Welcome to orders page</h1>
-      {orders.map((order) => (
-        <fieldset
-          style={{ border: "0.1rem solid black", marginBottom: "0.5rem" }}
+    <div
+      className={clsx("App", classes.root)}
+      style={{ marginTop: "5%", position: "fixed" }}
+    >
+      <CssBaseline />
+      <Drawer
+        variant="permanent"
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
+        {orders && (
+          <OrderAppMenu
+            setComponent={setComponent}
+            orders={orders}
+            // restaurants={restaurants}
+          />
+        )}
+      </Drawer>
+      <main className={classes.content}>
+        <Container
+          style={{ width: "100%", height: "100%" }}
+          className={classes.container}
         >
-          {restaurants.map((restaurant) => {
-            if (restaurant._id === order.restrauntID)
-              return (
-                <legend key={restaurant._id}>
-                  {" "}
-                  Hotel: {restaurant.restaurantName}
-                </legend>
-              );
-          })}
-          <table className="table">
-            <thead>
-              <tr>
-                <th className="order-item" scope="col">
-                  #
-                </th>
-                <th className="order-item" scope="col">
-                  Item Name
-                </th>
-                <th className="order-item" scope="col">
-                  Price
-                </th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {order.cart.map((item, index) => (
-                <tr>
-                  <th className="order-item" scope="row">
-                    {index + 1}
-                  </th>
-                  <td className="order-item">{item.menuName}</td>
-                  <td className="order-item">{item.menuPrice}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <h6>Status: {order.orderStatus}</h6>
-          <h6>Total : {order.totalAmount}</h6>
-        </fieldset>
-      ))}
-
-      <h3>Total Amount Spent: {sumTotal}</h3>
+          {component}
+        </Container>
+      </main>
     </div>
   );
 }

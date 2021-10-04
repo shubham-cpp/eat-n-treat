@@ -44,7 +44,7 @@ export default function EditRestaurant({ data }) {
       .get(`/restaurant/${id}`)
       .then((res) => setRestaurant(res.data))
       .catch((err) => console.log("Error in edit restaurant ", err));
-  }, []);
+  }, [id]);
   const [openLogin, setOpenLogin] = React.useState(false);
   const [openRestaurantUpdate, setOpenRestaurantUpdate] = useState(false);
   const [menuName, setMenuName] = useState("");

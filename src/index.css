@@ -226,9 +226,33 @@ code {
 }
 .ratingStar {
   float: right;
-  overflow-wrap: unset;
   padding: 0;
   margin: 0;
+}
+
+.ratingStar div {
+  margin-left: auto;
+  margin-right: 0;
+  overflow-wrap: unset;
+}
+
+.modalRatingStar {
+  float: center;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.modalRatingStar div {
+  margin-left: auto;
+  margin-right: auto;
+  overflow-wrap: unset;
+}
+
+.modalRatingStar button {
+  margin-left: auto;
+  margin-right: auto;
+  overflow-wrap: unset;
 }
 
 :-webkit-scrollbar {

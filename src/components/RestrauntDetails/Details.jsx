@@ -5,7 +5,7 @@ import Dish from "./Dish";
 import { Divider } from "@material-ui/core";
 import { lineHeight, padding } from "@mui/system";
 
-export default function Details({ addToCart }) {
+export default function Details({ addToCart, getCallRest }) {
   const { id } = useParams();
 
   const [restaurant, setRestaurant] = useState();
@@ -14,7 +14,7 @@ export default function Details({ addToCart }) {
       .get(`/restaurant/${id}`)
       .then((res) => setRestaurant(res.data))
       .catch((err) => console.log("Error in edit restaurant ", err));
-  }, []);
+  }, [id, getCallRest()]);
 
   return (
     <>

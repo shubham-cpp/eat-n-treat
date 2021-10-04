@@ -4,7 +4,7 @@ import { Register } from "./Register";
 import "./style.css";
 import { useHistory } from "react-router-dom";
 
-const LogReg = () => {
+const LogReg = (props) => {
   const [isLoginActive, setLoginActive] = useState(true);
   const history = useHistory();
   const current = isLoginActive ? "Register" : "Login";
@@ -27,8 +27,12 @@ const LogReg = () => {
       <div className="log__app">
         <div className="log__login">
           <div className="login_container">
-            {isLoginActive && <Login containerRef={(ref) => current} />}
-            {!isLoginActive && <Register containerRef={(ref) => current} />}
+            {isLoginActive && (
+              <Login setRID={props.setRID} containerRef={(ref) => current} />
+            )}
+            {!isLoginActive && (
+              <Register setRID={props.setRID} containerRef={(ref) => current} />
+            )}
           </div>
           <RightSide
             current={current}
