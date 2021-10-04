@@ -4,6 +4,17 @@ import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 
 export default function RestaurantList({ Restaurants }) {
   const [res, setRes] = useState([]);
+  // const url = "http://localhost:5000/restaurant";
+
+  // const [Restaurants, setRestaurants] = useState([]);
+
+  // useEffect(() => {
+  //   axios.get(url).then((restaurants) => {
+  //     setRestaurants(restaurants.data);
+  //     cbRestaurants(restaurants.data);
+  //   });
+  // }, [cbRestaurants]);
+  // console.log(Restaurants);
 
   const filterdata = Restaurants.filter((item) => {
     return res !== ""

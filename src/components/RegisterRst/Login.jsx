@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import "./registerStyles.css";
 import swal from "sweetalert";
 import { useAuth } from "../../auth";
-import { useHistory } from "react-router-dom";
 import axios from "axios";
+import { useHistory, Link } from "react-router-dom";
+export var user = null;
 
 export const Login = ({ containerRef, setRID }) => {
   const { login } = useAuth();

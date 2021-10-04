@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import ChatBot from "react-simple-chatbot";
-import ChatBubble from "@material-ui/icons/ChatBubble";
+
 import OrderIns from "./OrderIns";
-// import HotelLocation from "./HotelLocation";
 
 function Chatbotcomp(props) {
   let [showChat, setShowChat] = useState(false);
@@ -60,7 +59,7 @@ function Chatbotcomp(props) {
                     {
                       value: 2,
                       label: "Contact Delivery patter",
-                      trigger: "4",
+                      trigger: "delPart",
                     },
                     { value: 3, label: "Track the order", trigger: "4" },
                   ],
@@ -68,6 +67,7 @@ function Chatbotcomp(props) {
                 {
                   id: "5",
                   component: <OrderIns />,
+                  trigger: "2",
                   end: false,
                 },
                 {
@@ -96,25 +96,36 @@ function Chatbotcomp(props) {
                   id: "food",
                   message:
                     "Apologise for your inconvinience,you can mail images to EatNTreat@gmail.com our Agent will contact you as soon as possible",
+                  trigger: "2",
                   end: false,
                 },
                 {
                   id: "different",
                   message:
                     "Apologise for your inconvinience,you can mail images to EatNTreat@gmail.com our Agent will contact you as soon as possible",
+                  trigger: "2",
                   end: false,
                 },
                 {
                   id: "lateDelivery",
                   message:
-                    "We uderstand your concern,you can rate your delivery service next we will take care of delivery on time",
+                    "We uderstand your concern,you can rate your delivery service, next time we will take care of delivery on time",
+                  trigger: "2",
                   end: false,
                 },
 
                 {
                   id: "4",
-                  message: "Kindly wait or contact our delivery partner",
-                  end: true,
+                  message: "Kindly wait our delivery partners are on the way",
+                  trigger: "2",
+                  end: false,
+                },
+                {
+                  id: "delPart",
+                  message:
+                    "We understand your concern kindly wait once order is dispatached we wil let you know details of delivery partner",
+                  trigger: "2",
+                  end: false,
                 },
               ]}
             />
@@ -122,31 +133,26 @@ function Chatbotcomp(props) {
           <div style={{ position: "fixed", zIndex: 10, float: "right" }}>
             {!showChat ? (
               <button
-                id="123"
                 className="open-button"
                 onClick={() => {
                   startChat();
                 }}
               >
-                <ChatBubble
-                  style={{ height: "30px", width: "30px", display: "block" }}
+                <img
+                  src="https://img.icons8.com/ios/50/000000/bot.png"
+                  style={{ zIndex: 10 }}
                 />
               </button>
             ) : (
               <button
-                id="123"
                 className="close-button"
                 onClick={() => {
                   hideChat();
                 }}
               >
-                <ChatBubble
-                  style={{
-                    height: "30px",
-                    width: "30px",
-                    display: "block",
-                    zIindex: 1000,
-                  }}
+                <img
+                  src="https://img.icons8.com/ios/50/000000/bot.png"
+                  style={{ zIndex: 10 }}
                 />
               </button>
             )}
