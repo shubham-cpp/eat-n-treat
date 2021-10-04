@@ -51,7 +51,7 @@ router.patch("/:orderid", (req, res) => {
   Orders.findByIdAndUpdate(
     req.params.orderid,
     { $set: { orderStatus: "Delivered" } },
-    { new: false, upsert: false }
+    { new: true, upsert: false }
   )
     .then((data) => res.json(data))
     .catch((err) => res.json({ "Failed to update order status": err.message }));

@@ -47,6 +47,7 @@ export default function OrdersRestaurant() {
       .get(url)
       .then((res) => {
         setOrders(res.data);
+        console.log(orders);
         // setComponent(
         //   <AllOrders orders={res.data} handleOrderStatus={handleOrderStatus} />
         // );
@@ -93,11 +94,7 @@ export default function OrdersRestaurant() {
           style={{ width: "100%", height: "100%" }}
           className={classes.container}
         >
-          {orders.length > 0 && (
-            <AllOrders orders={orders} handleOrderStatus={handleOrderStatus} />
-          )
-          // component
-          }
+          {component}
         </Container>
       </main>
     </div>

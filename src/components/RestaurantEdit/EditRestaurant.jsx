@@ -142,7 +142,14 @@ export default function EditRestaurant({ data }) {
   return (
     <>
       {restaurant && (
-        <div className="container" style={{ marginTop: "5rem" }}>
+        <div
+          className="container"
+          style={{
+            marginTop: "5rem",
+            backgroundColor: "white",
+            padding: "2px 15px",
+          }}
+        >
           <h3 className="text-center">{restaurant.restaurantName}</h3>
           <p>Location: {restaurant.rCity}</p>
           <p>Rating: {restaurant.rating}</p>
