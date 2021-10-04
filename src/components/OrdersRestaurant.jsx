@@ -61,6 +61,7 @@ export default function OrdersRestaurant() {
    */
   const handleOrderStatus = (e, oid) => {
     e.preventDefault();
+    console.log(oid);
     axios
       .patch("http://localhost:5000/order/" + oid)
       .then(() => setFetchAgain((prev) => !prev))
@@ -94,7 +95,9 @@ export default function OrdersRestaurant() {
         >
           {orders.length > 0 && (
             <AllOrders orders={orders} handleOrderStatus={handleOrderStatus} />
-          )}
+          )
+          // component
+          }
         </Container>
       </main>
     </div>
