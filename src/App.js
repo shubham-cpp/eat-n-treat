@@ -22,6 +22,8 @@ import AdminDash from "./components/Admin/AdminDash";
 import Orders from "./components/Orders";
 import OrdersRestaurant from "./components/OrdersRestaurant";
 
+axios.defaults.baseURL = 'https://eat-n-treat-serv.herokuapp.com';
+
 const NoMatch = () => {
   return (
     <div style={{ marginTop: "5rem" }}>
@@ -56,7 +58,7 @@ function App() {
 
   useEffect(() => {
     console.log("Ran this");
-    const url = "http://localhost:5000/restaurant";
+    const url = "/restaurant";
     axios.get(url).then((restaurants) => {
       setRestaurants(restaurants.data);
     });

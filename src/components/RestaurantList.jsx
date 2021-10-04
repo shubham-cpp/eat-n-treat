@@ -4,7 +4,7 @@ import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 
 export default function RestaurantList({ Restaurants }) {
   const [res, setRes] = useState([]);
-  // const url = "http://localhost:5000/restaurant";
+  // const url = "/restaurant";
 
   // const [Restaurants, setRestaurants] = useState([]);
 
@@ -14,7 +14,7 @@ export default function RestaurantList({ Restaurants }) {
   //     cbRestaurants(restaurants.data);
   //   });
   // }, [cbRestaurants]);
-  // console.log(Restaurants);
+  console.log(Restaurants);
 
   const filterdata = Restaurants.filter((item) => {
     return res !== ""

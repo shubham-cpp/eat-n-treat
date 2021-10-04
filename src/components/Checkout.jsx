@@ -20,7 +20,7 @@ function Checkout() {
       totalAmount,
     };
     axios
-      .post("http://localhost:5000/order/", data)
+      .post("/order/", data)
       .then(() => {
         swal({
           title: "Order Placed Successfully !",
