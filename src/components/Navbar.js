@@ -7,7 +7,6 @@ import firebase from "../firebase";
 import Signup from "./Signup";
 import Login from "./Login";
 import { useAuth } from "../auth";
-import axios from "axios";
 
 function NavBar(props) {
   const history = useHistory();
@@ -17,6 +16,7 @@ function NavBar(props) {
 
   const handleLogout = () => {
     sessionStorage.removeItem("custId");
+    sessionStorage.removeItem("rID");
     logout();
     setLoggedout(true);
     history.push("/");
@@ -57,9 +57,16 @@ function NavBar(props) {
                 {loggedout && <Signup />}
                 {!loggedout && <button onClick={handleLogout}>Log out</button>}
                 {!loggedout && (
-                  <Link to="/customers/orders" style={{ marginLeft: "2rem" }}>
+                  <button
+                    style={{ marginLeft: "2rem" }}
+                    onClick={() => {
+                      if (sessionStorage.getItem("rID"))
+                        history.push("/order/" + sessionStorage.getItem("rID"));
+                      else history.push("/customers/orders");
+                    }}
+                  >
                     Orders
-                  </Link>
+                  </button>
                 )}
               </Nav.Link>
             </Nav>

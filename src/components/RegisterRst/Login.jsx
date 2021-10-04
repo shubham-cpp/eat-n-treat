@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./registerStyles.css";
 import swal from "sweetalert";
 import { useAuth } from "../../auth";
+import axios from "axios";
 import { useHistory, Link } from "react-router-dom";
 export var user = null;
 
@@ -17,29 +18,45 @@ export const Login = ({ containerRef }) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    login(email, password)
-      .then(function() {
-        swal({
-          title: "Logged In Successfully !",
-          icon: "success",
-          buttons: false,
-          timer: 2000,
-        });
+    axios
+      .get("http://localhost:5000/restaurant/email/" + email)
+      .then((res) => {
+        if (res.data) {
+          console.log(res);
+          login(email, password)
+            .then(() => {
+              swal({
+                title: "Logged In Successfully !",
+                icon: "success",
+                buttons: false,
+                timer: 2000,
+              });
 
-        console.log("login ");
-        history.push("/");
+              sessionStorage.setItem("rID", res.data._id);
+              history.push("/restaurant/edit/" + res.data._id);
+            })
+            .catch(function(error) {
+              let errorMessage = error.message;
+              swal({
+                title: "Error!",
+                text: errorMessage,
+                buttons: false,
+                timer: 2000,
+                icon: "error",
+              });
+            });
+        } else {
+          console.log("No entry");
+          swal({
+            title: "Not Found!",
+            text: "Email address with this restaurant not Found",
+            buttons: false,
+            timer: 2000,
+            icon: "error",
+          });
+        }
       })
-
-      .catch(function(error) {
-        var errorMessage = error.message;
-        swal({
-          title: "Error!",
-          text: errorMessage,
-          buttons: false,
-          timer: 2000,
-          icon: "error",
-        });
-      });
+      .catch((err) => console.log("error in login register ", err));
   }
 
   return (

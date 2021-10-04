@@ -17,7 +17,7 @@ const LogReg = () => {
       history.push("/r/register");
     } else {
       setClassList("right");
-      history.push("/login");
+      history.push("/r/login");
     }
     setLoginActive(!isLoginActive);
   };
